@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tutor.Server.Domain\Tutor.Server.Domain.csproj" />
+    <ProjectReference Include="..\Tutor.Shared.Dtos\Tutor.Shared.Dtos.csproj" />
+  </ItemGroup>
+
+</Project>
