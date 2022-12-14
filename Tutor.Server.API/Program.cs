@@ -2,6 +2,7 @@ using Tutor.Server.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Tutor.Server.Infrastructure;
 using Tutor.Server.Application;
+using Tutor.Shared.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services
        .AddDbContext<TutorDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TutorDbConnection")))
        .AddInfrastructure()
-       .AddApplication();
+       .AddApplication()
+       .AddValidators();
 
 var app = builder.Build();
 
