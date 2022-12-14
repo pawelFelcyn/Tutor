@@ -10,4 +10,16 @@ public class RegisterUserDtoValidatorTests
         var result = validator.TestValidate(model);
         result.ShouldNotHaveAnyValidationErrors();
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("sadffdsfsf")]
+    public void Validate_ForInvalidEmail_ResultHasValidationError(string email)
+    {
+        var model = new RegisterUserDto(null, null, null, email, null, null);
+        var validator = new RegisterUserDtoValidator();
+        var result = validator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(m => m.Email);
+    }
 }
