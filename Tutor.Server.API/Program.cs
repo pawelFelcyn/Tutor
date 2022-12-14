@@ -1,5 +1,7 @@
 using Tutor.Server.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Tutor.Server.Infrastructure;
+using Tutor.Server.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<TutorDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TutorDbConnection")));
+builder.Services
+       .AddDbContext<TutorDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TutorDbConnection")))
+       .AddInfrastructure()
+       .AddApplication();
 
 var app = builder.Build();
 
@@ -24,3 +29,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
