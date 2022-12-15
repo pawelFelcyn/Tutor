@@ -10,4 +10,10 @@ namespace Tutor.Shared.Validators;
 
 internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 {
+	public RegisterUserDtoValidator()
+	{
+		RuleFor(u => u.Email)
+			.NotEmpty()
+			.EmailAddress();
+	}
 }
