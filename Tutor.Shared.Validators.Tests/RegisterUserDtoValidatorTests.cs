@@ -22,4 +22,19 @@ public class RegisterUserDtoValidatorTests
         var result = validator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Email);
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("123")]
+    [InlineData("adsasdadsadasdasdasdasd")]
+    [InlineData("Pasdana")]
+    [InlineData("!wF")]
+    public void Validate_ForInvalidPassword_ResultHasValidationError(string password)
+    {
+        var model = new RegisterUserDto(null, null, null, null, password, null);
+        var validator = new RegisterUserDtoValidator();
+        var result = validator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(u => u.Password);
+    }
 }
