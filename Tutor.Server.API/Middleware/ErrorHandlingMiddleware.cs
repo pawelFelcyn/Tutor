@@ -1,4 +1,7 @@
-﻿namespace Tutor.Server.API.Middleware;
+﻿using System.Runtime.CompilerServices;
+using Tutor.Shared.Exceptions;
+
+namespace Tutor.Server.API.Middleware;
 
 public class ErrorHandlingMiddleware : IMiddleware
 {
@@ -15,11 +18,20 @@ public class ErrorHandlingMiddleware : IMiddleware
 		{
 			await next.Invoke(context);
 		}
+		catch (LoggedException)
+		{
+			await SomethingWentWrong(context);
+		}
 		catch (Exception e)
 		{
 			_logger.LogError(e, "Internal server error.");
-			context.Response.StatusCode = 500;
-			await context.Response.WriteAsync("Something went wrong.");
+			await SomethingWentWrong(context);
 		}
+    }
+
+	private async Task SomethingWentWrong(HttpContext context)
+	{
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsync("Something went wrong.");
     }
 }
