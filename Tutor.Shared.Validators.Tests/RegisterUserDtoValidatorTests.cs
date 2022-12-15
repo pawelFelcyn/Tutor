@@ -87,4 +87,12 @@ public class RegisterUserDtoValidatorTests
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Role);
     }
+
+    [Fact]
+    public void Validate_ForInvalidConfirmPassword_ResultHasValidationError()
+    {
+        var model = new RegisterUserDto(null, null, null, null, "!Password123", "!78d7asahjkdhsa7");
+        var result = _emailNotTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(m => m.ConfirmPassword);
+    }
 }
