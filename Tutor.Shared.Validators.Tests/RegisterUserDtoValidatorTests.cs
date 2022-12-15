@@ -79,4 +79,12 @@ public class RegisterUserDtoValidatorTests
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.LastName);
     }
+
+    [Fact]
+    public void Validate_ForInvalidRole_ResultHasValidationError()
+    {
+        var model = new RegisterUserDto(null, null, null, null, null, null);
+        var result = _emailNotTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(m => m.Role);
+    }
 }
