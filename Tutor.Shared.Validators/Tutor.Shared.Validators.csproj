@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tutor.Shared.Dtos\Tutor.Shared.Dtos.csproj" />
+    <ProjectReference Include="..\Tutor.Shared.Helpers\Tutor.Shared.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,13 +1,27 @@
-﻿namespace Tutor.Shared.Validators.Tests;
+﻿using Tutor.Shared.Helpers.Abstractions;
+
+namespace Tutor.Shared.Validators.Tests;
 
 public class RegisterUserDtoValidatorTests
 {
+    private readonly RegisterUserDtoValidator _emailTakenValidator; 
+    private readonly RegisterUserDtoValidator _emailNotTakenValidator; 
+
+    public RegisterUserDtoValidatorTests()
+    {
+        var takenMock = new Mock<IEmailValidationHelper>();
+        takenMock.Setup(m => m.IsEmailTaken(It.IsAny<string>())).Returns(true);
+        _emailTakenValidator = new(takenMock.Object);
+        var notTakenMock = new Mock<IEmailValidationHelper>();
+        notTakenMock.Setup(m => m.IsEmailTaken(It.IsAny<string>())).Returns(false);
+        _emailNotTakenValidator = new(takenMock.Object);
+    }
+
     [Fact]
     public void Validate_ForValidModel_DoesNotReturnAnyErrors()
     {
         var model = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password132");
-        var validator = new RegisterUserDtoValidator();
-        var result = validator.TestValidate(model);
+        var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldNotHaveAnyValidationErrors();
     }
 
@@ -18,8 +32,7 @@ public class RegisterUserDtoValidatorTests
     public void Validate_ForInvalidEmail_ResultHasValidationError(string email)
     {
         var model = new RegisterUserDto(null, null, null, email, null, null);
-        var validator = new RegisterUserDtoValidator();
-        var result = validator.TestValidate(model);
+        var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Email);
     }
 
@@ -33,8 +46,7 @@ public class RegisterUserDtoValidatorTests
     public void Validate_ForInvalidPassword_ResultHasValidationError(string password)
     {
         var model = new RegisterUserDto(null, null, null, null, password, null);
-        var validator = new RegisterUserDtoValidator();
-        var result = validator.TestValidate(model);
+        var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(u => u.Password);
     }
 }

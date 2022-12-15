@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tutor.Server.Domain\Tutor.Server.Domain.csproj" />
+    <ProjectReference Include="..\Tutor.Shared.Helpers\Tutor.Shared.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

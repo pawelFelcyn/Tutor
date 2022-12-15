@@ -6,12 +6,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tutor.Shared.Dtos;
+using Tutor.Shared.Helpers.Abstractions;
 
 namespace Tutor.Shared.Validators;
 
 internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 {
-	public RegisterUserDtoValidator()
+	public RegisterUserDtoValidator(IEmailValidationHelper emailValidationHelper)
 	{
 		RuleFor(u => u.Email)
 			.NotEmpty()
