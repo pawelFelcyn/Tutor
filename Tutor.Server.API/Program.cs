@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Tutor.Server.Infrastructure;
 using Tutor.Server.Application;
 using Tutor.Shared.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,8 @@ builder.Services
        .AddDbContext<TutorDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TutorDbConnection")))
        .AddInfrastructure()
        .AddApplication()
-       .AddValidators();
+       .AddValidators()
+       .AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 
