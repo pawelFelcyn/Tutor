@@ -57,4 +57,15 @@ public class RegisterUserDtoValidatorTests
         var result = _emailTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Email);
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("asdasdhaskljdlaskjdlaksdlkaskldjlaskdlasdjlaskjdlksajdlkasjdsadsakldjlksadlkasjskdlkasdjklasjdlkajdlksjdllajslkjlajdlksajdlsjdadkljjaslkd")]
+    public void Validate_ForInvalidFirstName_ResultHasValidationError(string firstName)
+    {
+        var model = new RegisterUserDto(firstName, null, null, null, null, null);
+        var result = _emailNotTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(m => m.FirstName);
+    }
 }
