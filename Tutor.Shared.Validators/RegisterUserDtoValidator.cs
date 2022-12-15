@@ -18,7 +18,9 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 			.NotEmpty()
 			.WithMessage("Email must not be empty.")
 			.EmailAddress()
-			.WithMessage("This is not a valid email address.");
+			.WithMessage("This is not a valid email address.")
+			.Must(e => !emailValidationHelper.IsEmailTaken(e))
+			.WithMessage("That email is taken.");
 
 		RuleFor(u => u.Password)
 			.NotEmpty()
