@@ -31,4 +31,13 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
         var result = await client.PostAsJsonAsync("api/authentication/register", dto);
         result.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+    [Fact]
+    public async Task Register_ForInvalidModel_ReturnsBadRequestStatusCode()
+    {
+        var dto = new RegisterUserDto(null, null, null, null, null, null);
+        var client = _factory.CreateClient();
+        var result = await client.PostAsJsonAsync("api/authentication/register", dto);
+        result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
 }
