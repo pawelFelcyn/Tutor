@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Tutor.Server.Domain.Entities;
 using Tutor.Server.Infrastructure.Database;
 
 namespace Tutor.Server.API.Tests;
@@ -39,5 +41,27 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
         var client = _factory.CreateClient();
         var result = await client.PostAsJsonAsync("api/authentication/register", dto);
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Login_ForGoodCredentials_ReturnsOkStatusCode()
+    {
+        var dto = new LoginDto("email", "password");
+        var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetService<TutorDbContext>();
+        var hasher = scope.ServiceProvider.GetService<IPasswordHasher<User>>();
+        var user = new User
+        {
+            FirstName = "Test",
+            LastName = "Test",
+            Role = "Test",
+            Email = "email",
+        };
+        user.PasswordHash = hasher.HashPassword(user, "password");
+        dbContext!.Users.Add(user);
+        dbContext.SaveChanges();
+        var client = _factory.CreateClient();
+        var resposne = await client.PostAsJsonAsync("api/authentication/login", dto);
+        resposne.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 }
