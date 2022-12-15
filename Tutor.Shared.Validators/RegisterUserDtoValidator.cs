@@ -52,6 +52,10 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 
 		RuleFor(u => u.Role)
 			.Must(r => _allowedRoles.Contains(r))
-			.WithMessage($"Role must be in [{string.Join(",", _allowedRoles)}]");
+			.WithMessage($"Role must be in [{string.Join(",", _allowedRoles)}].");
+
+		RuleFor(u => u.ConfirmPassword)
+			.Equal(u => u.Password)
+			.WithMessage("Confirm password musy be equal to password.");
     }
 }
