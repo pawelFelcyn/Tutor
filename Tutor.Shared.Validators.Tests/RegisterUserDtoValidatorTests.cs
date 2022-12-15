@@ -49,4 +49,12 @@ public class RegisterUserDtoValidatorTests
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(u => u.Password);
     }
+
+    [Fact]
+    public void Validate_ForTakenEmail_ResultHasValidationError()
+    {
+        var model = new RegisterUserDto(null, null, null, "email@email.com", null, null);
+        var result = _emailTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(m => m.Email);
+    }
 }
