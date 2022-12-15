@@ -12,6 +12,8 @@ namespace Tutor.Shared.Validators;
 
 internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 {
+	private string[] _allowedRoles = new string[] { "User", "Tutor" };
+
 	public RegisterUserDtoValidator(IEmailValidationHelper emailValidationHelper)
 	{
 		RuleFor(u => u.Email)
@@ -47,5 +49,9 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
             .WithMessage("Last name must not be empty.")
             .MaximumLength(50)
             .WithMessage("Maximum legth of last name is 50 characters.");
+
+		RuleFor(u => u.Role)
+			.Must(r => _allowedRoles.Contains(r))
+			.WithMessage($"Role must be in [{string.Join(",", _allowedRoles)}]");
     }
 }
