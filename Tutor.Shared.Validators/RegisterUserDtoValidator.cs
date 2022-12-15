@@ -40,6 +40,12 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 			.NotEmpty()
 			.WithMessage("First name must not be empty.")
 			.MaximumLength(50)
-			.WithMessage("Maximum legth of first name is 50 characters");
-	}
+			.WithMessage("Maximum legth of first name is 50 characters.");
+
+        RuleFor(u => u.LastName)
+            .NotEmpty()
+            .WithMessage("Last name must not be empty.")
+            .MaximumLength(50)
+            .WithMessage("Maximum legth of last name is 50 characters.");
+    }
 }
