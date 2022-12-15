@@ -35,5 +35,11 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 				return pswdRegex.Match(p).Success;
 			})
 			.WithMessage("Password must contain at lest 8 characters, one uppercase letter, one loercase letter, one digit and one special character.");
+
+		RuleFor(u => u.FirstName)
+			.NotEmpty()
+			.WithMessage("First name must not be empty.")
+			.MaximumLength(50)
+			.WithMessage("Maximum legth of first name is 50 characters");
 	}
 }
