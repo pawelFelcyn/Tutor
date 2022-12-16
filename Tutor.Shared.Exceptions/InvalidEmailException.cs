@@ -1,6 +1,6 @@
 ﻿namespace Tutor.Shared.Exceptions;
 
-public class InvalidEmailException : BadRequestException
+public class InvalidEmailException : UnauthorizedException
 {
     public InvalidEmailException() : base("Invalid email.")
     {

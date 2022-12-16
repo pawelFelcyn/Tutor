@@ -44,6 +44,10 @@ namespace Tutor.Server.Infrastructure.Repositories
                 }
                 return user;
             }
+            catch (InvalidEmailException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 LogAndThrow(e);
