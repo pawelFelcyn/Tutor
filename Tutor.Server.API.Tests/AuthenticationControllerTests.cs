@@ -47,6 +47,14 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
     public async Task Login_ForGoodCredentials_ReturnsOkStatusCode()
     {
         var dto = new LoginDto("email", "password");
+        SeedUser();
+        var client = _factory.CreateClient();
+        var resposne = await client.PostAsJsonAsync("api/authentication/login", dto);
+        resposne.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    private void SeedUser()
+    {
         var scope = _factory.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetService<TutorDbContext>();
         var hasher = scope.ServiceProvider.GetService<IPasswordHasher<User>>();
@@ -60,8 +68,15 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
         user.PasswordHash = hasher!.HashPassword(user, "password");
         dbContext!.Users.Add(user);
         dbContext.SaveChanges();
+    }
+
+    [Fact]
+    public async Task Login_ForInvalidPassword_ReturnsUnauthorizedStatusCode()
+    {
+        var dto = new LoginDto("email", "bad");
+        SeedUser();
         var client = _factory.CreateClient();
         var resposne = await client.PostAsJsonAsync("api/authentication/login", dto);
-        resposne.StatusCode.Should().Be(HttpStatusCode.OK);
+        resposne.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 }
