@@ -10,5 +10,9 @@ internal class LoginDtoValidator : AbstractValidator<LoginDto>
 		RuleFor(l => l.Password)
 			.NotEmpty()
 			.WithMessage("Password must not be empty.");
-	}
+
+		RuleFor(l => l.Email)
+			.NotEmpty()
+			.WithMessage("Email must not be empty.");
+    }
 }
