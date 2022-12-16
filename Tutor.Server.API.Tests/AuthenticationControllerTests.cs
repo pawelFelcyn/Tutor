@@ -79,4 +79,14 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
         var resposne = await client.PostAsJsonAsync("api/authentication/login", dto);
         resposne.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
+
+    [Fact]
+    public async Task Login_ForInvalidEmail_ReturnsUnauthorizedStatusCode()
+    {
+        var dto = new LoginDto("bad", "password");
+        SeedUser();
+        var client = _factory.CreateClient();
+        var resposne = await client.PostAsJsonAsync("api/authentication/login", dto);
+        resposne.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
 }
