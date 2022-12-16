@@ -16,4 +16,12 @@ public class LoginDtoValidatorTests
 		var result = _validator.TestValidate(model);
 		result.ShouldNotHaveAnyValidationErrors();
 	}
+
+	[Fact]
+	public void Validate_ForInvalidPassword_ReturnsValidationError()
+	{
+        var model = new LoginDto("email", null);
+        var result = _validator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(m => m.Password);
+    }
 }
