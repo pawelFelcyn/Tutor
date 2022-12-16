@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +13,11 @@ using Tutor.Shared.Exceptions;
 
 namespace Tutor.Server.Infrastructure.Repositories
 {
-    internal class UserRepository : IUserRepository
+    internal class UserRepository : RepositoryBase, IUserRepository
     {
-        private readonly TutorDbContext _dbContext;
-        private readonly ILogger<UserRepository> _logger;
-
         public UserRepository(TutorDbContext dbContext, ILogger<UserRepository> logger)
+            : base(dbContext, logger)
         {
-            _dbContext = dbContext;
-            _logger = logger;
         }
 
         public async Task AddAsync(User user)
@@ -31,8 +29,25 @@ namespace Tutor.Server.Infrastructure.Repositories
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Database exception");
-                throw new LoggedException(e);
+                LogAndThrow(e);
+            }
+        }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            try
+            {
+                var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+                if (user is null)
+                {
+                    throw new InvalidEmailException();
+                }
+                return user;
+            }
+            catch (Exception e)
+            {
+                LogAndThrow(e);
+                throw new UnreachableException();
             }
         }
     }

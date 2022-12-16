@@ -57,7 +57,7 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
             Role = "Test",
             Email = "email",
         };
-        user.PasswordHash = hasher.HashPassword(user, "password");
+        user.PasswordHash = hasher!.HashPassword(user, "password");
         dbContext!.Users.Add(user);
         dbContext.SaveChanges();
         var client = _factory.CreateClient();
