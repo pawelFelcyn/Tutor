@@ -18,6 +18,11 @@ public class ErrorHandlingMiddleware : IMiddleware
 		{
 			await next.Invoke(context);
 		}
+		catch (UnauthorizedException e)
+		{
+			context.Response.StatusCode = 401;
+			await context.Response.WriteAsync(e.Message);
+		}
 		catch (LoggedException)
 		{
 			await SomethingWentWrong(context);
