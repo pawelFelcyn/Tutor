@@ -28,7 +28,7 @@ public class AuthenticationControllerTests : IClassFixture<WebApplicationFactory
     [Fact]
     public async Task Register_ForValidModel_ReturnsOkStatusCode()
     {
-        var dto = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password132");
+        var dto = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password123");
         var client = _factory.CreateClient();
         var result = await client.PostAsJsonAsync("api/authentication/register", dto);
         result.StatusCode.Should().Be(HttpStatusCode.OK);

@@ -14,13 +14,13 @@ public class RegisterUserDtoValidatorTests
         _emailTakenValidator = new(takenMock.Object);
         var notTakenMock = new Mock<IEmailValidationHelper>();
         notTakenMock.Setup(m => m.IsEmailTaken(It.IsAny<string>())).Returns(false);
-        _emailNotTakenValidator = new(takenMock.Object);
+        _emailNotTakenValidator = new(notTakenMock.Object);
     }
 
     [Fact]
     public void Validate_ForValidModel_DoesNotReturnAnyErrors()
     {
-        var model = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password132");
+        var model = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password123");
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldNotHaveAnyValidationErrors();
     }
