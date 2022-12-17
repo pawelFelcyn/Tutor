@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Tutor.Shared.Enums;
 
-namespace Tutor.Shared.Enums
+public enum Subject
 {
-    internal class Subject
-    {
-    }
+    Polish,
+    English,
+    German,
+    French,
+    Italian,
+    Spanish,
+    Math,
+    Physics,
+    Art,
+    ComputerScience,
+    Biology,
+    Chemistry,
+    History,
+    Geography
 }

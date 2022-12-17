@@ -13,5 +13,5 @@ public class Advertisement
     public Subject Subject { get; set; }
     public decimal PricePerHour { get; set; }
     public Guid CreatedById { get; set; }
-    public User CreatedBy { get; set; }
+    public virtual User CreatedBy { get; set; }
 }

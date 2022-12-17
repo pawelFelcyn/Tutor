@@ -17,6 +17,7 @@ public class TutorDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Advertisement> Advertisements { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,6 +35,17 @@ public class TutorDbContext : DbContext
              .IsRequired();
             e.Property(u => u.PasswordHash)
              .IsRequired();
+        });
+
+        modelBuilder.Entity<Advertisement>(e =>
+        {
+            e.Property(a => a.Title)
+             .IsRequired()
+             .HasMaxLength(100);
+            e.Property(a => a.Description)
+             .HasMaxLength(1000);
+            e.Property(a => a.PricePerHour)
+             .HasPrecision(2);
         });
     }
 }

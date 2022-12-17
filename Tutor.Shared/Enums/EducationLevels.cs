@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Tutor.Shared.Enums;
 
-namespace Tutor.Shared.Enums
+[Flags]
+public enum EducationLevels
 {
-    internal class EducationLevel
-    {
-    }
+    Preschool = 2 >> 1,
+    Primary = 2 >> 2,
+    Secondary = 2 >> 3,
+    High = 2 >> 4,
+    Studies = 2 >> 5
 }
+
