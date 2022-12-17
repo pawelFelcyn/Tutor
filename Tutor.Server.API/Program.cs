@@ -6,6 +6,9 @@ using Tutor.Shared.Validators;
 using FluentValidation.AspNetCore;
 using NLog.Web;
 using Tutor.Server.API.Middleware;
+using Tutor.Server.Application.Authentication;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.WebHost.UseNLog();
+
+var authenticationSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("AuthenticationSettings").Bind(authenticationSettings);
+builder.Services.AddSingleton(authenticationSettings);
+builder.Services.AddAuthentication("Bearer")
+       .AddJwtBearer(cfg =>
+       {
+           cfg.RequireHttpsMetadata = false;
+           cfg.SaveToken = true;
+           cfg.TokenValidationParameters = new()
+           {
+               ValidIssuer = authenticationSettings.JwtIssuer,
+               ValidAudience = authenticationSettings.JwtIssuer,
+               IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+           };
+       });
+
 builder.Services
        .AddDbContext<TutorDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TutorDbConnection")))
        .AddInfrastructure()

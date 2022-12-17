@@ -22,5 +22,12 @@ namespace Tutor.Server.API.Controllers
             await _service.RegisterAsync(dto);
             return Ok();
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+        {
+            var token = await _service.GetTokenAsync(dto);
+            return Ok(token);
+        }
     }
 }
