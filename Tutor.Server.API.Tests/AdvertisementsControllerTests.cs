@@ -20,4 +20,13 @@ public class AdvertisementsControllerTests : ControllerTests
 		var response = await client.PostAsJsonAsync("api/advertisements", model);
 		response.StatusCode.Should().Be(HttpStatusCode.Created);
 	}
+
+	[Fact]
+	public async Task Create_ForNotAuthenticatedUser_ReturnsUnauthorizedStatusCode()
+	{
+		var client = _factory.CreateClient();
+        var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, Subject.English, 50);
+        var response = await client.PostAsJsonAsync("api/advertisements", model);
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
 }
