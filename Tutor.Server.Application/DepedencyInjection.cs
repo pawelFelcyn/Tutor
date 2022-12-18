@@ -19,6 +19,8 @@ public static class DepedencyInjection
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+        services.AddScoped<IAdvertisementService, AdvertisementService>();
+        services.AddScoped<IUserContextService, UserContextService>();
 
         return services;
     }
