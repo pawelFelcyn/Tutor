@@ -23,4 +23,11 @@ public class AdvertisementsController : ControllerBase
 		var advertisement = await _service.CreateAsync(dto);
 		return Created($"api/adverticements/{advertisement.Id}", advertisement);
 	}
+
+	[HttpGet("{id}")]
+	public async Task<ActionResult> Get([FromRoute] Guid id)
+	{
+		var advertisement = await _service.GetByIdAsync(id);
+		return Ok(advertisement);
+	}
 }

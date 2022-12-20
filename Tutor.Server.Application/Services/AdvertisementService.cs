@@ -46,4 +46,10 @@ internal class AdvertisementService : IAdvertisementService
         advertisement = await _repository.AddAsync(advertisement);
         return _mapper.Map<AdvertisementDetailsDto>(advertisement);
     }
+
+    public async Task<AdvertisementDetailsDto> GetByIdAsync(Guid id)
+    {
+        var advertisement = await _repository.GetAsync(id);
+        return _mapper.Map<AdvertisementDetailsDto>(advertisement);
+    }
 }
