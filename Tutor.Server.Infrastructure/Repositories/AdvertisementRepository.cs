@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Tutor.Server.Domain.Abstractions;
 using Tutor.Server.Domain.Entities;
 using Tutor.Server.Infrastructure.Database;
+using Tutor.Shared.Exceptions;
 
 namespace Tutor.Server.Infrastructure.Repositories;
 
@@ -34,7 +35,17 @@ internal class AdvertisementRepository : RepositoryBase, IAdvertisementRepositor
         try
         {
             var advertisement = await _dbContext.Advertisements.FirstOrDefaultAsync(a => a.Id == id);
+
+            if (advertisement is null)
+            {
+                throw new AdvertisementNotFoundException(id);
+            }
+
             return advertisement;
+        }
+        catch (AdvertisementNotFoundException)
+        {
+            throw;
         }
         catch (Exception e)
         {
