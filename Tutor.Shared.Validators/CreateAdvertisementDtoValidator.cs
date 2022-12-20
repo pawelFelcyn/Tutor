@@ -12,5 +12,9 @@ internal class CreateAdvertisementDtoValidator : AbstractValidator<CreateAdverti
 			.WithMessage("Title must not have more than 100 characters.")
 			.NotEmpty()
 			.WithMessage("Title must not be empty.");
+
+		RuleFor(m => m.Description)
+			.MaximumLength(1000)
+			.WithMessage("Description must not have more than 1000 characters.");
 	}
 }
