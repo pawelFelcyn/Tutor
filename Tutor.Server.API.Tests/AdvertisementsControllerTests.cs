@@ -49,4 +49,13 @@ public class AdvertisementsControllerTests : ControllerTests
         var response = await client.PostAsJsonAsync("api/advertisements", model);
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
+
+	[Fact]
+	public async Task Get_ForExistingAdvertisement_ReturnsOkStatusCode()
+	{
+		var ad = SeedAdvertisement();
+		var client = _factory.CreateClient();
+		var response = await client.GetAsync($"api/advertisements/{ad.Id}");
+		response.StatusCode.Should().Be(HttpStatusCode.OK);
+	}
 }

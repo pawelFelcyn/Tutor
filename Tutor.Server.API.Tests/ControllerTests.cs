@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Tutor.Server.Domain.Entities;
 using Tutor.Server.Infrastructure.Database;
+using Tutor.Shared.Enums;
 
 namespace Tutor.Server.API.Tests;
 
@@ -41,5 +42,26 @@ public class ControllerTests : IClassFixture<WebApplicationFactory<Program>>
         dbContext!.Users.Add(user);
         dbContext.SaveChanges();
         return user;
+    }
+
+    protected Advertisement SeedAdvertisement()
+    {
+        var user = SeedUser();
+        var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetService<TutorDbContext>();
+        var ad = new Advertisement
+        {
+            Title = "Title",
+            Description = "Description",
+            CreatedById = user.Id,
+            CreationDate = DateTime.Now,
+            LastModificationDate = DateTime.Now,
+            Levels = EducationLevels.Preschool,
+            Subject = Subject.English,
+            PricePerHour = 30
+        };
+        dbContext!.Advertisements.Add(ad);
+        dbContext.SaveChanges();
+        return ad;
     }
 }
