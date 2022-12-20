@@ -16,5 +16,9 @@ internal class CreateAdvertisementDtoValidator : AbstractValidator<CreateAdverti
 		RuleFor(m => m.Description)
 			.MaximumLength(1000)
 			.WithMessage("Description must not have more than 1000 characters.");
+
+		RuleFor(m => m.PricePerHour)
+			.GreaterThan(0)
+			.WithMessage("Price must be greather than 0.");
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Tutor.Shared.Enums;
+using Xunit.Abstractions;
 
 namespace Tutor.Shared.Validators.Tests;
 
@@ -17,7 +18,6 @@ public class CreateAdvertisementValidatorTests
 		yield return new object[] { -2 };
 		yield return new object[] { -12313.23m };
 		yield return new object[] { -12313.23123m };
-		yield return new object[] { 3.232m };
 	}
 
 	[Fact]
@@ -53,6 +53,6 @@ public class CreateAdvertisementValidatorTests
 	{
         var model = new CreateAdvertisementDto("Title", "Description", EducationLevels.Primary, Subject.English, price);
         var result = _validator.TestValidate(model);
-        result.ShouldHaveValidationErrorFor(m => m.Description);
+        result.ShouldHaveValidationErrorFor(m => m.PricePerHour);
     }
 }
