@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ public static class DepedencyInjection
         services.AddScoped<IAdvertisementService, AdvertisementService>();
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddScoped<IAuthorizationContextProvider, AuthorizationContextProvider>();
+        services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
 
         return services;
     }
