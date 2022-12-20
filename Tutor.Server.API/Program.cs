@@ -11,7 +11,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.AspNetCore.Authorization;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
