@@ -40,4 +40,13 @@ public class AdvertisementsControllerTests : ControllerTests
         var response = await client.PostAsJsonAsync("api/advertisements", model);
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
+
+	[Fact]
+	public async Task Create_ForInvalidModel_ReturnsBadRequestStatusCode()
+	{
+        var client = _factory.CreateClient();
+        var model = new CreateAdvertisementDto(null, null, EducationLevels.High, Subject.English, 50);
+        var response = await client.PostAsJsonAsync("api/advertisements", model);
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
 }
