@@ -58,4 +58,12 @@ public class AdvertisementsControllerTests : ControllerTests
 		var response = await client.GetAsync($"api/advertisements/{ad.Id}");
 		response.StatusCode.Should().Be(HttpStatusCode.OK);
 	}
+
+	[Fact]
+	public async Task Get_ForNotExistongAdvertisement_ReturnsNotFoundStatusCode()
+	{
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync($"api/advertisements/{Guid.NewGuid()}");
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
 }
