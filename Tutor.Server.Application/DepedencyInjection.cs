@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Tutor.Server.Application.Authentication;
 using Tutor.Server.Application.Services;
 using Tutor.Server.Application.Services.Abstractions;
 using Tutor.Server.Domain.Entities;
@@ -21,6 +22,7 @@ public static class DepedencyInjection
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<IAdvertisementService, AdvertisementService>();
         services.AddScoped<IUserContextService, UserContextService>();
+        services.AddScoped<IAuthorizationContextProvider, AuthorizationContextProvider>();
 
         return services;
     }

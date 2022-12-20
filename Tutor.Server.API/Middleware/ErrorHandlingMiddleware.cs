@@ -23,6 +23,11 @@ public class ErrorHandlingMiddleware : IMiddleware
 			context.Response.StatusCode = 401;
 			await context.Response.WriteAsync(e.Message);
 		}
+		catch (ForbiddenException e)
+		{
+			context.Response.StatusCode = 403;
+			await context.Response.WriteAsync(e.Message);
+		}
 		catch (LoggedException)
 		{
 			await SomethingWentWrong(context);
