@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tutor.Server.Domain.Entities;
+using Tutor.Shared.Enums;
 
 namespace Tutor.Server.Infrastructure.Database;
 
@@ -46,6 +47,10 @@ public class TutorDbContext : DbContext
              .HasMaxLength(1000);
             e.Property(a => a.PricePerHour)
              .HasPrecision(2);
+            e.Property(a => a.Levels)
+              .HasDefaultValue(EducationLevels.Preschool);
+            e.Property(a => a.Modes)
+             .HasDefaultValue(LessonModes.InPerson);
         });
     }
 }

@@ -12,6 +12,8 @@ public class Advertisement
     public EducationLevels Levels { get; set; }
     public Subject Subject { get; set; }
     public decimal PricePerHour { get; set; }
+    public Currency Currency { get; set; }
+    public LessonModes Modes { get; set; }
     public Guid CreatedById { get; set; }
     public virtual User CreatedBy { get; set; }
 }

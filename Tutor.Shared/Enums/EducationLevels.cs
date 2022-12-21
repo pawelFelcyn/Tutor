@@ -3,10 +3,10 @@
 [Flags]
 public enum EducationLevels
 {
-    Preschool = 2 >> 1,
-    Primary = 2 >> 2,
-    Secondary = 2 >> 3,
-    High = 2 >> 4,
-    Studies = 2 >> 5
+    Preschool = 1 << 0,
+    Primary = 1 << 1,
+    Secondary = 1 << 2,
+    High = 1 << 3,
+    Studies = 1 << 4
 }
 
