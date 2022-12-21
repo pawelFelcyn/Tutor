@@ -66,4 +66,12 @@ public class AdvertisementsControllerTests : ControllerTests
         var response = await client.GetAsync($"api/advertisements/{Guid.NewGuid()}");
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
+
+	[Fact]
+	public async Task GetAll_WithoutQueryParameters_ReturnsOkStatusCode()
+	{
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync($"api/advertisements");
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
