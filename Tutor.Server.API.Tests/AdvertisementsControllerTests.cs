@@ -74,4 +74,12 @@ public class AdvertisementsControllerTests : ControllerTests
         var response = await client.GetAsync($"api/advertisements");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
+
+	[Fact]
+	public async Task GetAll_WithValidQueryParameters_ReturnsOkStatusCode()
+	{
+		var client = _factory.CreateClient();
+        var response = await client.GetAsync($"api/advertisements?page=2&pageSize=5");
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }

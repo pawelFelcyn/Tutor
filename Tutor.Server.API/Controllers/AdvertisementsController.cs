@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sieve.Models;
 using Tutor.Server.Application.Services.Abstractions;
 using Tutor.Shared.Dtos;
 
@@ -29,5 +30,12 @@ public class AdvertisementsController : ControllerBase
 	{
 		var advertisement = await _service.GetByIdAsync(id);
 		return Ok(advertisement);
+	}
+
+	[HttpGet]
+	public async Task<ActionResult<PagedResult<AdvertisementDto>>> GetAll([FromQuery]SieveModel query)
+	{
+		var advertisemetns = await _service.GetAllAsync(query);
+		return Ok(advertisemetns);
 	}
 }

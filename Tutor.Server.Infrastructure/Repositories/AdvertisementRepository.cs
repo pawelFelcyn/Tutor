@@ -53,4 +53,23 @@ internal class AdvertisementRepository : RepositoryBase, IAdvertisementRepositor
             throw new UnreachableException();
         }
     }
+
+
+    public IQueryable<Advertisement> GetAll()
+    {
+        return _dbContext.Advertisements;
+    }
+
+    public async Task<IEnumerable<Advertisement>> MaterializeAsync(IQueryable<Advertisement> query)
+    {
+        try
+        {
+            return await query.ToListAsync();
+        }
+        catch (Exception e)
+        {
+            LogAndThrow(e);
+            throw new UnreachableException();
+        }
+    }
 }

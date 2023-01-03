@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Sieve.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Tutor.Server.Application.Authentication;
 using Tutor.Server.Application.Services;
 using Tutor.Server.Application.Services.Abstractions;
+using Tutor.Server.Application.Sieve;
 using Tutor.Server.Domain.Entities;
 
 namespace Tutor.Server.Application;
@@ -25,6 +27,7 @@ public static class DepedencyInjection
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddScoped<IAuthorizationContextProvider, AuthorizationContextProvider>();
         services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
+        services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
 
         return services;
     }

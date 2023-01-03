@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sieve" Version="3.0.0-beta0015" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tutor.Shared\Tutor.Shared.csproj" />
   </ItemGroup>
 

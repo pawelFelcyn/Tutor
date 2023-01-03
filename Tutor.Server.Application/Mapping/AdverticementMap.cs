@@ -10,5 +10,6 @@ internal class AdverticementMap : IMap
     {
         profile.CreateMap<CreateAdvertisementDto, Advertisement>();
         profile.CreateMap<Advertisement, AdvertisementDetailsDto>();
+        profile.CreateMap<Advertisement, AdvertisementDto>();
     }
 }
