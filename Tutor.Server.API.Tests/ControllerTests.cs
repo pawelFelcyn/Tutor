@@ -62,6 +62,7 @@ public class ControllerTests : IClassFixture<WebApplicationFactory<Program>>
         };
         dbContext!.Advertisements.Add(ad);
         dbContext.SaveChanges();
+        ad.CreatedBy = user;
         return ad;
     }
 }
