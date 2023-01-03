@@ -26,8 +26,11 @@ public static class DepedencyInjection
         services.AddScoped<IAdvertisementService, AdvertisementService>();
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddScoped<IAuthorizationContextProvider, AuthorizationContextProvider>();
-        services.AddScoped<IAuthorizationHandler, RoleRequirementHandler>();
+        services.AddScoped<IAuthorizationHandler, GroupAuthorizationHandler>();
+        services.AddScoped<AuthorizationHandler<RoleRequirement>, RoleRequirementHandler>();
+        services.AddScoped<AuthorizationHandler<UserIdRequirement>, UserIdRequirementHandler>();
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
+        services.AddScoped(s => s);
 
         return services;
     }

@@ -8,4 +8,5 @@ public interface IAdvertisementRepository
     Task<Advertisement> GetAsync(Guid id);
     IQueryable<Advertisement> GetAll();
     Task<IEnumerable<Advertisement>> MaterializeAsync(IQueryable<Advertisement> query);
+    Task RemoveAsync(Advertisement advertisement);
 }

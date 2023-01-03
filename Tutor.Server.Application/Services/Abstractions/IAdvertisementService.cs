@@ -8,4 +8,5 @@ public interface IAdvertisementService
     Task<AdvertisementDetailsDto> CreateAsync(CreateAdvertisementDto dto);
     Task<AdvertisementDetailsDto> GetByIdAsync(Guid id);
     Task<PagedResult<AdvertisementDto>> GetAllAsync(SieveModel query);
+    Task DeleteAsync(Guid id);
 }

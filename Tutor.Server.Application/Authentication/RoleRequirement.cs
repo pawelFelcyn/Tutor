@@ -2,7 +2,7 @@
 
 namespace Tutor.Server.Application.Authentication;
 
-public class RoleRequirement : IAuthorizationRequirement
+public class RoleRequirement : Requirement<RoleRequirement>
 {
 	public RoleRequirement(string role)
 	{

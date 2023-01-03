@@ -72,4 +72,17 @@ internal class AdvertisementRepository : RepositoryBase, IAdvertisementRepositor
             throw new UnreachableException();
         }
     }
+
+    public async Task RemoveAsync(Advertisement advertisement)
+    {
+        try
+        {
+            _dbContext.Advertisements.Remove(advertisement);
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            LogAndThrow(e);
+        }
+    }
 }

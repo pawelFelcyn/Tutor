@@ -75,4 +75,18 @@ internal class AdvertisementService : IAdvertisementService
         query.PageSize ??= DEFAULT_PAGE_SIZE;
         query.Page ??= 1;
     }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var advertisement = await _repository.GetAsync(id);
+        var authorizationContext = _authorizationContextProvider.CreateContext(new UserIdRequirement(advertisement.CreatedById));
+        await _authorizationHandler.HandleAsync(authorizationContext);
+
+        if (!authorizationContext.HasSucceeded)
+        {
+            throw new CantDeleteAdvertisementException();
+        }
+
+        await _repository.RemoveAsync(advertisement);
+    }
 }

@@ -38,4 +38,12 @@ public class AdvertisementsController : ControllerBase
 		var advertisemetns = await _service.GetAllAsync(query);
 		return Ok(advertisemetns);
 	}
+
+	[HttpDelete("{id}")]
+	[Authorize]
+	public async Task<ActionResult> Delete([FromRoute] Guid id)
+	{
+		await _service.DeleteAsync(id);
+		return NoContent();
+	}
 }

@@ -2,7 +2,7 @@
 
 namespace Tutor.Server.Application.Authentication;
 
-public class RoleRequirementHandler : AuthorizationHandler<RoleRequirement>
+public class RoleRequirementHandler : SpecyfiedRequirementHandler<RoleRequirement>
 {
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RoleRequirement requirement)
     {
