@@ -34,7 +34,10 @@ internal class AdvertisementRepository : CollectionMaterializingRepository<Adver
     {
         try
         {
-            var advertisement = await _dbContext.Advertisements.FirstOrDefaultAsync(a => a.Id == id);
+            var advertisement = await _dbContext
+                                      .Advertisements
+                                      .Include(a => a.Subject)
+                                      .FirstOrDefaultAsync(a => a.Id == id);
 
             if (advertisement is null)
             {
@@ -57,7 +60,7 @@ internal class AdvertisementRepository : CollectionMaterializingRepository<Adver
 
     public IQueryable<Advertisement> GetAll()
     {
-        return _dbContext.Advertisements;
+        return _dbContext.Advertisements.Include(a => a.Subject);
     }
 
     public async Task RemoveAsync(Advertisement advertisement)
