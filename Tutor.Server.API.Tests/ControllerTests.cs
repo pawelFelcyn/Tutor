@@ -47,6 +47,7 @@ public class ControllerTests : IClassFixture<WebApplicationFactory<Program>>
     protected Advertisement SeedAdvertisement()
     {
         var user = SeedUser();
+        var subject = SeedSubject();
         var scope = _factory.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetService<TutorDbContext>();
         var ad = new Advertisement
@@ -57,12 +58,32 @@ public class ControllerTests : IClassFixture<WebApplicationFactory<Program>>
             CreationDate = DateTime.Now,
             LastModificationDate = DateTime.Now,
             Levels = EducationLevels.Preschool,
-            Subject = Subject.English,
+            SubjectId = subject.Id,
             PricePerHour = 30
         };
         dbContext!.Advertisements.Add(ad);
         dbContext.SaveChanges();
         ad.CreatedBy = user;
+        ad.Subject = subject;
         return ad;
+    }
+
+    protected SchoolSubject SeedSubject()
+    {
+        var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetService<TutorDbContext>();
+
+        if (dbContext!.SchoolSubjects.Any())
+        {
+            return dbContext.SchoolSubjects.First();
+        }
+
+        var subject = new SchoolSubject
+        {
+            Name = "Test"
+        };
+        dbContext.SchoolSubjects.Add(subject);
+        dbContext.SaveChanges();
+        return subject;
     }
 }

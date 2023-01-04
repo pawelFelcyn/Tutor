@@ -59,6 +59,8 @@ public class TutorDbContext : DbContext
             e.Property(s => s.Name)
              .IsRequired()
              .HasMaxLength(50);
+            e.HasMany(s => s.Advertisements)
+             .WithOne(a => a.Subject);
         });
     }
 }
