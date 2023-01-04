@@ -2,7 +2,7 @@
 
 namespace Tutor.Server.Domain.Abstractions;
 
-public interface IAdvertisementRepository
+public interface IAdvertisementRepository : IRepository
 {
     Task<Advertisement> AddAsync(Advertisement advertisement);
     Task<Advertisement> GetAsync(Guid id);

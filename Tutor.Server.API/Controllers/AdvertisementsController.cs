@@ -46,4 +46,12 @@ public class AdvertisementsController : ControllerBase
 		await _service.DeleteAsync(id);
 		return NoContent();
 	}
+
+	[HttpPatch("{id}")]
+	[Authorize]
+	public async Task<ActionResult<AdvertisementDetailsDto>> Update([FromRoute] Guid id, [FromBody] UpdateAdvertisementDto dto)
+	{
+		var advertisement = await _service.UpdateAsync(id, dto);
+		return Ok(advertisement);
+	}
 }

@@ -7,7 +7,7 @@ using Tutor.Server.Domain.Entities;
 
 namespace Tutor.Server.Domain.Abstractions
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         Task AddAsync(User user);
         Task<User> GetByEmailAsync(string email);

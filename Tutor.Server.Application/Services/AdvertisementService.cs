@@ -89,4 +89,21 @@ internal class AdvertisementService : IAdvertisementService
 
         await _repository.RemoveAsync(advertisement);
     }
+
+    public async Task<AdvertisementDetailsDto> UpdateAsync(Guid id, UpdateAdvertisementDto dto)
+    {
+        var advertisement = await _repository.GetAsync(id);
+        var authorizationContext = _authorizationContextProvider.CreateContext(new UserIdRequirement(advertisement.CreatedById));
+        await _authorizationHandler?.HandleAsync(authorizationContext);
+
+        if (!authorizationContext.HasSucceeded)
+        {
+            throw new CantUpdateAdvertisementException();
+        }
+
+        _mapper.Map(dto, advertisement);
+        await _repository.SaveChangesAsync();
+
+        return _mapper.Map<AdvertisementDetailsDto>(advertisement);
+    }
 }
