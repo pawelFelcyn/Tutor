@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts;
+using System.Runtime.CompilerServices;
 using Tutor.Shared.Exceptions;
 
 namespace Tutor.Server.API.Middleware;
@@ -18,12 +19,21 @@ public class ErrorHandlingMiddleware : IMiddleware
 		{
 			await next.Invoke(context);
 		}
+		catch (NotFoundException e)
+		{
+			await BodyFromMessage(e, 404, context);
+        }
 		catch (UnauthorizedException e)
 		{
-			context.Response.StatusCode = 401;
-			await context.Response.WriteAsync(e.Message);
-		}
-		catch (LoggedException)
+            await BodyFromMessage(e, 401, context);
+
+        }
+        catch (ForbiddenException e)
+		{
+            await BodyFromMessage(e, 403, context);
+
+        }
+        catch (LoggedException)
 		{
 			await SomethingWentWrong(context);
 		}
@@ -33,6 +43,12 @@ public class ErrorHandlingMiddleware : IMiddleware
 			await SomethingWentWrong(context);
 		}
     }
+
+	private async Task BodyFromMessage(Exception e, int statusCode, HttpContext context)
+	{
+		context.Response.StatusCode = statusCode;
+		await context.Response.WriteAsync(e.Message);
+	}
 
 	private async Task SomethingWentWrong(HttpContext context)
 	{

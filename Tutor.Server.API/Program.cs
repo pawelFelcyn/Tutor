@@ -9,7 +9,8 @@ using Tutor.Server.API.Middleware;
 using Tutor.Server.Application.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.AspNetCore.Authorization;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -40,7 +41,8 @@ builder.Services
        .AddApplication()
        .AddValidators()
        .AddFluentValidationAutoValidation()
-       .AddScoped<ErrorHandlingMiddleware>();
+       .AddScoped<ErrorHandlingMiddleware>()
+       .AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -50,11 +52,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.UseHttpsRedirection();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

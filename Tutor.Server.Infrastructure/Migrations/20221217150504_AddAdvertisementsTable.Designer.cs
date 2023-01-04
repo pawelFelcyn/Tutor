@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tutor.Server.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using Tutor.Server.Infrastructure.Database;
 namespace Tutor.Server.Infrastructure.Migrations
 {
     [DbContext(typeof(TutorDbContext))]
-    partial class TutorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221217150504_AddAdvertisementsTable")]
+    partial class AddAdvertisementsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +37,6 @@ namespace Tutor.Server.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -45,14 +45,7 @@ namespace Tutor.Server.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Levels")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
-
-                    b.Property<short>("Modes")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasDefaultValue((short)1);
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PricePerHour")
                         .HasPrecision(2)

@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Shared.Validators.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Shared.Helpers", "Tutor.Shared.Helpers\Tutor.Shared.Helpers.csproj", "{03B3132C-D2D1-4444-B2DF-80D3669E4221}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Shared.Exceptions", "Tutor.Shared.Exceptions\Tutor.Shared.Exceptions.csproj", "{47127F39-30CD-4C37-9DDB-B022B833361B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Shared.Exceptions", "Tutor.Shared.Exceptions\Tutor.Shared.Exceptions.csproj", "{47127F39-30CD-4C37-9DDB-B022B833361B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Shared", "Tutor.Shared\Tutor.Shared.csproj", "{9F047F3E-ED5F-4B51-AB06-B9441BCC3A4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{47127F39-30CD-4C37-9DDB-B022B833361B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47127F39-30CD-4C37-9DDB-B022B833361B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47127F39-30CD-4C37-9DDB-B022B833361B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F047F3E-ED5F-4B51-AB06-B9441BCC3A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F047F3E-ED5F-4B51-AB06-B9441BCC3A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F047F3E-ED5F-4B51-AB06-B9441BCC3A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F047F3E-ED5F-4B51-AB06-B9441BCC3A4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{2410B34B-A057-4249-8F4B-C88C0D4AF468} = {614BE250-2F0D-4DE4-96F3-703A1C4FF5A7}
 		{03B3132C-D2D1-4444-B2DF-80D3669E4221} = {40E6D68A-185C-4121-88CB-C44637FD4CE1}
 		{47127F39-30CD-4C37-9DDB-B022B833361B} = {40E6D68A-185C-4121-88CB-C44637FD4CE1}
+		{9F047F3E-ED5F-4B51-AB06-B9441BCC3A4B} = {40E6D68A-185C-4121-88CB-C44637FD4CE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E1D3240-1120-4A5F-B5CE-4A8779177F3C}

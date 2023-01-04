@@ -17,6 +17,7 @@ namespace Tutor.Server.Infrastructure
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEmailValidationHelper, EmailValidationHelper>();
+            services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
 
             return services;
         }
