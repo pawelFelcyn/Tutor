@@ -22,7 +22,7 @@ public class DataSeeder
 
     private void ApplyPendingMigrations()
     {
-		if (_dbContext.Database.GetPendingMigrations().Any())
+		if (_dbContext.Database.IsRelational() && _dbContext.Database.GetPendingMigrations().Any())
 		{
 			_dbContext.Database.Migrate();
 		}

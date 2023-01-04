@@ -8,7 +8,7 @@ using Tutor.Shared.Exceptions;
 
 namespace Tutor.Server.Infrastructure.Repositories;
 
-internal class AdvertisementRepository : RepositoryBase, IAdvertisementRepository
+internal class AdvertisementRepository : CollectionMaterializingRepository<Advertisement>, IAdvertisementRepository
 {
     public AdvertisementRepository(TutorDbContext dbContext, ILogger<AdvertisementRepository> logger) 
         : base(dbContext, logger)
@@ -58,19 +58,6 @@ internal class AdvertisementRepository : RepositoryBase, IAdvertisementRepositor
     public IQueryable<Advertisement> GetAll()
     {
         return _dbContext.Advertisements;
-    }
-
-    public async Task<IEnumerable<Advertisement>> MaterializeAsync(IQueryable<Advertisement> query)
-    {
-        try
-        {
-            return await query.ToListAsync();
-        }
-        catch (Exception e)
-        {
-            LogAndThrow(e);
-            throw new UnreachableException();
-        }
     }
 
     public async Task RemoveAsync(Advertisement advertisement)

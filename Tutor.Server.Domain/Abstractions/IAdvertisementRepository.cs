@@ -2,11 +2,10 @@
 
 namespace Tutor.Server.Domain.Abstractions;
 
-public interface IAdvertisementRepository : IRepository
+public interface IAdvertisementRepository : ICollectionMaterializingRepository<Advertisement>
 {
     Task<Advertisement> AddAsync(Advertisement advertisement);
     Task<Advertisement> GetAsync(Guid id);
     IQueryable<Advertisement> GetAll();
-    Task<IEnumerable<Advertisement>> MaterializeAsync(IQueryable<Advertisement> query);
     Task RemoveAsync(Advertisement advertisement);
 }
