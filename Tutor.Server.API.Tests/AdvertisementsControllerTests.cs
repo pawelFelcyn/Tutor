@@ -119,4 +119,54 @@ public class AdvertisementsControllerTests : ControllerTests
         var response = await client.DeleteAsync($"api/advertisements/{advertisement.Id}");
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
+
+	[Fact]
+	public async Task Update_ForAdvertisementOwner_ReturnsOkStatusCode()
+	{
+		var advertisement = SeedAdvertisement();
+		var model = new UpdateAdvertisementDto("Title", "Description", 20);
+		var client = _factory.WithClaimsPrincipal(advertisement.CreatedBy).CreateClient();
+		var response = await client.PatchAsJsonAsync($"api/advertisements/{advertisement.Id}", model);
+		response.StatusCode.Should().Be(HttpStatusCode.OK);
+	}
+
+	[Fact]
+	public async Task Update_ForUnauthenticatedUser_ReturnsUnauthorizedStatusCode()
+	{
+        var model = new UpdateAdvertisementDto("Title", "Description", 20);
+		var client = _factory.CreateClient();
+        var response = await client.PatchAsJsonAsync($"api/advertisements/{Guid.NewGuid()}", model);
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+	[Fact]
+	public async Task Update_ForInvalidModel_ReturnsBadRequestStatusCode()
+	{
+		var user = SeedUser();
+		var model = new UpdateAdvertisementDto(null, null, 0);
+        var client = _factory.WithClaimsPrincipal(user).CreateClient();
+        var response = await client.PatchAsJsonAsync($"api/advertisements/{Guid.NewGuid()}", model);
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+	[Fact]
+	public async Task Update_ForNonexistingAdvertisement_ReturnsNotFoundStatusCode()
+	{
+        var user = SeedUser();
+        var model = new UpdateAdvertisementDto("Title", "Description", 20);
+        var client = _factory.WithClaimsPrincipal(user).CreateClient();
+        var response = await client.PatchAsJsonAsync($"api/advertisements/{Guid.NewGuid()}", model);
+        response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+	[Fact]
+	public async Task Update_ForNotAdvertisementOwner_ReturnsForbiddenStatusCode()
+	{
+        var advertisement = SeedAdvertisement();
+        var model = new UpdateAdvertisementDto("Title", "Description", 20);
+		advertisement.CreatedBy.Id = Guid.NewGuid();
+        var client = _factory.WithClaimsPrincipal(advertisement.CreatedBy).CreateClient();
+        var response = await client.PatchAsJsonAsync($"api/advertisements/{advertisement.Id}", model);
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+    }
 }
