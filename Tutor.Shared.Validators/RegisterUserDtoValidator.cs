@@ -57,5 +57,21 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 		RuleFor(u => u.ConfirmPassword)
 			.Equal(u => u.Password)
 			.WithMessage("Confirm password musy be equal to password.");
+
+		When(r => r.Role == "Tutor", () =>
+		{
+			RuleFor(r => r.TutorDescription)
+			.NotEmpty()
+			.WithMessage("Tutor description must not me empty.")
+			.MaximumLength(500)
+			.WithMessage("Maximum length of tutor description is 500 characters.");
+		});
+
+		When(r => r.Role == "User", () =>
+		{
+			RuleFor(r => r.TutorDescription)
+			.Null()
+			.WithMessage("You have to be in role 'Tutor' to add tutor description.");
+		});
     }
 }
