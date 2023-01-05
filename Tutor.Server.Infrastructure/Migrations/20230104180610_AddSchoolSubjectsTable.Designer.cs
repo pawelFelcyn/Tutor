@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tutor.Server.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using Tutor.Server.Infrastructure.Database;
 namespace Tutor.Server.Infrastructure.Migrations
 {
     [DbContext(typeof(TutorDbContext))]
-    partial class TutorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230104180610_AddSchoolSubjectsTable")]
+    partial class AddSchoolSubjectsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,8 +61,8 @@ namespace Tutor.Server.Infrastructure.Migrations
                         .HasPrecision(2)
                         .HasColumnType("decimal(2,2)");
 
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Subject")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -69,8 +72,6 @@ namespace Tutor.Server.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("SubjectId");
 
                     b.ToTable("Advertisements");
                 });
@@ -132,20 +133,7 @@ namespace Tutor.Server.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tutor.Server.Domain.Entities.SchoolSubject", "Subject")
-                        .WithMany("Advertisements")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("Tutor.Server.Domain.Entities.SchoolSubject", b =>
-                {
-                    b.Navigation("Advertisements");
                 });
 
             modelBuilder.Entity("Tutor.Server.Domain.Entities.User", b =>

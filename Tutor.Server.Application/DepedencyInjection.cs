@@ -25,6 +25,7 @@ public static class DepedencyInjection
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<IAdvertisementService, AdvertisementService>();
         services.AddScoped<IUserContextService, UserContextService>();
+        services.AddScoped<ISubjectService, SubjectsService>();
         services.AddScoped<IAuthorizationContextProvider, AuthorizationContextProvider>();
         services.AddScoped<IAuthorizationHandler, GroupAuthorizationHandler>();
         services.AddScoped<AuthorizationHandler<RoleRequirement>, RoleRequirementHandler>();

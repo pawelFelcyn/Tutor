@@ -15,9 +15,10 @@ public class AdvertisementsControllerTests : ControllerTests
 	public async Task Create_ForValidModelAndClaimsPrincipal_ReturnsCreatedStatusCode()
 	{
 		var user = SeedUser("Tutor");
+		var subject = SeedSubject();
 		var factory = _factory.WithClaimsPrincipal(user);
 		var client = factory.CreateClient();
-		var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, Subject.English, 50);
+		var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, subject.Id, 50);
 		var response = await client.PostAsJsonAsync("api/advertisements", model);
 		response.StatusCode.Should().Be(HttpStatusCode.Created);
 	}
@@ -26,7 +27,7 @@ public class AdvertisementsControllerTests : ControllerTests
 	public async Task Create_ForNotAuthenticatedUser_ReturnsUnauthorizedStatusCode()
 	{
 		var client = _factory.CreateClient();
-        var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, Subject.English, 50);
+        var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, Guid.NewGuid(), 50);
         var response = await client.PostAsJsonAsync("api/advertisements", model);
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
@@ -35,9 +36,10 @@ public class AdvertisementsControllerTests : ControllerTests
 	public async Task Create_ForUserWithBadRole_ReturnsForbiddenStatusCode()
 	{
         var user = SeedUser("User");
+		var subject = SeedSubject();
         var factory = _factory.WithClaimsPrincipal(user);
         var client = factory.CreateClient();
-        var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, Subject.English, 50);
+        var model = new CreateAdvertisementDto("title", "description", EducationLevels.High, subject.Id, 50);
         var response = await client.PostAsJsonAsync("api/advertisements", model);
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
@@ -46,7 +48,7 @@ public class AdvertisementsControllerTests : ControllerTests
 	public async Task Create_ForInvalidModel_ReturnsBadRequestStatusCode()
 	{
         var client = _factory.CreateClient();
-        var model = new CreateAdvertisementDto(null, null, EducationLevels.High, Subject.English, 50);
+        var model = new CreateAdvertisementDto(null, null, EducationLevels.High, Guid.NewGuid(), 50);
         var response = await client.PostAsJsonAsync("api/advertisements", model);
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }

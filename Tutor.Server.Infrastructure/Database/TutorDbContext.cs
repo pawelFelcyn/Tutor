@@ -19,6 +19,7 @@ public class TutorDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Advertisement> Advertisements { get; set; }
+    public DbSet<SchoolSubject> SchoolSubjects { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,6 +52,15 @@ public class TutorDbContext : DbContext
               .HasDefaultValue(EducationLevels.Preschool);
             e.Property(a => a.Modes)
              .HasDefaultValue(LessonModes.InPerson);
+        });
+
+        modelBuilder.Entity<SchoolSubject>(e =>
+        {
+            e.Property(s => s.Name)
+             .IsRequired()
+             .HasMaxLength(50);
+            e.HasMany(s => s.Advertisements)
+             .WithOne(a => a.Subject);
         });
     }
 }

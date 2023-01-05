@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tutor.Server.Infrastructure.Database;
 
@@ -11,9 +12,11 @@ using Tutor.Server.Infrastructure.Database;
 namespace Tutor.Server.Infrastructure.Migrations
 {
     [DbContext(typeof(TutorDbContext))]
-    partial class TutorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230104190206_AddSubjectKeyToAdvertisements")]
+    partial class AddSubjectKeyToAdvertisements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -10,7 +10,7 @@ public record AdvertisementDetailsDto
     public DateTime CreationDate { get; init; }
     public DateTime LastModificationDate { get; init; }
     public EducationLevels Levels { get; init; }
-    public Subject Subject { get; init; }
+    public string Subject { get; init; }
     public decimal PricePerHour { get; init; }
     public Guid CreatedById { get; init; }
 }

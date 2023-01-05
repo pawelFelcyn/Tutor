@@ -23,7 +23,14 @@ namespace Tutor.Server.Infrastructure.Repositories
 
         public async Task SaveChangesAsync()
         {
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                LogAndThrow(e);
+            }
         }
 
         protected void LogAndThrow(Exception e)

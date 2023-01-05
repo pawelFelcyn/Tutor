@@ -9,8 +9,8 @@ using Tutor.Server.API.Middleware;
 using Tutor.Server.Application.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.AspNetCore.Authorization;
+using Tutor.Server.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -42,7 +42,8 @@ builder.Services
        .AddValidators()
        .AddFluentValidationAutoValidation()
        .AddScoped<ErrorHandlingMiddleware>()
-       .AddHttpContextAccessor();
+       .AddHttpContextAccessor()
+       .AddScoped<DataSeeder>();
 
 var app = builder.Build();
 
@@ -61,6 +62,9 @@ app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapControllers();
+
+var dataSeeder = app.Services.CreateScope().ServiceProvider.GetService<DataSeeder>();
+await dataSeeder.SeedData();
 
 app.Run();
 

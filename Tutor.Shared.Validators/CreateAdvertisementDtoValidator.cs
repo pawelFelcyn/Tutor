@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using Tutor.Shared.Dtos;
+using Tutor.Shared.Helpers.Abstractions;
 
 namespace Tutor.Shared.Validators;
 
 internal class CreateAdvertisementDtoValidator : AbstractValidator<CreateAdvertisementDto>
 {
-	public CreateAdvertisementDtoValidator()
+	public CreateAdvertisementDtoValidator(ISubjectValidationHelper subjectValidationHelper)
 	{
 		RuleFor(m => m.Title)
 			.MaximumLength(100)
@@ -20,5 +21,9 @@ internal class CreateAdvertisementDtoValidator : AbstractValidator<CreateAdverti
 		RuleFor(m => m.PricePerHour)
 			.GreaterThan(0)
 			.WithMessage("Price must be greather than 0.");
+
+		RuleFor(m => m.SubjectId)
+			.Must(subjectValidationHelper.Exists)
+			.WithMessage("This subject does not exist.");
 	}
 }
