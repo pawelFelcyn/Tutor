@@ -20,7 +20,7 @@ public class RegisterUserDtoValidatorTests
     [Fact]
     public void Validate_ForValidModel_DoesNotReturnAnyErrors()
     {
-        var model = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password123");
+        var model = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password123", null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldNotHaveAnyValidationErrors();
     }
@@ -31,7 +31,7 @@ public class RegisterUserDtoValidatorTests
     [InlineData("sadffdsfsf")]
     public void Validate_ForInvalidEmail_ResultHasValidationError(string email)
     {
-        var model = new RegisterUserDto(null, null, null, email, null, null);
+        var model = new RegisterUserDto(null, null, null, email, null, null, null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Email);
     }
@@ -45,7 +45,7 @@ public class RegisterUserDtoValidatorTests
     [InlineData("!wF")]
     public void Validate_ForInvalidPassword_ResultHasValidationError(string password)
     {
-        var model = new RegisterUserDto(null, null, null, null, password, null);
+        var model = new RegisterUserDto(null, null, null, null, password, null, null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(u => u.Password);
     }
@@ -53,7 +53,7 @@ public class RegisterUserDtoValidatorTests
     [Fact]
     public void Validate_ForTakenEmail_ResultHasValidationError()
     {
-        var model = new RegisterUserDto(null, null, null, "email@email.com", null, null);
+        var model = new RegisterUserDto(null, null, null, "email@email.com", null, null, null);
         var result = _emailTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Email);
     }
@@ -64,7 +64,7 @@ public class RegisterUserDtoValidatorTests
     [InlineData("asdasdhaskljdlaskjdlaksdlkaskldjlaskdlasdjlaskjdlksajdlkasjdsadsakldjlksadlkasjskdlkasdjklasjdlkajdlksjdllajslkjlajdlksajdlsjdadkljjaslkd")]
     public void Validate_ForInvalidFirstName_ResultHasValidationError(string firstName)
     {
-        var model = new RegisterUserDto(firstName, null, null, null, null, null);
+        var model = new RegisterUserDto(firstName, null, null, null, null, null, null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.FirstName);
     }
@@ -75,7 +75,7 @@ public class RegisterUserDtoValidatorTests
     [InlineData("asdasdhaskljdlaskjdlaksdlkaskldjlaskdlasdjlaskjdlksajdlkasjdsadsakldjlksadlkasjskdlkasdjklasjdlkajdlksjdllajslkjlajdlksajdlsjdadkljjaslkd")]
     public void Validate_ForInvalidLastName_ResultHasValidationError(string lastName)
     {
-        var model = new RegisterUserDto(null, lastName, null, null, null, null);
+        var model = new RegisterUserDto(null, lastName, null, null, null, null, null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.LastName);
     }
@@ -83,7 +83,7 @@ public class RegisterUserDtoValidatorTests
     [Fact]
     public void Validate_ForInvalidRole_ResultHasValidationError()
     {
-        var model = new RegisterUserDto(null, null, null, null, null, null);
+        var model = new RegisterUserDto(null, null, null, null, null, null, null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.Role);
     }
@@ -91,7 +91,7 @@ public class RegisterUserDtoValidatorTests
     [Fact]
     public void Validate_ForInvalidConfirmPassword_ResultHasValidationError()
     {
-        var model = new RegisterUserDto(null, null, null, null, "!Password123", "!78d7asahjkdhsa7");
+        var model = new RegisterUserDto(null, null, null, null, "!Password123", "!78d7asahjkdhsa7", null);
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.ConfirmPassword);
     }
