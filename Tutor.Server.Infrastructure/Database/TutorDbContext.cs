@@ -20,6 +20,7 @@ public class TutorDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Advertisement> Advertisements { get; set; }
     public DbSet<SchoolSubject> SchoolSubjects { get; set; }
+    public DbSet<TutorEntity> Tutors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -61,6 +62,13 @@ public class TutorDbContext : DbContext
              .HasMaxLength(50);
             e.HasMany(s => s.Advertisements)
              .WithOne(a => a.Subject);
+        });
+
+        modelBuilder.Entity<TutorEntity>(e =>
+        {
+            e.Property(t => t.Description)
+             .IsRequired()
+             .HasMaxLength(500);
         });
     }
 }

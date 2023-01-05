@@ -13,6 +13,17 @@ public class AuthenticationMap : IMap
 {
     public void ConfigureMap(Profile profile)
     {
-        profile.CreateMap<RegisterUserDto, User>();
+        profile.CreateMap<RegisterUserDto, User>()
+               .ForMember(u => u.Tutor, c => c.MapFrom(s => CreateTutor(s)));
+    }
+
+    private TutorEntity CreateTutor(RegisterUserDto dto)
+    {
+        return string.IsNullOrEmpty(dto.TutorDescription)
+            ? null
+            : new TutorEntity
+            {
+                Description = dto.TutorDescription
+            };
     }
 }

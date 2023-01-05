@@ -15,7 +15,7 @@ public class AuthenticationControllerTests : ControllerTests
     [Fact]
     public async Task Register_ForValidModel_ReturnsOkStatusCode()
     {
-        var dto = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password123");
+        var dto = new RegisterUserDto("John", "Smith", "User", "email@email.com", "!Password123", "!Password123", null);
         var client = _factory.CreateClient();
         var result = await client.PostAsJsonAsync("api/authentication/register", dto);
         result.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -24,7 +24,7 @@ public class AuthenticationControllerTests : ControllerTests
     [Fact]
     public async Task Register_ForInvalidModel_ReturnsBadRequestStatusCode()
     {
-        var dto = new RegisterUserDto(null, null, null, null, null, null);
+        var dto = new RegisterUserDto(null, null, null, null, null, null, null);
         var client = _factory.CreateClient();
         var result = await client.PostAsJsonAsync("api/authentication/register", dto);
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
