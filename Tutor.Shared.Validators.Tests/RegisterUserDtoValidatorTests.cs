@@ -95,4 +95,28 @@ public class RegisterUserDtoValidatorTests
         var result = _emailNotTakenValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.ConfirmPassword);
     }
+
+    [Fact]
+    public void Validate_ForUserRole_RequiresTutorDescriptionToBeEmpty()
+    {
+        var model = new RegisterUserDto(null, null, "User", null, null, null, "Description");
+        var result = _emailNotTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(r => r.TutorDescription);
+    }
+
+    [Fact]
+    public void Validate_ForTutorRole_RequiresTutorDescriptionNotToBeEmpty()
+    {
+        var model = new RegisterUserDto(null, null, "Tutor", null, null, null, null);
+        var result = _emailNotTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(r => r.TutorDescription);
+    }
+
+    [Fact]
+    public void Validate_ForInvalidTutorDescription_HasProperValidationError()
+    {
+        var model = new RegisterUserDto(null, null, "Tutor", null, null, null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod arcu eu sapien feugiat sollicitudin. Suspendisse in venenatis leo, ac mollis arcu. Aliquam facilisis metus blandit nisi egestas condimentum. Nunc quam nunc, fermentum vel ultrices sit amet, dictum sed velit. Praesent sollicitudin lectus non semper dictum. Vestibulum nulla justo, fringilla nec turpis sit amet, faucibus accumsan purus. Nam eros urna, sollicitudin at risus egestas, aliquam commodo velit. Sed eu ligula fusce.");
+        var result = _emailNotTakenValidator.TestValidate(model);
+        result.ShouldHaveValidationErrorFor(r => r.TutorDescription);
+    }
 }
