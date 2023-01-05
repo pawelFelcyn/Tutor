@@ -16,4 +16,5 @@ public class User
     public string PasswordHash { get; set; }
 
     public virtual List<Advertisement> Advertisements { get; set; }
+    public virtual TutorEntity Tutor { get; set; }
 }
