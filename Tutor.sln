@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Client.APIAccess.Abst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Client.APIAccess", "Tutor.Client.APIAccess\Tutor.Client.APIAccess.csproj", "{641B95FE-817E-47FC-B888-ACC07891CCA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Client.Logic", "Tutor.Client.Logic\Tutor.Client.Logic.csproj", "{2CFEB557-2205-46B2-B983-51AA9C182433}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{641B95FE-817E-47FC-B888-ACC07891CCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{641B95FE-817E-47FC-B888-ACC07891CCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{641B95FE-817E-47FC-B888-ACC07891CCA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CFEB557-2205-46B2-B983-51AA9C182433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFEB557-2205-46B2-B983-51AA9C182433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFEB557-2205-46B2-B983-51AA9C182433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFEB557-2205-46B2-B983-51AA9C182433}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +141,7 @@ Global
 		{19F0850C-D6BD-407D-A337-C731A26AB3C7} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
 		{F03D8CCF-9958-49F5-87E3-30AA93B9C3FA} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
 		{641B95FE-817E-47FC-B888-ACC07891CCA9} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
+		{2CFEB557-2205-46B2-B983-51AA9C182433} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E1D3240-1120-4A5F-B5CE-4A8779177F3C}
