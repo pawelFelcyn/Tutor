@@ -48,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Tutor.Client.ViewModels\Tutor.Client.ViewModels.csproj" />
+	  <ProjectReference Include="..\Tutor.Mobile.ViewModels\Tutor.Mobile.ViewModels.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
