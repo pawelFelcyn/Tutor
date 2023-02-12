@@ -3,11 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
              x:Class="Tutor.MobileUI.Pages.LoginPage"
              Title="LoginPage">
+  <ContentPage.Resources>
+    <conv:IsNotNullToBooleanConverter x:Key="isNotNullConverter"/>
+  </ContentPage.Resources>
   <VerticalStackLayout VerticalOptions="Center">
-    <dxe:TextEdit Margin="50,10,50,10" LabelText="e-mail" Text="{Binding LoginDto.Email}"/>
-    <dxe:PasswordEdit Margin="50,10,50,10" LabelText="password" Text="{Binding LoginDto.Password}"/>
+    <dxe:TextEdit Margin="50,10,50,10" LabelText="e-mail" Text="{Binding LoginDto.Email}"
+                  ErrorText="{Binding EmailValidationErrors}" HasError="{Binding EmailValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+    <dxe:PasswordEdit Margin="50,10,50,10" LabelText="password" Text="{Binding LoginDto.Password}"
+                      ErrorText="{Binding PasswordValidationErrors}" HasError="{Binding PasswordValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
     <dxc:SimpleButton Margin="50,10,50,10" Text="Sign in" Command="{Binding LoginCommand}"/>
   </VerticalStackLayout>
 </ContentPage>

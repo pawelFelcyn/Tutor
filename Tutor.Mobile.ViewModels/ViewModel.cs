@@ -57,7 +57,7 @@ public partial class ViewModel : ObservableObject
                 continue;
             }
 
-            var joinedErrors = string.Join(". ", group.Select(e => e.ErrorMessage));
+            var joinedErrors = string.Join(" ", group.Select(e => e.ErrorMessage));
             property.SetValue(this, joinedErrors);
         }
 

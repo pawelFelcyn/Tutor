@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Tutor.Client.Maui\Tutor.Client.Maui.csproj" />
 	  <ProjectReference Include="..\Tutor.Mobile.ViewModels\Tutor.Mobile.ViewModels.csproj" />
 	</ItemGroup>
 
