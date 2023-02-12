@@ -1,5 +1,6 @@
 ﻿using DevExpress.Maui;
 using Microsoft.Extensions.Logging;
+using Tutor.Mobile.ViewModels;
 using Tutor.MobileUI.Pages;
 
 namespace Tutor.MobileUI
@@ -22,7 +23,10 @@ namespace Tutor.MobileUI
 		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddTransient<LoginPage>();
+            builder
+                .Services
+                .AddTransient<LoginPage>()
+                .AddTransient<LoginViewModel>();
 
             return builder.Build();
         }

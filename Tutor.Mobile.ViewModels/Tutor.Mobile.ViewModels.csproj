@@ -21,4 +21,8 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Tutor.Shared.Dtos\Tutor.Shared.Dtos.csproj" />
+	</ItemGroup>
+
 </Project>

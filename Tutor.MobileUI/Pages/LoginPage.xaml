@@ -6,8 +6,8 @@
              x:Class="Tutor.MobileUI.Pages.LoginPage"
              Title="LoginPage">
   <VerticalStackLayout VerticalOptions="Center">
-    <dxe:TextEdit Margin="50,10,50,10" LabelText="e-mail"/>
-    <dxe:PasswordEdit Margin="50,10,50,10" LabelText="password"/>
-    <dxc:SimpleButton Margin="50,10,50,10" Text="Sign in"/>
+    <dxe:TextEdit Margin="50,10,50,10" LabelText="e-mail" Text="{Binding LoginDto.Email}"/>
+    <dxe:PasswordEdit Margin="50,10,50,10" LabelText="password" Text="{Binding LoginDto.Password}"/>
+    <dxc:SimpleButton Margin="50,10,50,10" Text="Sign in" Command="{Binding LoginCommand}"/>
   </VerticalStackLayout>
 </ContentPage>
