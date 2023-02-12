@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Tutor.MobileUI.Pages;
 
 namespace Tutor.MobileUI
 {
@@ -18,6 +19,8 @@ namespace Tutor.MobileUI
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddTransient<LoginPage>();
 
             return builder.Build();
         }
