@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Tutor.Mobile.ViewModels;
 using Tutor.MobileUI.Pages;
+using Tutor.Shared.Validators;
+using Tutor.Client.Logic;
 
 namespace Tutor.MobileUI
 {
@@ -26,7 +28,9 @@ namespace Tutor.MobileUI
             builder
                 .Services
                 .AddTransient<LoginPage>()
-                .AddTransient<LoginViewModel>();
+                .AddTransient<LoginViewModel>()
+                .AddValidators()
+                .AddLogic();
 
             return builder.Build();
         }
