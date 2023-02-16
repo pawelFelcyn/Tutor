@@ -48,7 +48,7 @@ public class TutorDbContext : DbContext
             e.Property(a => a.Description)
              .HasMaxLength(1000);
             e.Property(a => a.PricePerHour)
-             .HasPrecision(2);
+             .HasColumnType("decimal(5,2)");
             e.Property(a => a.Levels)
               .HasDefaultValue(EducationLevels.Preschool);
             e.Property(a => a.Modes)

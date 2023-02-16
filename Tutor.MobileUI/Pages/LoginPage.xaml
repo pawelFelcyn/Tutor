@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
+             x:Class="Tutor.MobileUI.Pages.LoginPage"
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False">
+  <ContentPage.Resources>
+    <conv:IsNotNullToBooleanConverter x:Key="isNotNullConverter"/>
+  </ContentPage.Resources>
+  <Grid>
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+      <dxe:TextEdit Margin="50,10,50,10" LabelText="e-mail" Text="{Binding LoginDto.Email}"
+                  ErrorText="{Binding EmailValidationErrors}" HasError="{Binding EmailValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+      <dxe:PasswordEdit Margin="50,10,50,10" LabelText="password" Text="{Binding LoginDto.Password}"
+                      ErrorText="{Binding PasswordValidationErrors}" HasError="{Binding PasswordValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+      <dxc:SimpleButton Margin="50,10,50,10" Text="Sign in" Command="{Binding LoginCommand}"/>
+    </VerticalStackLayout>
+    <ActivityIndicator IsRunning="True" IsVisible="{Binding IsBusy}" VerticalOptions="Center"
+                       HorizontalOptions="Center"/>
+  </Grid>
+</ContentPage>
