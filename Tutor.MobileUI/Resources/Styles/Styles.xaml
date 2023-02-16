@@ -2,7 +2,20 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+    xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors">
+  <Style TargetType="{x:Type dxc:SimpleButton}">
+    <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+  </Style>
+
+  <Style TargetType="{x:Type dxe:TextEdit}">
+    <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+  </Style>
+  
+  <Style TargetType="{x:Type dxe:PasswordEdit}">
+    <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+  </Style>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
