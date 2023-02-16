@@ -6,13 +6,13 @@ internal class Startup
 {
     public static void OnAppInitialized(IServiceProvider serviceProvider)
     {
-        var loginPage = serviceProvider.GetService<LoginPage>();
+        var startShell = serviceProvider.GetService<StartShell>();
 
-        if (loginPage is null)
+        if (startShell is null)
         {
-            throw new Exception("Login page has not been registered");
+            throw new Exception("Start shell has not been registered");
         }
 
-        App.Current.MainPage = loginPage;
+        App.Current.MainPage = startShell;
     }
 }

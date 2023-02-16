@@ -63,7 +63,7 @@ public partial class LoginViewModel : ViewModel
     {
 		if (!loginResult.SuccesfullyCalledAPI)
 		{
-			//here I'll notify user that something went wrong
+			await Shell.Current.DisplayAlert("Error", "Could't send login request. Try again laiter.", "Ok");
 			return;
 		}
 

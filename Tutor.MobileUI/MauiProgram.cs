@@ -38,10 +38,12 @@ namespace Tutor.MobileUI
                 .AddAPIAccess()
                 .AddSingleton(new HttpClient()
                 {
-                    BaseAddress = new Uri("http://10.0.2.2:5000")
+                    BaseAddress = new Uri("http://10.0.2.2:5000"),
+                    Timeout = TimeSpan.FromSeconds(10)
                 })//this should be done in some other way in the future, I should use HttpClientFactory
                 .AddScoped(_ => SecureStorage.Default)
-                .AddTransient<AppShell>();
+                .AddTransient<AppShell>()
+                .AddTransient<StartShell>();
 
             return builder.Build();
         }
