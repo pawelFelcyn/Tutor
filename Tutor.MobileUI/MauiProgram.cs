@@ -4,6 +4,9 @@ using Tutor.Mobile.ViewModels;
 using Tutor.MobileUI.Pages;
 using Tutor.Shared.Validators;
 using Tutor.Client.Logic;
+using Tutor.Client.Logic.Services;
+using Tutor.MobileUI.Services;
+using Tutor.Client.APIAccess;
 
 namespace Tutor.MobileUI
 {
@@ -30,7 +33,15 @@ namespace Tutor.MobileUI
                 .AddTransient<LoginPage>()
                 .AddTransient<LoginViewModel>()
                 .AddValidators()
-                .AddLogic();
+                .AddLogic()
+                .AddScoped<IMainViewService, MainViewService>()
+                .AddAPIAccess()
+                .AddSingleton(new HttpClient()
+                {
+                    BaseAddress = new Uri("http://10.0.2.2:5000")
+                })//this should be done in some other way in the future, I should use HttpClientFactory
+                .AddScoped(_ => SecureStorage.Default)
+                .AddTransient<AppShell>();
 
             return builder.Build();
         }

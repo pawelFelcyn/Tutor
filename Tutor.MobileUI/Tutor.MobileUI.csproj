@@ -44,10 +44,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Tutor.Client.APIAccess\Tutor.Client.APIAccess.csproj" />
 	  <ProjectReference Include="..\Tutor.Client.Maui\Tutor.Client.Maui.csproj" />
 	  <ProjectReference Include="..\Tutor.Mobile.ViewModels\Tutor.Mobile.ViewModels.csproj" />
 	</ItemGroup>

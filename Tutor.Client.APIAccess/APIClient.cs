@@ -15,7 +15,14 @@ internal class APIClient
 
 	protected async Task<APIResponse> PostAsync(string url, object content)
 	{
-		var response = await _httpClient.PostAsJsonAsync(url, content);
-		return await APIResponse.FromHttpResponseMessageAsync(response);
+		try
+		{
+			var response = await _httpClient.PostAsJsonAsync(url, content);
+			return await APIResponse.FromHttpResponseMessageAsync(response);
+		}
+		catch (Exception e)
+		{
+			return APIResponse.Failure(e);
+		}
 	}
 }
