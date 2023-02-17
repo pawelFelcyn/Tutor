@@ -43,7 +43,9 @@ namespace Tutor.MobileUI
                 })//this should be done in some other way in the future, I should use HttpClientFactory
                 .AddScoped(_ => SecureStorage.Default)
                 .AddTransient<AppShell>()
-                .AddTransient<StartShell>();
+                .AddTransient<StartShell>()
+                .AddTransient<RegistrationPage>()
+                .AddTransient<RegistrationViewModel>();
 
             return builder.Build();
         }
