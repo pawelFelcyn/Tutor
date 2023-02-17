@@ -9,21 +9,29 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <x:Int32 x:Key="one">1</x:Int32>
+      <conv:IsNotNullToBooleanConverter x:Key="isNotNullConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
   <Grid RowDefinitions="*,100" Margin="30,20,30,20">
     <ScrollView>
       <VerticalStackLayout Spacing="10">
         <Label Text="Enter your account's data:" TextColor="{StaticResource Primary}" FontSize="20"/>
-        <dxe:TextEdit LabelText="First name" Text="{Binding RegisterUserDto.FirstName}"/>
-        <dxe:TextEdit LabelText="Last name" Text="{Binding RegisterUserDto.LastName}"/>
-        <dxe:TextEdit LabelText="E-mail" Text="{Binding RegisterUserDto.Email}"/>
-        <dxe:PasswordEdit LabelText="Password" Text="{Binding RegisterUserDto.Password}"/>
+        <dxe:TextEdit LabelText="First name" Text="{Binding RegisterUserDto.FirstName}"
+                      ErrorText="{Binding FirstNameValidationErrors}" HasError="{Binding FirstNameValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+        <dxe:TextEdit LabelText="Last name" Text="{Binding RegisterUserDto.LastName}"
+                      ErrorText="{Binding LastNameValidationErrors}" HasError="{Binding LastNameValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+        <dxe:TextEdit LabelText="E-mail" Text="{Binding RegisterUserDto.Email}"
+                      ErrorText="{Binding EmailValidationErrors}" HasError="{Binding EmailValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+        <dxe:PasswordEdit LabelText="Password" Text="{Binding RegisterUserDto.Password}"
+                          ErrorText="{Binding PasswordValidationErrors}" HasError="{Binding PasswordValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
+        <dxe:PasswordEdit LabelText="Confirm password" Text="{Binding RegisterUserDto.ConfirmPassword}"
+                          ErrorText="{Binding ConfirmPasswordValidationErrors}" HasError="{Binding ConfirmPasswordValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
         <dxe:ComboBoxEdit SelectedIndex="{Binding SelectedRoleIndex}" LabelText="Role"
-                          ItemsSource="{Binding AllowedRoles}"/>
-        <dxe:PasswordEdit LabelText="Confirm password" Text="{Binding RegisterUserDto.ConfirmPassword}"/>
+                          ItemsSource="{Binding AllowedRoles}"
+                          ErrorText="{Binding RoleValidationErrors}" HasError="{Binding RoleValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
         <dxe:MultilineEdit LabelText="Description" BoxMinHeight="200" Text="{Binding RegisterUserDto.TitorDescription}"
-                           IsVisible="{Binding SelectedRoleIndex, Converter={conv:IsEqualConverter}, ConverterParameter={StaticResource one}}"/>
+                           IsVisible="{Binding SelectedRoleIndex, Converter={conv:IsEqualConverter}, ConverterParameter={StaticResource one}}"
+                           ErrorText="{Binding TutorDescriptionValidationErrors}" HasError="{Binding TutorDescriptionValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
       </VerticalStackLayout>
     </ScrollView>
     <dxc:SimpleButton Text="Confirm" Grid.Row="1" VerticalOptions="Center" Command="{Binding ConfirmCommand}"/>
