@@ -80,4 +80,22 @@ public partial class LoginViewModel : ViewModel
 			await _mainViewService.OpenMainViewAsync();
 		}
     }
+
+	[RelayCommand]
+	private async Task OpenRegistrationPageAsync()
+	{
+		if (CheckIsBusy())
+		{
+			return;
+		}
+
+		try
+		{
+			await Shell.Current.GoToAsync("//Login/Register");
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
 }

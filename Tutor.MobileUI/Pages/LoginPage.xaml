@@ -17,6 +17,7 @@
       <dxe:PasswordEdit Margin="50,10,50,10" LabelText="password" Text="{Binding LoginDto.Password}"
                       ErrorText="{Binding PasswordValidationErrors}" HasError="{Binding PasswordValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
       <dxc:SimpleButton Margin="50,10,50,10" Text="Sign in" Command="{Binding LoginCommand}"/>
+      <dxc:SimpleButton Margin="50,10,50,10" Text="Sign up" Command="{Binding OpenRegistrationPageCommand}"/>
     </VerticalStackLayout>
     <ActivityIndicator IsRunning="True" IsVisible="{Binding IsBusy}" VerticalOptions="Center"
                        HorizontalOptions="Center"/>
