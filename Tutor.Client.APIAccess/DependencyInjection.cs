@@ -12,6 +12,7 @@ public static class DependencyInjection
             throw new ArgumentNullException(nameof(services));
         }
 
-        return services.AddScoped<ILoginClient, LoginClient>();
+        return services.AddScoped<ILoginClient, LoginClient>()
+                       .AddScoped<IRegistrationClient, RegistrationClient>();
     }
 }
