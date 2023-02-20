@@ -36,7 +36,7 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 				var pswdRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
 				return pswdRegex.Match(p).Success;
 			})
-			.WithMessage("Password must contain at lest 8 characters, one uppercase letter, one loercase letter, one digit and one special character.");
+			.WithMessage("Password must contain at lest 8 characters, one uppercase letter, one lowercase letter, one digit and one special character.");
 
 		RuleFor(u => u.FirstName)
 			.NotEmpty()
@@ -62,7 +62,7 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 		{
 			RuleFor(r => r.TutorDescription)
 			.NotEmpty()
-			.WithMessage("Tutor description must not me empty.")
+			.WithMessage("Tutor description must not be empty.")
 			.MaximumLength(500)
 			.WithMessage("Maximum length of tutor description is 500 characters.");
 		});

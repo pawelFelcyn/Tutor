@@ -11,10 +11,24 @@
 
   <Style TargetType="{x:Type dxe:TextEdit}">
     <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
+  </Style>
+
+  <Style TargetType="{x:Type dxe:MultilineEdit}">
+    <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
   </Style>
   
   <Style TargetType="{x:Type dxe:PasswordEdit}">
     <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
+  </Style>
+
+  <Style TargetType="{x:Type dxe:ComboBoxEdit}">
+    <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
+    <Setter Property="DropDownBackgroundColor" Value="{StaticResource White}"/>
+    <Setter Property="DropDownSelectedItemBackgroundColor" Value="{StaticResource PrimaryTransparent}"/>
   </Style>
 
     <Style TargetType="ActivityIndicator">

@@ -2,7 +2,6 @@
 using FluentValidation;
 using FluentValidation.Results;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Tutor.Mobile.ViewModels;
 
@@ -33,18 +32,34 @@ public partial class ViewModel : ObservableObject
 
     protected ValidationResult Validate<TModel>(TModel model, IValidator<TModel> validator)
     {
-        validationErrorProperties ??= FindValidationErrors().ToArray();
+        var validationResult = validator.Validate(model);
+        HandleValidationResult(validationResult);
+        return validationResult;
+    }
 
+    private IEnumerable<PropertyInfo> FindValidationErrors()
+    {
+        foreach (var property in GetType().GetProperties())
+        {
+            if (property.Name.EndsWith("ValidationErrors"))
+            {
+                yield return property;
+            }
+        }
+    }
+
+    protected void HandleValidationResult(ValidationResult validationResult)
+    {
+        validationErrorProperties ??= FindValidationErrors().ToArray();
+        
         foreach (var errorProperty in validationErrorProperties)
         {
             errorProperty.SetValue(this, null);
         }
 
-        var validationResult = validator.Validate(model);
-
         if (validationResult.IsValid)
         {
-            return validationResult;
+            return;
         }
 
         var groppedErrors = validationResult.Errors.GroupBy(e => e.PropertyName);
@@ -59,19 +74,6 @@ public partial class ViewModel : ObservableObject
 
             var joinedErrors = string.Join(" ", group.Select(e => e.ErrorMessage));
             property.SetValue(this, joinedErrors);
-        }
-
-        return validationResult;
-    }
-
-    private IEnumerable<PropertyInfo> FindValidationErrors()
-    {
-        foreach (var property in GetType().GetProperties())
-        {
-            if (property.Name.EndsWith("ValidationErrors"))
-            {
-                yield return property;
-            }
         }
     }
 }
