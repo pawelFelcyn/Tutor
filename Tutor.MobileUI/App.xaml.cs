@@ -8,7 +8,7 @@ namespace Tutor.MobileUI
         {
             InitializeComponent();
             MainPage = new LoadingPage();
-            Startup.OnAppInitialized(serviceProvider);
+            Task.Run(() => Startup.OnAppInitialized(serviceProvider));
         }
     }
 }
