@@ -45,7 +45,8 @@ namespace Tutor.MobileUI
                 .AddTransient<AppShell>()
                 .AddTransient<StartShell>()
                 .AddTransient<RegistrationPage>()
-                .AddTransient<RegistrationViewModel>();
+                .AddTransient<RegistrationViewModel>()
+                .AddScoped(_ => Shell.Current.Navigation);
 
             return builder.Build();
         }

@@ -29,12 +29,13 @@
         <dxe:ComboBoxEdit SelectedIndex="{Binding SelectedRoleIndex}" LabelText="Role"
                           ItemsSource="{Binding AllowedRoles}"
                           ErrorText="{Binding RoleValidationErrors}" HasError="{Binding RoleValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
-        <dxe:MultilineEdit LabelText="Description" BoxMinHeight="200" Text="{Binding RegisterUserDto.TitorDescription}"
+        <dxe:MultilineEdit LabelText="Description" BoxMinHeight="200" Text="{Binding RegisterUserDto.TutorDescription}"
                            IsVisible="{Binding SelectedRoleIndex, Converter={conv:IsEqualConverter}, ConverterParameter={StaticResource one}}"
                            ErrorText="{Binding TutorDescriptionValidationErrors}" HasError="{Binding TutorDescriptionValidationErrors, Converter={StaticResource isNotNullConverter}}"/>
       </VerticalStackLayout>
     </ScrollView>
     <dxc:SimpleButton Text="Confirm" Grid.Row="1" VerticalOptions="Center" Command="{Binding ConfirmCommand}"/>
+    <ActivityIndicator IsRunning="True" Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center"
+                       IsVisible="{Binding IsBusy}"/>
   </Grid>
-  
 </ContentPage>

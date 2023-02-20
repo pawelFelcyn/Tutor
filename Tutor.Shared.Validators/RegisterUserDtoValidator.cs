@@ -62,7 +62,7 @@ internal class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 		{
 			RuleFor(r => r.TutorDescription)
 			.NotEmpty()
-			.WithMessage("Tutor description must not me empty.")
+			.WithMessage("Tutor description must not be empty.")
 			.MaximumLength(500)
 			.WithMessage("Maximum length of tutor description is 500 characters.");
 		});
