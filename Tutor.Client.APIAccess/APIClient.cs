@@ -25,4 +25,17 @@ internal class APIClient
 			return APIResponse.Failure(e);
 		}
 	}
+
+	protected async Task<APIResponse<T>> GetAsync<T>(string url)
+	{
+		try
+		{
+			var response = await _httpClient.GetAsync(url);
+			return await APIResponse<T>.FromHttpResponseMessageAsync<T>(response);
+		}
+		catch (Exception e)
+		{
+			return APIResponse<T>.Failure<T>(e);
+		}
+	}
 }

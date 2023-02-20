@@ -40,10 +40,12 @@ public class APIResponse<T> : APIResponse
 
     public T? ContentDeserialized { get; }
 
-    public static async Task<APIResponse<TResponse>> FromHttpReponseMessageAsync<TResponse>(HttpResponseMessage response)
+    public static async Task<APIResponse<TResponse>> FromHttpResponseMessageAsync<TResponse>(HttpResponseMessage response)
     {
         var contentString = await response.Content.ReadAsStringAsync();
-        var contentDeserialized = JsonConvert.DeserializeObject<TResponse>(contentString);
+        var contentDeserialized = response.IsSuccessStatusCode ? 
+            JsonConvert.DeserializeObject<TResponse>(contentString)
+            : default;
         return new APIResponse<TResponse>(response.StatusCode, contentString, contentDeserialized);
     }
 
