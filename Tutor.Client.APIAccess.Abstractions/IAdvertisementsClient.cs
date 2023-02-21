@@ -4,5 +4,5 @@ namespace Tutor.Client.APIAccess.Abstractions;
 
 public interface IAdvertisementsClient
 {
-    Task<APIResponse<IEnumerable<AdvertisementDto>>> GetAdvertisementsAsync();
+    Task<APIResponse<PagedResult<AdvertisementDto>>> GetAdvertisementsAsync();
 }

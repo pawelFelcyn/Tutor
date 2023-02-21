@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
              x:Class="Tutor.MobileUI.Pages.AdvertisementsPage"
-             Title="AdvertisementsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is advertisements page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Title}"
+             Shell.FlyoutBehavior="Flyout">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <conv:DateFormatConverter x:Key="dateConverter" Format="dd.MM.yyyy HH:mm"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <Grid RowDefinitions="*,5*" Margin="10">
+    <dxc:SimpleButton Grid.Row="0" VerticalOptions="Center" Text="Search"
+                      Command="{Binding GetAdvertisementsCommand}"/>
+    <dxcv:DXCollectionView Grid.Row="1" ItemsSource="{Binding Advertisements}" VerticalOptions="StartAndExpand">
+      <dxcv:DXCollectionView.ItemTemplate>
+        <DataTemplate>
+          <Border HeightRequest="100">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="2*,7*,2*">
+              <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="{Binding PricePerHour}" FontSize="20" HorizontalOptions="Center"/>
+                <Label Text="{Binding Currency}" HorizontalOptions="Center"/>
+              </VerticalStackLayout>
+              <Grid Grid.Column="1" Margin="5,20,5,10" RowDefinitions="5*,3*" ColumnDefinitions="*,*">
+                <Label Text="{Binding Title}" VerticalOptions="Start" HorizontalOptions="Start" Grid.ColumnSpan="2"/>
+                <Label Text="{Binding CreationDate, StringFormat='Created:&#x0a; {0}', Converter={StaticResource dateConverter}}" Grid.Column="0" Grid.Row="1" FontSize="10"/>
+                <Label Text="{Binding LastModificationDate, StringFormat='Modified:&#x0a; {0}', Converter={StaticResource dateConverter}}" Grid.Column="1" Grid.Row="1" FontSize="10"/>
+              </Grid>
+            </Grid>
+          </Border>
+        </DataTemplate>
+      </dxcv:DXCollectionView.ItemTemplate>
+    </dxcv:DXCollectionView>
+  </Grid>
 </ContentPage>

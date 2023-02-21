@@ -9,6 +9,6 @@ internal class AdvertisementsClient : APIClient, IAdvertisementsClient
     {
     }
 
-    public async Task<APIResponse<IEnumerable<AdvertisementDto>>> GetAdvertisementsAsync()
-        => await GetAsync<IEnumerable<AdvertisementDto>>("/api/advertisements");
+    public async Task<APIResponse<PagedResult<AdvertisementDto>>> GetAdvertisementsAsync()
+        => await GetAsync<PagedResult<AdvertisementDto>>("/api/advertisements");
 }
