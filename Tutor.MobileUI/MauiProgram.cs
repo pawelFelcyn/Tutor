@@ -48,7 +48,10 @@ namespace Tutor.MobileUI
                 .AddTransient<RegistrationViewModel>()
                 .AddScoped(_ => Shell.Current.Navigation)
                 .AddScoped<AdvertisementsPage>()
-                .AddScoped<AdvertisementsViewModel>();
+                .AddScoped<AdvertisementsViewModel>()
+                .AddTransient(_ => Shell.Current)
+                .AddScoped<AdvertisementsFiltersPage>()
+                .AddScoped<AdvertisementsFiltersViewModel>();
 
             return builder.Build();
         }

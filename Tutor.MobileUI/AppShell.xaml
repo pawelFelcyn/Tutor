@@ -6,5 +6,6 @@
   xmlns:local="clr-namespace:Tutor.MobileUI"
   xmlns:pages="clr-namespace:Tutor.MobileUI.Pages"
   Shell.FlyoutBehavior="Disabled">
-  <ShellContent ContentTemplate="{DataTemplate pages:AdvertisementsPage}"/>
+  <ShellContent ContentTemplate="{DataTemplate pages:AdvertisementsPage}"
+                Route="Advertisements"/>
 </Shell>

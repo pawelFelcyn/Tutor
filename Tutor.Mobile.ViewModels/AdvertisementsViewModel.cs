@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using Tutor.Client.APIAccess.Abstractions;
+using Tutor.Client.Models;
 using Tutor.Shared.Dtos;
 
 namespace Tutor.Mobile.ViewModels;
@@ -9,15 +10,19 @@ namespace Tutor.Mobile.ViewModels;
 public partial class AdvertisementsViewModel : ViewModel
 {
     private IAdvertisementsClient _advertisementsClient;
+	private readonly Shell _shell;
 
 	[ObservableProperty]
-	private AdvertisementDto test;
+	private AdvertisementsFilterModel filterModel;
 
-    public AdvertisementsViewModel(IAdvertisementsClient advertisementsClient)
+    public AdvertisementsViewModel(IAdvertisementsClient advertisementsClient,
+		Shell shell)
 	{
 		Title = "Advertisements";
 		_advertisementsClient = advertisementsClient;
+		_shell = shell;
 		Advertisements = new();
+		FilterModel = new();
 	}
 
 	public ObservableCollection<AdvertisementDto> Advertisements { get; set; }
@@ -43,7 +48,28 @@ public partial class AdvertisementsViewModel : ViewModel
 			{
 				Advertisements.Add(advertisement);
 			}
-			Test = Advertisements.First();
+		}
+		finally
+		{
+			IsBusy = false;
+		}
+	}
+
+	[RelayCommand]
+	private async Task ModifyFiltersAsync()
+	{
+		if (CheckIsBusy())
+		{
+			return;
+		}
+
+		try
+		{
+			var parameters = new Dictionary<string, object>()
+			{
+				{ nameof(FilterModel), FilterModel }
+			};
+			await _shell.GoToAsync("//Advertisements/Filters", parameters);
 		}
 		finally
 		{

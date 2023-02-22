@@ -13,8 +13,12 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <Grid RowDefinitions="*,5*" Margin="10">
-    <dxc:SimpleButton Grid.Row="0" VerticalOptions="Center" Text="Search"
+    <VerticalStackLayout  VerticalOptions="Center">
+      <dxc:SimpleButton Text="Modify filters" Command="{Binding ModifyFiltersCommand}"/>
+      <dxc:SimpleButton Grid.Row="0" Text="Search"
                       Command="{Binding GetAdvertisementsCommand}"/>
+    </VerticalStackLayout>
+    
     <dxcv:DXCollectionView Grid.Row="1" ItemsSource="{Binding Advertisements}" VerticalOptions="StartAndExpand">
       <dxcv:DXCollectionView.ItemTemplate>
         <DataTemplate>
