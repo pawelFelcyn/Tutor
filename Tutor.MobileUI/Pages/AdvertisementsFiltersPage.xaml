@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              x:Class="Tutor.MobileUI.Pages.AdvertisementsFiltersPage"
-             Title="AdvertisementsFiltersPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome filters page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Title}">
+  <Grid RowDefinitions="4*,*" Padding="20">
+    <ScrollView>
+      <VerticalStackLayout Spacing="10">
+        <VerticalStackLayout.Resources>
+          <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+            <Setter Property="FontSize" Value="20"/>
+          </Style>
+        </VerticalStackLayout.Resources>
+        <Label Text="Page number:"/>
+        <dxe:NumericEdit Value="{Binding FilterModel.PageNumber}"/>
+        <Label Text="Page size:"/>
+        <dxe:ChoiceChipGroup HorizontalOptions="Center" ChipSelectedTextColor="{StaticResource Primary}"
+                             ChipSelectedBorderColor="{StaticResource Primary}" ChipFontSize="20"
+                             ChipPressedBackgroundColor="{StaticResource PrimaryTransparent}">
+          <dxe:Chip Text="10"/>
+          <dxe:Chip Text="20"/>
+          <dxe:Chip Text="30"/>
+        </dxe:ChoiceChipGroup>
+        <Label Text="Education levels:"/>
+        <dxe:FilterChipGroup ChipSelectedBorderColor="{StaticResource Primary}" HorizontalOptions="Center"
+                             ChipSelectedTextColor="{StaticResource Primary}" ChipFontSize="15"
+                             ChipPressedBackgroundColor="{StaticResource PrimaryTransparent}">
+          <dxe:Chip Text="Pre school"/>
+          <dxe:Chip Text="Primary"/>
+          <dxe:Chip Text="Secondary"/>
+          <dxe:Chip Text="High"/>
+          <dxe:Chip Text="Studies"/>
+        </dxe:FilterChipGroup>
+        <Label Text="Mode:"/>
+        <dxe:FilterChipGroup ChipSelectedBorderColor="{StaticResource Primary}" HorizontalOptions="Center"
+                             ChipSelectedTextColor="{StaticResource Primary}" ChipFontSize="15"
+                             ChipPressedBackgroundColor="{StaticResource PrimaryTransparent}">
+          <dxe:Chip Text="In person"/>
+          <dxe:Chip Text="Remote"/>
+        </dxe:FilterChipGroup>
+        <Label Text="Subject:"/>
+        <dxcv:DXCollectionView MaximumHeightRequest="200"/>
+      </VerticalStackLayout>
+    </ScrollView>
+    <ScrollView Grid.Row="1" VerticalOptions="Center">
+      <VerticalStackLayout Spacing="10">
+        <dxc:SimpleButton Text="Save changes" Command="{Binding SaveChangesCommand}"/>
+        <dxc:SimpleButton Text="Discard changes" Command="{Binding DiscardChangesCommand}"/>
+      </VerticalStackLayout>
+    </ScrollView>
+  </Grid>
 </ContentPage>

@@ -24,6 +24,11 @@
     <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
   </Style>
 
+  <Style TargetType="{x:Type dxe:NumericEdit}">
+    <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
+  </Style>
+
   <Style TargetType="{x:Type dxe:ComboBoxEdit}">
     <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
     <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
