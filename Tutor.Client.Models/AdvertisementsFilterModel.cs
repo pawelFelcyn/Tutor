@@ -1,20 +1,17 @@
-﻿using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-using Tutor.Shared.Enums;
+﻿using Tutor.Shared.Dtos;
 
 namespace Tutor.Client.Models;
 
-public class AdvertisementsFilterModel : ICloneable
+public class AdvertisementsFilterModel
 {
-    public int PageNumber { get; set; }
-    public int PageSize { get; set; }
-    public EducationLevels Levels { get; set; }
-    public Guid Subject { get; set; }
-
-    public object Clone()
+    public AdvertisementsFilterModel(AdvertisementsSieveModel originalFilters, IEnumerable<SubjectDto> allSubjects)
     {
-        var json = JsonConvert.SerializeObject(this);
-        return JsonConvert.DeserializeObject<AdvertisementsFilterModel>(json) 
-            ?? throw new InvalidOperationException();
+        OriginalFilters = originalFilters;
+        Filters = (AdvertisementsSieveModel)OriginalFilters.Clone();
+        AllSubjects = allSubjects;
     }
+
+    public AdvertisementsSieveModel OriginalFilters { get; }
+    public AdvertisementsSieveModel Filters { get; }
+    public IEnumerable<SubjectDto> AllSubjects { get; }
 }

@@ -14,6 +14,7 @@ public static class DependencyInjection
 
         return services.AddScoped<ILoginClient, LoginClient>()
                        .AddScoped<IRegistrationClient, RegistrationClient>()
-                       .AddScoped<IAdvertisementsClient, AdvertisementsClient>();
+                       .AddScoped<IAdvertisementsClient, AdvertisementsClient>()
+                       .AddScoped<ISubjectsClient, SubjectsClient>();
     }
 }

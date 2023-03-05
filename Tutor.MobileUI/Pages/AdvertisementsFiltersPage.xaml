@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
-             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
              x:Class="Tutor.MobileUI.Pages.AdvertisementsFiltersPage"
              Title="{Binding Title}">
   <Grid RowDefinitions="4*,*" Padding="20">
@@ -43,7 +42,7 @@
           <dxe:Chip Text="Remote"/>
         </dxe:FilterChipGroup>
         <Label Text="Subject:"/>
-        <dxcv:DXCollectionView MaximumHeightRequest="200"/>
+        <dxe:ComboBoxEdit ItemsSource="{Binding Model.AllSubjects}" SelectedItem="{Binding SelectedSubject, Mode=TwoWay}" DisplayMember="Name"/>
       </VerticalStackLayout>
     </ScrollView>
     <ScrollView Grid.Row="1" VerticalOptions="Center">

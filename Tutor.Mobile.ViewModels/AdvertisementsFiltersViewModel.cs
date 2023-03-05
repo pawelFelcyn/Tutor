@@ -1,26 +1,32 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Tutor.Client.Models;
+using Tutor.Shared.Dtos;
 
 namespace Tutor.Mobile.ViewModels;
 
-[QueryProperty(nameof(OriginalFilters), nameof(AdvertisementsViewModel.FilterModel))]
+[QueryProperty(nameof(Model), "FiltersModel")]
 public partial class AdvertisementsFiltersViewModel : ViewModel
 {
 	[ObservableProperty]
-	private AdvertisementsFilterModel originalFilters;
+	private AdvertisementsFilterModel _model;
 	[ObservableProperty]
-	private AdvertisementsFilterModel filterModel;
+	private SubjectDto _selectedSubject;
 
 	public AdvertisementsFiltersViewModel()
 	{
 		Title = "Filters";
 	}
 
-    partial void OnOriginalFiltersChanged(AdvertisementsFilterModel value)
+    partial void OnModelChanged(AdvertisementsFilterModel value)
     {
-		FilterModel = value is null ? null : (AdvertisementsFilterModel)value.Clone();
+		SelectedSubject = value?.AllSubjects.FirstOrDefault(s => s.Id == value.Filters?.Subject);
     }
+
+    partial void OnSelectedSubjectChanged(SubjectDto value)
+    {
+		Model.Filters.Subject = value.Id;
+	}
 
 
     [RelayCommand]

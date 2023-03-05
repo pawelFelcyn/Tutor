@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Net;
 using Tutor.Client.APIAccess.Abstractions;
 using Tutor.Client.Models;
 using Tutor.Shared.Dtos;
@@ -11,16 +12,19 @@ public partial class AdvertisementsViewModel : ViewModel
 {
     private IAdvertisementsClient _advertisementsClient;
 	private readonly Shell _shell;
+    private readonly ISubjectsClient _subjectsClient;
 
-	[ObservableProperty]
-	private AdvertisementsFilterModel filterModel;
+    [ObservableProperty]
+	private AdvertisementsSieveModel _filterModel;
+	private IEnumerable<SubjectDto> _subjects;
 
     public AdvertisementsViewModel(IAdvertisementsClient advertisementsClient,
-		Shell shell)
+		Shell shell, ISubjectsClient subjectsClient)
 	{
 		Title = "Advertisements";
 		_advertisementsClient = advertisementsClient;
 		_shell = shell;
+		_subjectsClient = subjectsClient;
 		Advertisements = new();
 		FilterModel = new();
 	}
@@ -65,9 +69,15 @@ public partial class AdvertisementsViewModel : ViewModel
 
 		try
 		{
+			if (_subjects is null && !await LoadSubjects())
+			{
+				await _shell.DisplayAlert("Error", "Couldn't load availible subjects. Try again later.", "Ok");
+				return;
+			}
+
 			var parameters = new Dictionary<string, object>()
 			{
-				{ nameof(FilterModel), FilterModel }
+				{ "FiltersModel", new AdvertisementsFilterModel(FilterModel, _subjects) }
 			};
 			await _shell.GoToAsync("//Advertisements/Filters", parameters);
 		}
@@ -76,4 +86,18 @@ public partial class AdvertisementsViewModel : ViewModel
 			IsBusy = false;
 		}
 	}
+
+    private async Task<bool> LoadSubjects()
+    {
+		var subjectsResponse = await _subjectsClient.GetSubjectAsync();
+
+		if (!subjectsResponse.SuccesfullyCalledAPI || subjectsResponse.StatusCode != HttpStatusCode.OK)
+		{
+			_subjects = null;
+			return false;
+		}
+
+		_subjects = subjectsResponse.ContentDeserialized;
+		return true;
+    }
 }
