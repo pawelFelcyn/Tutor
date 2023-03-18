@@ -7,6 +7,7 @@ using Tutor.Client.Logic;
 using Tutor.Client.Logic.Services;
 using Tutor.MobileUI.Services;
 using Tutor.Client.APIAccess;
+using System.Globalization;
 
 namespace Tutor.MobileUI
 {
@@ -36,11 +37,7 @@ namespace Tutor.MobileUI
                 .AddLogic()
                 .AddScoped<IMainViewService, MainViewService>()
                 .AddAPIAccess()
-                .AddSingleton(new HttpClient()
-                {
-                    BaseAddress = new Uri("http://10.0.2.2:5000"),
-                    Timeout = TimeSpan.FromSeconds(10)
-                })//this should be done in some other way in the future, I should use HttpClientFactory
+                .AddSingleton(GetHttpClient())//this should be done in some other way in the future, I should use HttpClientFactory
                 .AddScoped(_ => SecureStorage.Default)
                 .AddTransient<AppShell>()
                 .AddTransient<StartShell>()
@@ -49,6 +46,19 @@ namespace Tutor.MobileUI
                 .AddScoped(_ => Shell.Current.Navigation);
 
             return builder.Build();
+        }
+
+        private static HttpClient GetHttpClient()
+        {
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri("http://10.0.2.2:5000"),
+                Timeout = TimeSpan.FromSeconds(10),
+            };
+
+            client.DefaultRequestHeaders.Add("locale-info", CultureInfo.CurrentCulture.ToString());
+
+            return client;
         }
     }
 }
