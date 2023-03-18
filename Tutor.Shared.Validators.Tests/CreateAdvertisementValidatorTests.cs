@@ -1,10 +1,11 @@
 ﻿using Tutor.Shared.Enums;
 using Tutor.Shared.Helpers.Abstractions;
+using Tutor.Shared.Validators.Translations;
 using Xunit.Abstractions;
 
 namespace Tutor.Shared.Validators.Tests;
 
-public class CreateAdvertisementValidatorTests 
+public class CreateAdvertisementValidatorTests : ValidatorTests
 {
     private CreateAdvertisementDtoValidator _withExistingSubjectValidator;
 
@@ -12,7 +13,8 @@ public class CreateAdvertisementValidatorTests
 	{
 		var existMock = new Mock<ISubjectValidationHelper>();
 		existMock.Setup(m => m.Exists(It.IsAny<Guid>())).Returns(true);
-		_withExistingSubjectValidator = new(existMock.Object);
+		_withExistingSubjectValidator = new(existMock.Object, 
+			GetTranslator<CreateAdvertisementDtoValidationMessage>());
 	}
 
 	public static IEnumerable<object[]> GetInvalidPrices()

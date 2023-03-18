@@ -15,6 +15,8 @@ public static class DependencyInjection
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
 
-        return services.AddScoped<ITranslator<LoginDtoValidationMessage>, LoginDtoMessageTranslator>();
+        return services.AddScoped<ITranslator<LoginDtoValidationMessage>, LoginDtoMessageTranslator>()
+                       .AddScoped<ITranslator<RegisterDtoValidationMessage>, RegisterDtoMessageTranslator>()
+                       .AddScoped<ITranslator<CreateAdvertisementDtoValidationMessage>, CreateAdvertisementDtoMessageTranslator>();
     }
 }
