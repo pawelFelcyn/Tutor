@@ -2,15 +2,13 @@
 
 namespace Tutor.Shared.Validators.Tests;
 
-public class LoginDtoValidatorTests 
+public class LoginDtoValidatorTests : ValidatorTests
 {
 	private readonly LoginDtoValidator _validator;
 
 	public LoginDtoValidatorTests()
 	{
-		var englishTranslatorMock = new Mock<ITranslator<LoginDtoValidationMessage>>();
-		englishTranslatorMock.Setup(m => m.Translate(It.IsAny<LoginDtoValidationMessage>())).Returns("message");
-		_validator = new(englishTranslatorMock.Object);
+		_validator = new(GetTranslator<LoginDtoValidationMessage>());
 	}
 
 	[Fact]
