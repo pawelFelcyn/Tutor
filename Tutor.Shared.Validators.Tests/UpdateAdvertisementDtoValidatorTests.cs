@@ -1,15 +1,16 @@
 ﻿using System.Runtime.Serialization.Json;
 using Tutor.Shared.Enums;
+using Tutor.Shared.Validators.Translations;
 
 namespace Tutor.Shared.Validators.Tests;
 
-public class UpdateAdvertisementDtoValidatorTests
+public class UpdateAdvertisementDtoValidatorTests : ValidatorTests
 {
 	private readonly UpdateAdvertisementDtoValidator _validator;
 
 	public UpdateAdvertisementDtoValidatorTests()
 	{
-		_validator = new();
+		_validator = new(GetTranslator<UpdateAdvertisementDtoValidationMessage>());
 	}
 
     public static IEnumerable<object[]> GetInvalidPrices()

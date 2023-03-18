@@ -17,6 +17,7 @@ public static class DependencyInjection
 
         return services.AddScoped<ITranslator<LoginDtoValidationMessage>, LoginDtoMessageTranslator>()
                        .AddScoped<ITranslator<RegisterDtoValidationMessage>, RegisterDtoMessageTranslator>()
-                       .AddScoped<ITranslator<CreateAdvertisementDtoValidationMessage>, CreateAdvertisementDtoMessageTranslator>();
+                       .AddScoped<ITranslator<CreateAdvertisementDtoValidationMessage>, CreateAdvertisementDtoMessageTranslator>()
+                       .AddScoped<ITranslator<UpdateAdvertisementDtoValidationMessage>, UpdateAdvertisementDtoMessageTransaltor>();
     }
 }
