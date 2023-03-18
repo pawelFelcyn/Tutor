@@ -1,8 +1,9 @@
 ﻿using Tutor.Shared.Helpers.Abstractions;
+using Tutor.Shared.Validators.Translations;
 
 namespace Tutor.Shared.Validators.Tests;
 
-public class RegisterUserDtoValidatorTests
+public class RegisterUserDtoValidatorTests : ValidatorTests
 {
     private readonly RegisterUserDtoValidator _emailTakenValidator; 
     private readonly RegisterUserDtoValidator _emailNotTakenValidator; 
@@ -11,10 +12,11 @@ public class RegisterUserDtoValidatorTests
     {
         var takenMock = new Mock<IEmailValidationHelper>();
         takenMock.Setup(m => m.IsEmailTaken(It.IsAny<string>())).Returns(true);
-        _emailTakenValidator = new(takenMock.Object);
+        var translator = GetTranslator<RegisterDtoValidationMessage>();
+        _emailTakenValidator = new(takenMock.Object, translator);
         var notTakenMock = new Mock<IEmailValidationHelper>();
         notTakenMock.Setup(m => m.IsEmailTaken(It.IsAny<string>())).Returns(false);
-        _emailNotTakenValidator = new(notTakenMock.Object);
+        _emailNotTakenValidator = new(notTakenMock.Object, translator);
     }
 
     [Fact]

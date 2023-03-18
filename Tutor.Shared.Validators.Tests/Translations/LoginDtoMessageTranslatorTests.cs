@@ -4,20 +4,15 @@ using Tutor.Shared.Validators.Translations;
 
 namespace Tutor.Shared.Validators.Tests.Translations;
 
-public class LoginDtoMessageTranslatorTests
+public class LoginDtoMessageTranslatorTests : TranslatorTests
 {
 	private readonly LoginDtoMessageTranslator _polishTranslator;
 	private readonly LoginDtoMessageTranslator _englishTranslator;
 
 	public LoginDtoMessageTranslatorTests()
 	{
-		var polishLocalizationMock = new Mock<ILocalizationInfoProvider>();
-		polishLocalizationMock.Setup(m => m.GetLocalizationInfo()).Returns("pl-PL");
-		var englishLocalizationMock = new Mock<ILocalizationInfoProvider>();
-        englishLocalizationMock.Setup(m => m.GetLocalizationInfo()).Returns("en-US");
-
-		_polishTranslator = new(polishLocalizationMock.Object);
-		_englishTranslator = new(englishLocalizationMock.Object);
+		_polishTranslator = new(GetPlLocalizationProvider());
+		_englishTranslator = new(GetEnLocalizationProvider());
 	}
 
 	[Theory]
