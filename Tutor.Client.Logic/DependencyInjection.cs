@@ -13,6 +13,7 @@ public static class DependencyInjection
             throw new ArgumentNullException(nameof(services));
         }
 
-        return services.AddScoped<IEmailValidationHelper, ClientEmailValidationHelper>();
+        return services.AddScoped<IEmailValidationHelper, ClientEmailValidationHelper>()
+                       .AddScoped<ILocalizationInfoProvider, DeviceLocalizationInfoProvider>();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Tutor.Shared.Validators.Tests;
+﻿using System.Net.WebSockets;
+
+namespace Tutor.Shared.Validators.Tests;
 
 public class LoginDtoValidatorTests 
 {
@@ -6,7 +8,9 @@ public class LoginDtoValidatorTests
 
 	public LoginDtoValidatorTests()
 	{
-		_validator = new();
+		var englishTranslatorMock = new Mock<ITranslator<LoginDtoValidationMessage>>();
+		englishTranslatorMock.Setup(m => m.Translate(It.IsAny<LoginDtoValidationMessage>())).Returns("message");
+		_validator = new(englishTranslatorMock.Object);
 	}
 
 	[Fact]
