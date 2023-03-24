@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Tutor.MobileUI"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:pages="clr-namespace:Tutor.MobileUI.Pages"
+    Shell.FlyoutBehavior="Flyout">
   <ShellContent Route="Main">
     <ShellContent.ContentTemplate>
       <DataTemplate>
@@ -14,4 +15,8 @@
       </DataTemplate>
     </ShellContent.ContentTemplate>
   </ShellContent>
+  <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+    <ShellContent ContentTemplate="{DataTemplate pages:CreateAdvertisementPage}"
+                  Title="Create advertisement"/>
+  </FlyoutItem>
 </Shell>
