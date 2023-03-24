@@ -14,6 +14,11 @@
     <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
   </Style>
 
+  <Style TargetType="{x:Type dxe:NumericEdit}">
+    <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
+  </Style>
+
   <Style TargetType="{x:Type dxe:MultilineEdit}">
     <Setter Property="FocusedBorderColor" Value="{StaticResource Primary}"/>
     <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
@@ -29,6 +34,11 @@
     <Setter Property="FocusedLabelColor" Value="{StaticResource Gray500}"/>
     <Setter Property="DropDownBackgroundColor" Value="{StaticResource White}"/>
     <Setter Property="DropDownSelectedItemBackgroundColor" Value="{StaticResource PrimaryTransparent}"/>
+  </Style>
+
+  <Style TargetType="{x:Type dxe:Chip}">
+    <Setter Property="SelectedBorderColor" Value="{StaticResource Primary}"/>
+    <Setter Property="SelectedTextColor" Value="{StaticResource Primary}"/>
   </Style>
 
     <Style TargetType="ActivityIndicator">
