@@ -40,7 +40,7 @@ public class APIResponse<T> : APIResponse
 
     public T? ContentDeserialized { get; }
 
-    public static async Task<APIResponse<TResponse>> FromHttpReponseMessageAsync<TResponse>(HttpResponseMessage response)
+    public static async Task<APIResponse<TResponse>> FromHttpResponseMessageAsync<TResponse>(HttpResponseMessage response)
     {
         var contentString = await response.Content.ReadAsStringAsync();
         var contentDeserialized = JsonConvert.DeserializeObject<TResponse>(contentString);
