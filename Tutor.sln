@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Client.APIAccess", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Client.Logic", "Tutor.Client.Logic\Tutor.Client.Logic.csproj", "{2CFEB557-2205-46B2-B983-51AA9C182433}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Client.Maui", "Tutor.Client.Maui\Tutor.Client.Maui.csproj", "{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Client.Maui", "Tutor.Client.Maui\Tutor.Client.Maui.csproj", "{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

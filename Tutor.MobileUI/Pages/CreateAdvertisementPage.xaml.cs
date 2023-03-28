@@ -1,9 +1,12 @@
+using Tutor.Mobile.ViewModels;
+
 namespace Tutor.MobileUI.Pages;
 
 public partial class CreateAdvertisementPage : ContentPage
 {
-	public CreateAdvertisementPage()
+	public CreateAdvertisementPage(CreateAdvertisementViewModel viewModel)
 	{
+		BindingContext = viewModel;
 		InitializeComponent();
 	}
 }
