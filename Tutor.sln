@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Client.Logic", "Tutor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutor.Client.Maui", "Tutor.Client.Maui\Tutor.Client.Maui.csproj", "{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutor.Mobile.Maui.Tests", "Tutor.Mobile.Maui.Tests\Tutor.Mobile.Maui.Tests.csproj", "{26E87648-3E32-4354-B097-341952077E21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E87648-3E32-4354-B097-341952077E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E87648-3E32-4354-B097-341952077E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E87648-3E32-4354-B097-341952077E21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E87648-3E32-4354-B097-341952077E21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{641B95FE-817E-47FC-B888-ACC07891CCA9} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
 		{2CFEB557-2205-46B2-B983-51AA9C182433} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
 		{4ED37CF9-BEA0-4D8B-9C48-9BF8AB6EE79C} = {5E3FAF1C-ABD2-48FD-BF85-6E892006BB84}
+		{26E87648-3E32-4354-B097-341952077E21} = {614BE250-2F0D-4DE4-96F3-703A1C4FF5A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E1D3240-1120-4A5F-B5CE-4A8779177F3C}
