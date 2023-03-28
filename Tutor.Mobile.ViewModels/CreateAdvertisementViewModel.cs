@@ -60,4 +60,9 @@ public partial class CreateAdvertisementViewModel : ViewModel
             IsBusy = false;
         }
     }
+
+    partial void OnSelectedSubjectChanged(SubjectDto value)
+    {
+        Dto.SubjectId = SelectedSubject?.Id ?? default;
+    }
 }
