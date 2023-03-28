@@ -11,11 +11,14 @@
       <StackLayout>
         <Label Text="Enter new advertisement data:" TextColor="{StaticResource Primary}"
                FontSize="20"/>
-        <dxe:TextEdit LabelText="Title" />
+        <dxe:TextEdit LabelText="Title" Text="{Binding Dto.Title}"/>
         <dxe:MultilineEdit BoxMinHeight="200" MaxCharacterCount="1000"
-                           LabelText="Description"/>
-        <dxe:NumericEdit LabelText="Price per hour"/>
-        <dxe:ComboBoxEdit LabelText="Subject"/>
+                           LabelText="Description"
+                           Text="{Binding Dto.Description}"/>
+        <dxe:NumericEdit LabelText="Price per hour" Value="{Binding Dto.PricePerHour}"/>
+        <dxe:ComboBoxEdit LabelText="Subject" ItemsSource="{Binding Subjects}"
+                          SelectedItem="{Binding SelectedSubject}"
+                          DisplayMember="Name"/>
         <dxe:FilterChipGroup HorizontalOptions="Center">
           <dxe:Chip Text="Preschool"/>
           <dxe:Chip Text="Primary"/>
@@ -25,5 +28,7 @@
         </dxe:FilterChipGroup>
       </StackLayout>
     </ScrollView>
+    <ActivityIndicator Grid.RowSpan="2" IsRunning="True" IsVisible="{Binding IsBusy}"
+                       VerticalOptions="Center" HorizontalOptions="Center"/>
   </Grid>
 </ContentPage>
