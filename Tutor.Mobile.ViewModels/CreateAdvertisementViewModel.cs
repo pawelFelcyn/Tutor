@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Net;
 using Tutor.Client.APIAccess.Abstractions;
 using Tutor.Shared.Dtos;
+using Tutor.Shared.Enums;
 
 namespace Tutor.Mobile.ViewModels;
 
@@ -21,10 +23,12 @@ public partial class CreateAdvertisementViewModel : ViewModel
         Title = "Create advertisement";
         Dto = CreateAdvertisementDto.WithDefaultValues();
         Subjects = new();
+        SelectedEducationLevelsIndexes = new();
         Task.Run(LoadSubjects);
     }
 
     public ObservableCollection<SubjectDto> Subjects { get; set; }
+    public ObservableCollection<int> SelectedEducationLevelsIndexes { get; set; }
 
     private async Task LoadSubjects()
     {
@@ -59,6 +63,11 @@ public partial class CreateAdvertisementViewModel : ViewModel
         {
             IsBusy = false;
         }
+    }
+
+    [RelayCommand]
+    private async Task CreateAsync()
+    {
     }
 
     partial void OnSelectedSubjectChanged(SubjectDto value)
