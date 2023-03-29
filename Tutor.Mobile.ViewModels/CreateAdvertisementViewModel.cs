@@ -104,7 +104,7 @@ public partial class CreateAdvertisementViewModel : ViewModel
             }
 
             var apiResponse = await _advertisementsClient.CreateAsync(Dto);
-            HandleCreateResponse(apiResponse);
+            await HandleCreateResponse(apiResponse);
         }
         finally
         {
@@ -112,21 +112,26 @@ public partial class CreateAdvertisementViewModel : ViewModel
         }
     }
 
-    private void HandleCreateResponse(APIResponse<AdvertisementDetailsDto> apiResponse)
+    private async Task HandleCreateResponse(APIResponse<AdvertisementDetailsDto> apiResponse)
     {
         if (apiResponse.SuccesfullyCalledAPI && apiResponse.StatusCode == HttpStatusCode.Created)
         {
-            HandleCreatedSuccesfully();
+            await HandleCreatedSuccesfully();
             return;
+        }
+
+        if (!apiResponse.SuccesfullyCalledAPI)
+        {
+            await Shell.Current.DisplayAlert("Error", "Craeting advertisement failed.", "Ok");
         }
     }
 
-    private void HandleCreatedSuccesfully()
+    private async Task HandleCreatedSuccesfully()
     {
         SelectedEducationLevelsIndexes.Clear();
         SelectedSubject = Subjects.FirstOrDefault();
         Dto = CreateAdvertisementDto.WithDefaultValues();
-        Shell.Current.DisplayAlert("Success", "Advertisement created", "Ok");
+        await Shell.Current.DisplayAlert("Success", "Advertisement created", "Ok");
     }
 
     partial void OnSelectedSubjectChanged(SubjectDto value)
