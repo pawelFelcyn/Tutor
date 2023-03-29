@@ -5,7 +5,7 @@
              xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
              xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
              x:Class="Tutor.MobileUI.Pages.CreateAdvertisementPage"
-             Title="CreateAdvertisementPage">
+             Title="{Binding Title}">
   <Grid RowDefinitions="*,100" Margin="30,20,30,20">
     <Grid.Resources>
       <conv:IsNotNullToBooleanConverter x:Key="displayErrorConv"/>
