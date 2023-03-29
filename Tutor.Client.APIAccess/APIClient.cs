@@ -7,16 +7,24 @@ namespace Tutor.Client.APIAccess;
 internal class APIClient
 {
 	protected readonly HttpClient _httpClient;
+	private readonly BearerTokenFactory? _bearerTokenFactory;
 
 	public APIClient(HttpClient httpClient)
 	{
 		_httpClient = httpClient;
 	}
 
-	protected async Task<APIResponse> PostAsync(string url, object content)
+    public APIClient(HttpClient httpClient, BearerTokenFactory bearerTokenFactory)
+		: this(httpClient)
+    {
+		_bearerTokenFactory = bearerTokenFactory;
+    }
+
+    protected async Task<APIResponse> PostAsync(string url, object content)
 	{
 		try
 		{
+			CreateToken();
 			var response = await _httpClient.PostAsJsonAsync(url, content);
 			return await APIResponse.FromHttpResponseMessageAsync(response);
 		}
@@ -26,10 +34,36 @@ internal class APIClient
 		}
 	}
 
-	protected async Task<APIResponse<T>> GetAsync<T>(string url)
+	protected async Task<APIResponse<T>> PostAsync<T>(string url, object content)
+	{
+        try
+        {
+            CreateToken();
+            var response = await _httpClient.PostAsJsonAsync(url, content);
+            return await APIResponse<T>.FromHttpResponseMessageAsync<T>(response);
+        }
+        catch (Exception e)
+        {
+            return APIResponse<T>.Failure<T>(e);
+        }
+    }
+
+    private void CreateToken()
+    {
+		_httpClient.DefaultRequestHeaders.Authorization = null;
+		if (_bearerTokenFactory is null)
+		{
+			return;
+		}
+		var token = _bearerTokenFactory();
+		_httpClient.DefaultRequestHeaders.Authorization = new("Bearer", token);
+    }
+
+    protected async Task<APIResponse<T>> GetAsync<T>(string url)
 	{
 		try
 		{
+			CreateToken();
 			var response = await _httpClient.GetAsync(url);
 			return await APIResponse<T>.FromHttpResponseMessageAsync<T>(response);
 		}

@@ -8,6 +8,7 @@ using Tutor.Client.Logic.Services;
 using Tutor.MobileUI.Services;
 using Tutor.Client.APIAccess;
 using System.Globalization;
+using Tutor.Client.Logic.Static;
 
 namespace Tutor.MobileUI
 {
@@ -45,7 +46,8 @@ namespace Tutor.MobileUI
                 .AddTransient<RegistrationViewModel>()
                 .AddScoped(_ => Shell.Current.Navigation)
                 .AddScoped<CreateAdvertisementPage>()
-                .AddScoped<CreateAdvertisementViewModel>();
+                .AddScoped<CreateAdvertisementViewModel>()
+                .AddScoped<BearerTokenFactory>(_ => () => MemoryStorage.Token);
 
             return builder.Build();
         }
