@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentValidation;
 using System.Collections.ObjectModel;
 using System.Net;
 using Tutor.Client.APIAccess.Abstractions;
@@ -14,17 +15,30 @@ public partial class CreateAdvertisementViewModel : ViewModel
     private readonly ISubjectClient _subjectClient;
     private readonly IAdvertisementClient _advertisementsClient;
     private readonly IIndexesToFlagsConverter _indexesToFlagsConverter;
+    private readonly IValidator<CreateAdvertisementDto> _validator;
     [ObservableProperty]
     private CreateAdvertisementDto _dto;
     [ObservableProperty]
     private SubjectDto _selectedSubject;
+    [ObservableProperty]
+    private string _titleValidationErrors;
+    [ObservableProperty]
+    private string _descriptionValidationErrors;
+    [ObservableProperty]
+    private string _levelsValidationErrors;
+    [ObservableProperty]
+    private string _subjectIdValidationErrors;
+    [ObservableProperty]
+    private string _pricePerHourValidationErrors;
 
     public CreateAdvertisementViewModel(ISubjectClient subjectClient,
-        IAdvertisementClient advertisementClient, IIndexesToFlagsConverter indexesToFlagsConverter)
+        IAdvertisementClient advertisementClient, IIndexesToFlagsConverter indexesToFlagsConverter,
+        IValidator<CreateAdvertisementDto> validator)
     {
         _subjectClient = subjectClient;
         _advertisementsClient = advertisementClient;
         _indexesToFlagsConverter = indexesToFlagsConverter;
+        _validator = validator;
         Title = "Create advertisement";
         Dto = CreateAdvertisementDto.WithDefaultValues();
         Subjects = new();
@@ -82,6 +96,13 @@ public partial class CreateAdvertisementViewModel : ViewModel
         try
         {
             Dto.Levels = _indexesToFlagsConverter.Convert<EducationLevels>(SelectedEducationLevelsIndexes);
+
+            var validationResult = Validate(Dto, _validator);
+            if (!validationResult.IsValid) 
+            {
+                return;
+            }
+
             var apiResponse = await _advertisementsClient.CreateAsync(Dto);
             HandleCreateResponse(apiResponse);
         }

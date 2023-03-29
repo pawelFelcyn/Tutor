@@ -7,18 +7,29 @@
              x:Class="Tutor.MobileUI.Pages.CreateAdvertisementPage"
              Title="CreateAdvertisementPage">
   <Grid RowDefinitions="*,100" Margin="30,20,30,20">
+    <Grid.Resources>
+      <conv:IsNotNullToBooleanConverter x:Key="displayErrorConv"/>
+    </Grid.Resources>
     <ScrollView>
       <StackLayout>
         <Label Text="Enter new advertisement data:" TextColor="{StaticResource Primary}"
                FontSize="20"/>
-        <dxe:TextEdit LabelText="Title" Text="{Binding Dto.Title}"/>
+        <dxe:TextEdit LabelText="Title" Text="{Binding Dto.Title}"
+                      ErrorText="{Binding TitleValidationErrors}" 
+                      HasError="{Binding TitleValidationErrors, Converter={StaticResource displayErrorConv}}"/>
         <dxe:MultilineEdit BoxMinHeight="200" MaxCharacterCount="1000"
                            LabelText="Description"
-                           Text="{Binding Dto.Description}"/>
-        <dxe:NumericEdit LabelText="Price per hour" Value="{Binding Dto.PricePerHour}"/>
+                           Text="{Binding Dto.Description}"
+                           ErrorText="{Binding DescriptionValidationErrors}" 
+                           HasError="{Binding DescriptionValidationErrors, Converter={StaticResource displayErrorConv}}"/>
+        <dxe:NumericEdit LabelText="Price per hour" Value="{Binding Dto.PricePerHour}"
+                         ErrorText="{Binding PricePerHourValidationErrors}" 
+                         HasError="{Binding PricePerHourValidationErrors, Converter={StaticResource displayErrorConv}}"/>
         <dxe:ComboBoxEdit LabelText="Subject" ItemsSource="{Binding Subjects}"
                           SelectedItem="{Binding SelectedSubject}"
-                          DisplayMember="Name"/>
+                          DisplayMember="Name"
+                          ErrorText="{Binding SubjectIdValidationErrors}" 
+                          HasError="{Binding SubjectIdValidationErrors, Converter={StaticResource displayErrorConv}}"/>
         <dxe:FilterChipGroup HorizontalOptions="Center" SelectedIndexes="{Binding SelectedEducationLevelsIndexes}">
           <dxe:Chip Text="Preschool"/>
           <dxe:Chip Text="Primary"/>
