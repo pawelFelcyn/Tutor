@@ -23,6 +23,7 @@ internal class Startup
             return;
         }
 
+        MemoryStorage.Token = token;
         var mainViewService = serviceProvider.GetRequiredService<IMainViewService>();
         await mainViewService.OpenMainViewAsync();
     }

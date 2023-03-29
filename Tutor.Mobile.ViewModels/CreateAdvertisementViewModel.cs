@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Net;
 using Tutor.Client.APIAccess.Abstractions;
+using Tutor.Client.Logic.Helpers;
 using Tutor.Shared.Dtos;
 using Tutor.Shared.Enums;
 
@@ -11,15 +12,19 @@ namespace Tutor.Mobile.ViewModels;
 public partial class CreateAdvertisementViewModel : ViewModel
 {
     private readonly ISubjectClient _subjectClient;
-
+    private readonly IAdvertisementClient _advertisementsClient;
+    private readonly IIndexesToFlagsConverter _indexesToFlagsConverter;
     [ObservableProperty]
     private CreateAdvertisementDto _dto;
     [ObservableProperty]
     private SubjectDto _selectedSubject;
 
-    public CreateAdvertisementViewModel(ISubjectClient subjectClient)
+    public CreateAdvertisementViewModel(ISubjectClient subjectClient,
+        IAdvertisementClient advertisementClient, IIndexesToFlagsConverter indexesToFlagsConverter)
     {
         _subjectClient = subjectClient;
+        _advertisementsClient = advertisementClient;
+        _indexesToFlagsConverter = indexesToFlagsConverter;
         Title = "Create advertisement";
         Dto = CreateAdvertisementDto.WithDefaultValues();
         Subjects = new();
@@ -68,6 +73,30 @@ public partial class CreateAdvertisementViewModel : ViewModel
     [RelayCommand]
     private async Task CreateAsync()
     {
+        if (CheckIsBusy())
+        {
+            return;
+        }
+
+
+        try
+        {
+            Dto.Levels = _indexesToFlagsConverter.Convert<EducationLevels>(SelectedEducationLevelsIndexes);
+            var apiResponse = await _advertisementsClient.CreateAsync(Dto);
+            HandleCreateResponse(apiResponse);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    private void HandleCreateResponse(APIResponse<AdvertisementDetailsDto> apiResponse)
+    {
+        if (apiResponse.SuccesfullyCalledAPI && apiResponse.StatusCode == HttpStatusCode.Created)
+        {
+            Shell.Current.DisplayAlert("Success", "Advertisement created", "Ok");
+        }
     }
 
     partial void OnSelectedSubjectChanged(SubjectDto value)

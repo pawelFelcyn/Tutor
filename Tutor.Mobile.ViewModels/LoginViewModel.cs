@@ -77,6 +77,7 @@ public partial class LoginViewModel : ViewModel
 		if (loginResult.StatusCode == HttpStatusCode.OK)
 		{
 			await _secureStorage.SetAsync(SecureStorageNames.Token, loginResult.ContentString);
+			MemoryStorage.Token = loginResult.ContentString;
 			await _mainViewService.OpenMainViewAsync();
 		}
     }
