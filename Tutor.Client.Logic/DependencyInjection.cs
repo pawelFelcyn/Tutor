@@ -15,6 +15,7 @@ public static class DependencyInjection
 
         return services.AddScoped<IEmailValidationHelper, ClientEmailValidationHelper>()
                        .AddScoped<ILocalizationInfoProvider, DeviceLocalizationInfoProvider>()
-                       .AddScoped<IIndexesToFlagsConverter, IndexesToFlagsConverter>();
+                       .AddScoped<IIndexesToFlagsConverter, IndexesToFlagsConverter>()
+                       .AddScoped<ISubjectValidationHelper, ClientSubjectValidationHelper>();
     }
 }
