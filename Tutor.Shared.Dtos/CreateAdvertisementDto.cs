@@ -14,6 +14,10 @@ public record CreateAdvertisementDto
         PricePerHour = pricePerHour;
     }
 
+    public CreateAdvertisementDto()
+    {
+    }
+
     public string Title { get; set; }
     public string Description { get; set; }
     public EducationLevels Levels { get; set; }

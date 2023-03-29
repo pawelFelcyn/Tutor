@@ -60,4 +60,31 @@ public class CreateAdvertisementValidatorTests : ValidatorTests
         var result = _withExistingSubjectValidator.TestValidate(model);
         result.ShouldHaveValidationErrorFor(m => m.PricePerHour);
     }
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(100)]
+	[InlineData(-50)]
+	[InlineData(1000)]
+	private void Validate_ForInvalidEduvcationLevels_ShouldReturnProperValidationError(int valueAsInt)
+	{
+		var @enum = (EducationLevels)valueAsInt;
+		var dto = new CreateAdvertisementDto { Levels = @enum };
+		var result = _withExistingSubjectValidator.TestValidate(@dto);
+		result.ShouldHaveValidationErrorFor(c => c.Levels);
+	}
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(4)]
+    [InlineData(8)]
+    [InlineData(16)]
+    private void Validate_ForValidEduvcationLevels_ShouldNotReturnErrorForLevel(int valueAsInt)
+    {
+        var @enum = (EducationLevels)valueAsInt;
+        var dto = new CreateAdvertisementDto { Levels = @enum };
+        var result = _withExistingSubjectValidator.TestValidate(@dto);
+        result.ShouldNotHaveValidationErrorFor(c => c.Levels);
+    }
 }
