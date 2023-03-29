@@ -95,8 +95,17 @@ public partial class CreateAdvertisementViewModel : ViewModel
     {
         if (apiResponse.SuccesfullyCalledAPI && apiResponse.StatusCode == HttpStatusCode.Created)
         {
-            Shell.Current.DisplayAlert("Success", "Advertisement created", "Ok");
+            HandleCreatedSuccesfully();
+            return;
         }
+    }
+
+    private void HandleCreatedSuccesfully()
+    {
+        SelectedEducationLevelsIndexes.Clear();
+        SelectedSubject = Subjects.FirstOrDefault();
+        Dto = CreateAdvertisementDto.WithDefaultValues();
+        Shell.Current.DisplayAlert("Success", "Advertisement created", "Ok");
     }
 
     partial void OnSelectedSubjectChanged(SubjectDto value)
