@@ -22,20 +22,20 @@ public class FlagsConverter<T> : IValueConverter, IMarkupExtension where T : Enu
             }
         }
 
-        return indexes.ToArray();
+        return indexes;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is not int[] array)
+        if (value is not IList<int> list)
         {
             return Binding.DoNothing;
         }
 
         var flagValue = 0;
-        for (int i = 0; i < array.Length; i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            flagValue += (int)Math.Pow(2, (double)(array[i]));
+            flagValue += (int)Math.Pow(2, (double)(list[i]));
         }
 
         return (T)(object)flagValue;

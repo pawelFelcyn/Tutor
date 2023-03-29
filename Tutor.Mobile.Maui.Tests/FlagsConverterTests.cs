@@ -37,10 +37,10 @@ public class FlagsConverterTests
     [MemberData(nameof(TestData))]
     private void Convert_ForFlagsGiven_ReturnsProperIndexesArray(TestFlags flags, int[] expected)
     {
-        var result = (int[])_converter.Convert(flags, typeof(int[]), null, CultureInfo.CurrentCulture);
+        var result = (IList<int>)_converter.Convert(flags, typeof(int[]), null, CultureInfo.CurrentCulture);
 
-        result.Length.Should().Be(expected.Length);
-        for (int i = 0; i < result.Length; i++)
+        result.Count.Should().Be(expected.Length);
+        for (int i = 0; i < result.Count; i++)
         {
             expected.Should().Contain(result[0]);
         }
