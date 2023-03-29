@@ -18,6 +18,7 @@ internal class CreateAdvertisementDtoMessageTranslator : AbstractTranslator<Crea
         CreateAdvertisementDtoValidationMessage.MaxDescriptionLength => "Description must not have more than 1000 characters.",
         CreateAdvertisementDtoValidationMessage.PricePositive => "Price must be greather than 0.",
         CreateAdvertisementDtoValidationMessage.NonexistingSubject => "This subject does not exist.",
+        CreateAdvertisementDtoValidationMessage.NotSelectedLevels => "You must specify educationlevels.",
         _ => throw new UnreachableException()
     };
 
@@ -28,6 +29,7 @@ internal class CreateAdvertisementDtoMessageTranslator : AbstractTranslator<Crea
         CreateAdvertisementDtoValidationMessage.MaxDescriptionLength => "Maksymalna długość opisu to 1000 znaków",
         CreateAdvertisementDtoValidationMessage.PricePositive => "Cena musi być większa od 0.",
         CreateAdvertisementDtoValidationMessage.NonexistingSubject => "Ten przdmiot nie istnieje.",
+        CreateAdvertisementDtoValidationMessage.NotSelectedLevels => "Wybierz poziom (poziomy).",
         _ => throw new UnreachableException()
     };
 }

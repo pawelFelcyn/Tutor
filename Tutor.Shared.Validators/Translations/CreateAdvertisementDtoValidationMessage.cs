@@ -6,5 +6,6 @@ public enum CreateAdvertisementDtoValidationMessage
     TitleNotEmpty,
     MaxDescriptionLength,
     PricePositive,
-    NonexistingSubject
+    NonexistingSubject,
+    NotSelectedLevels,
 }

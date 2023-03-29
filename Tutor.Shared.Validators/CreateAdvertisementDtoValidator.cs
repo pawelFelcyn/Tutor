@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using System.Security.Cryptography;
 using Tutor.Shared.Dtos;
+using Tutor.Shared.Enums;
 using Tutor.Shared.Helpers.Abstractions;
 using Tutor.Shared.Validators.Translations;
 
@@ -27,5 +29,9 @@ internal class CreateAdvertisementDtoValidator : AbstractValidator<CreateAdverti
 		RuleFor(m => m.SubjectId)
 			.Must(subjectValidationHelper.Exists)
 			.WithMessage(translator.Translate(CreateAdvertisementDtoValidationMessage.NonexistingSubject));
+
+		RuleFor(m => m.Levels)
+			.Must(l => (int)l > 0)
+			.WithMessage(translator.Translate(CreateAdvertisementDtoValidationMessage.NotSelectedLevels));
 	}
 }

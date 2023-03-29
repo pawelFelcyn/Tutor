@@ -37,6 +37,7 @@
           <dxe:Chip Text="High"/>
           <dxe:Chip Text="Studies"/>
         </dxe:FilterChipGroup>
+        <Label Text="{Binding LevelsValidationErrors}" TextColor="{StaticResource DarkRed}" FontSize="12"/>
       </StackLayout>
     </ScrollView>
     <dxc:SimpleButton Grid.Row="1" Text="Create" Command="{Binding CreateCommand}"/>
