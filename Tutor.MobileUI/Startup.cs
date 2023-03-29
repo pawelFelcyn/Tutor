@@ -1,4 +1,6 @@
-﻿using Tutor.Client.Logic.Services;
+﻿using System.Net;
+using Tutor.Client.APIAccess.Abstractions;
+using Tutor.Client.Logic.Services;
 using Tutor.Client.Logic.Static;
 using Tutor.MobileUI.Pages;
 
@@ -24,6 +26,15 @@ internal class Startup
         }
 
         MemoryStorage.Token = token;
+        var refreshTokenClient = serviceProvider.GetRequiredService<IRefreshTokenClient>();
+        var response = await refreshTokenClient.RefreshTokenAsync();
+        if (response.StatusCode != HttpStatusCode.OK && response.SuccesfullyCalledAPI)
+        {
+            Application.Current.MainPage = startShell;
+            return;
+        }
+        await secureStorage.SetAsync(SecureStorageNames.Token, response.ContentString);
+        MemoryStorage.Token = response.ContentString;
         var mainViewService = serviceProvider.GetRequiredService<IMainViewService>();
         await mainViewService.OpenMainViewAsync();
     }
