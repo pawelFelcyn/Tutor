@@ -23,14 +23,17 @@ internal class AuthenticationService : IAuthenticationService
     private readonly IMapper _mapper;
     private readonly IPasswordHasher<User> _passwordHasher;
     private readonly AuthenticationSettings _authenticationSettings;
+    private readonly IUserContextService _userContextService;
 
     public AuthenticationService(IUserRepository repository, IMapper mapper,
-        IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+        IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings,
+        IUserContextService userContextService)
     {
         _repository = repository;
         _mapper = mapper;
         _passwordHasher = passwordHasher;
         _authenticationSettings = authenticationSettings;
+        _userContextService = userContextService;
     }
 
     public async Task RegisterAsync(RegisterUserDto dto)
@@ -49,6 +52,11 @@ internal class AuthenticationService : IAuthenticationService
             throw new InvalidPasswordException();
         }
 
+        return GenerateToken(user);
+    }
+
+    private string GenerateToken(User user)
+    {
         var claims = GetClaims(user);
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -65,5 +73,12 @@ internal class AuthenticationService : IAuthenticationService
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Role, user.Role)
         };
+    }
+
+    public async Task<string> RefreshTokenAsync()
+    {
+        var userId = _userContextService.UserId;
+        var user = await _repository.GetByIdAsync(userId.Value);
+        return GenerateToken(user);
     }
 }
