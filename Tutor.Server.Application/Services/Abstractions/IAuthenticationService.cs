@@ -6,4 +6,5 @@ public interface IAuthenticationService
 {
     Task RegisterAsync(RegisterUserDto dto);
     Task<string> GetTokenAsync(LoginDto dto);
+    Task<string> RefreshTokenAsync();
 }

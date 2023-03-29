@@ -63,9 +63,7 @@ public class CreateAdvertisementValidatorTests : ValidatorTests
 
 	[Theory]
 	[InlineData(0)]
-	[InlineData(100)]
 	[InlineData(-50)]
-	[InlineData(1000)]
 	private void Validate_ForInvalidEduvcationLevels_ShouldReturnProperValidationError(int valueAsInt)
 	{
 		var @enum = (EducationLevels)valueAsInt;

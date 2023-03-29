@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Tutor.Server.Application.Services.Abstractions;
 using Tutor.Shared.Dtos;
@@ -27,6 +28,14 @@ namespace Tutor.Server.API.Controllers
         public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
         {
             var token = await _service.GetTokenAsync(dto);
+            return Ok(token);
+        }
+
+        [HttpGet("refreshToken")]
+        [Authorize]
+        public async Task<ActionResult<string>> RefreshToken()
+        {
+            var token = await _service.RefreshTokenAsync();
             return Ok(token);
         }
     }

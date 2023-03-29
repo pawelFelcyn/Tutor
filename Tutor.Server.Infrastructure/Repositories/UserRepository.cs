@@ -49,4 +49,26 @@ internal class UserRepository : RepositoryBase, IUserRepository
             throw new UnreachableException();
         }
     }
+
+    public async Task<User> GetByIdAsync(Guid id)
+    {
+        try
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user is null)
+            {
+                throw new UserNotFoundException(id);
+            }
+            return user;
+        }
+        catch (UserNotFoundException)
+        {
+            throw;
+        }
+        catch (Exception e)
+        {
+            LogAndThrow(e);
+            throw new UnreachableException();
+        }
+    }
 }

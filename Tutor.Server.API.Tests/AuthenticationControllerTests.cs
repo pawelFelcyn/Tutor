@@ -68,4 +68,21 @@ public class AuthenticationControllerTests : ControllerTests
         var resposne = await client.PostAsJsonAsync("api/authentication/login", dto);
         resposne.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
+
+    [Fact]
+    public async Task RefreshToken_ForUnauthenticatedUser_ReturnsUnauthorizedStatusCode()
+    {
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync("api/authentication/refreshToken");
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
+    public async Task RefreshToken_ForAuthenticatedUser_ReturnsOkStatusCode()
+    {
+        var user = SeedUser();
+        var client = _factory.WithClaimsPrincipal(user).CreateClient();
+        var response = await client.GetAsync("api/authentication/refreshToken");
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }
