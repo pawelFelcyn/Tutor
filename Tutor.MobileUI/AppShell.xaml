@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Tutor.MobileUI"
     xmlns:pages="clr-namespace:Tutor.MobileUI.Pages"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Flyout"
+    Shell.TabBarIsVisible="False">
   <ShellContent Route="Main">
     <ShellContent.ContentTemplate>
       <DataTemplate>
@@ -18,5 +19,7 @@
   <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
     <ShellContent ContentTemplate="{DataTemplate pages:CreateAdvertisementPage}"
                   Title="Create advertisement"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:MyAdvertisementsPage}"
+                  Title="My advertisements"/>
   </FlyoutItem>
 </Shell>
