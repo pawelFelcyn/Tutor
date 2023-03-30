@@ -42,5 +42,13 @@
         </CollectionView>
       </VerticalStackLayout>
     </RefreshView>
+    <ActivityIndicator IsRunning="True" VerticalOptions="Center" HorizontalOptions="Center">
+      <ActivityIndicator.IsVisible>
+        <MultiBinding Converter="{conv:AndMultiConverter}">
+          <Binding Path="IsBusy"/>
+          <Binding Path="IsRefreshing" Converter="{conv:NegationConverter}"/>
+        </MultiBinding>
+      </ActivityIndicator.IsVisible>
+    </ActivityIndicator>
   </Grid>
 </ContentPage>
