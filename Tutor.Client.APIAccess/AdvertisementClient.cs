@@ -1,4 +1,5 @@
-﻿using Tutor.Client.APIAccess.Abstractions;
+﻿using Sieve.Models;
+using Tutor.Client.APIAccess.Abstractions;
 using Tutor.Shared.Dtos;
 
 namespace Tutor.Client.APIAccess;
@@ -12,4 +13,7 @@ internal class AdvertisementClient : APIClient, IAdvertisementClient
 
     public Task<APIResponse<AdvertisementDetailsDto>> CreateAsync(CreateAdvertisementDto dto)
         => PostAsync<AdvertisementDetailsDto>("api/advertisements", dto);
+
+    public Task<APIResponse<PagedResult<AdvertisementDto>>> GetAllAsync(AdvertisementsSieveModel? sieve)
+        => GetAsync<PagedResult<AdvertisementDto>>("api/advertisements", sieve);
 }

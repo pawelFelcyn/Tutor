@@ -59,15 +59,38 @@ internal class AdvertisementService : IAdvertisementService
         return _mapper.Map<AdvertisementDetailsDto>(advertisement);
     }
 
-    public async Task<PagedResult<AdvertisementDto>> GetAllAsync(SieveModel query)
+    public async Task<PagedResult<AdvertisementDto>> GetAllAsync(AdvertisementsSieveModel query)
     {
         ApplyDefaultValues(query);
 
-        var advertisements =  _repository.GetAll();
+        var advertisements = _repository.GetAll();
+        advertisements = ApplyCustomFilters(query, ref advertisements);
+
         var totalCount = advertisements.Count();
         advertisements = _sieveProcessor.Apply(query, advertisements);
         var mappedAdvertisements = _mapper.Map<List<AdvertisementDto>>(await _repository.MaterializeAsync(advertisements));
         return new PagedResult<AdvertisementDto>(mappedAdvertisements, totalCount, query.PageSize.Value, query.Page.Value);
+    }
+
+    private IQueryable<Advertisement> ApplyCustomFilters(AdvertisementsSieveModel query, ref IQueryable<Advertisement> advertisements)
+    {
+        if (query.CreatedByClientOnly)
+        {
+            advertisements = ApplyAuthorFilter(ref advertisements);
+        }
+
+        return advertisements;
+    }
+
+    private IQueryable<Advertisement> ApplyAuthorFilter(ref IQueryable<Advertisement> advertisements)
+    {
+        if (_userContextService.User is null)
+        {
+            throw new InvalidQueryException(nameof(AdvertisementsSieveModel.CreatedByClientOnly));
+        }
+
+        advertisements = advertisements.Where(a => a.CreatedById == _userContextService.UserId);
+        return advertisements;
     }
 
     private void ApplyDefaultValues(SieveModel query)

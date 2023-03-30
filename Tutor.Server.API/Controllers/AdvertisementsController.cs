@@ -33,7 +33,7 @@ public class AdvertisementsController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<ActionResult<PagedResult<AdvertisementDto>>> GetAll([FromQuery]SieveModel query)
+	public async Task<ActionResult<PagedResult<AdvertisementDto>>> GetAll([FromQuery]AdvertisementsSieveModel query)
 	{
 		var advertisemetns = await _service.GetAllAsync(query);
 		return Ok(advertisemetns);
