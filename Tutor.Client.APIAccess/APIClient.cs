@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using Tutor.Client.APIAccess.Abstractions;
+using Tutor.Shared.Dtos;
 
 namespace Tutor.Client.APIAccess;
 
@@ -59,12 +59,14 @@ internal class APIClient
 		_httpClient.DefaultRequestHeaders.Authorization = new("Bearer", token);
     }
 
-    protected async Task<APIResponse<T>> GetAsync<T>(string url)
+    protected async Task<APIResponse<T>> GetAsync<T>(string url, TutorSieveModel? sieve = default)
 	{
+		string? queryParams = sieve?.GetQueryString();
+
 		try
 		{
 			CreateToken();
-			var response = await _httpClient.GetAsync(url);
+			var response = await _httpClient.GetAsync($"{url}?{queryParams ?? string.Empty}");
 			return await APIResponse<T>.FromHttpResponseMessageAsync<T>(response);
 		}
 		catch (Exception e)
