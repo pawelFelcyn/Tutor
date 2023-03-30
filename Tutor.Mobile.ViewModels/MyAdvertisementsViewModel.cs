@@ -5,6 +5,7 @@ using Tutor.Shared.Dtos;
 using Tutor.Client.APIAccess.Abstractions.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Net;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Tutor.Mobile.ViewModels;
 
@@ -12,19 +13,22 @@ public partial class MyAdvertisementsViewModel : ViewModel
 {
     private readonly IAdvertisementClient _advertisementClient;
     [ObservableProperty]
-    private bool successfulyLoadedAdvertisements = true;
+    private bool _successfulyLoadedAdvertisements = true;
+    [ObservableProperty]
+    private bool _isRefreshing;
 
     public MyAdvertisementsViewModel(IAdvertisementClient advertisementClient)
     {
         _advertisementClient = advertisementClient;
         Advertisements = new();
-        Title = "My advertiseents";
-        Task.Run(LoadAdvertisemets);
+        Title = "My advertisements";
+        Task.Run(LoadAdvertisementsAsync);
     }
 
     public ObservableCollection<AdvertisementDto> Advertisements { get; set; }
 
-    private async Task LoadAdvertisemets()
+    [RelayCommand]
+    private async Task LoadAdvertisementsAsync()
     {
         if (CheckIsBusy())
         {
@@ -33,6 +37,7 @@ public partial class MyAdvertisementsViewModel : ViewModel
 
         try
         {
+            IsRefreshing = true;
             Advertisements.Clear();
             var apiResponse = await _advertisementClient.GetAllAsync(s => s.CreatedByClientOnly = true);
             HandleGetAdvertisementsResult(apiResponse);
@@ -43,6 +48,7 @@ public partial class MyAdvertisementsViewModel : ViewModel
         }
         finally
         {
+            IsRefreshing = false;
             IsBusy = false;
         }
     }

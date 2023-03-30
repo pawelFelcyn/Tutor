@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
              x:Class="Tutor.MobileUI.Pages.MyAdvertisementsPage"
-             Title="MyAdvertisementsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is my advertisements page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Title}">
+  <Grid>
+    <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                 Command="{Binding LoadAdvertisementsCommand}"
+                 RefreshColor="{StaticResource Primary}">
+      <VerticalStackLayout>
+        <Label Text="Failed to load advertisements. Pull to refresh."
+                   VerticalOptions="Center" HorizontalOptions="Center"
+                   TextColor="{StaticResource DarkRed}" Margin="10"
+                   IsVisible="{Binding SuccessfulyLoadedAdvertisements,Converter={conv:NegationConverter}}"/>
+        <CollectionView ItemsSource="{Binding Advertisements}">
+          <CollectionView.ItemTemplate>
+            <DataTemplate>
+              <Border HeightRequest="100" Margin="10">
+                <Border.StrokeShape>
+                  <RoundRectangle CornerRadius="30"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="*,80,80">
+                  <Grid Margin="10" RowDefinitions="2*,*">
+                    <Label Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Center"
+                           FontSize="18"/>
+                    <Label Text="{Binding Levels}" VerticalOptions="Center" HorizontalOptions="Center"
+                           Grid.Row="1" FontSize="10"/>
+                  </Grid>
+                  <Label Text="{Binding PricePerHour}" Grid.Column="1"
+                         FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                  <dxc:SimpleButton Grid.Column="2" Text="Details" 
+                                    BackgroundColor="{StaticResource PrimaryTransparent}"
+                                    PressedBackgroundColor="{StaticResource Primary}"
+                                    CornerRadius="0"/>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </CollectionView.ItemTemplate>
+        </CollectionView>
+      </VerticalStackLayout>
+    </RefreshView>
+  </Grid>
 </ContentPage>

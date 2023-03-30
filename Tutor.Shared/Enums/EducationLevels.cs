@@ -1,4 +1,7 @@
-﻿namespace Tutor.Shared.Enums;
+﻿using NetEscapades.EnumGenerators;
+using System.ComponentModel.DataAnnotations;
+
+namespace Tutor.Shared.Enums;
 
 [Flags]
 public enum EducationLevels
