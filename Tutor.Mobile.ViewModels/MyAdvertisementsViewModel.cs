@@ -78,11 +78,33 @@ public partial class MyAdvertisementsViewModel : ViewModel
 
         try
         {
-            await Shell.Current.GoToAsync("//MyAdvertisements/Details");
+            if (advertisement is null)
+            {
+                return;
+            }
+
+            var apiResponse = await _advertisementClient.GetByIdAsync(advertisement.Id);
+            await HandleGetDetailsResult(apiResponse);
         }
         finally
         {
             IsBusy = false;
         }
+    }
+
+    private async Task HandleGetDetailsResult(APIResponse<AdvertisementDetailsDto> apiResponse)
+    {
+        if (!apiResponse.SuccesfullyCalledAPI
+            || apiResponse.StatusCode != HttpStatusCode.OK)
+        {
+            await Shell.Current.DisplayAlert("Error", "Couldn't load advertisement's details", "Ok");
+            return;
+        }
+
+        var parameters = new Dictionary<string, object>() 
+        {
+            { "Advertisement", apiResponse.ContentDeserialized }
+        };
+        await Shell.Current.GoToAsync("//MyAdvertisements/Details", parameters);
     }
 }
