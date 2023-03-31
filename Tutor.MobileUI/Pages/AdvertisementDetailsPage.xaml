@@ -6,7 +6,7 @@
   <Grid>
     <ScrollView Margin="10" VerticalOptions="FillAndExpand">
       <VerticalStackLayout Spacing="15">
-        <Label Text="This is title" FontSize="25" HorizontalOptions="Center"/>
+        <Label Text="{Binding Advertisement.Title}" FontSize="25" HorizontalOptions="Center"/>
         <Grid ColumnDefinitions="*,2,*,2,*" ColumnSpacing="5"
               RowDefinitions="Auto,2,Auto">
           <Rectangle Grid.Column="1" Grid.RowSpan="3" BackgroundColor="{StaticResource PrimaryTransparent}"/>
@@ -15,14 +15,14 @@
           <Label FontSize="15" Text=" Price" VerticalOptions="Center" HorizontalOptions="Center"/>
           <Label FontSize="15" Grid.Column="2" Text="Subject" VerticalOptions="Center" HorizontalOptions="Center"/>
           <Label FontSize="15" Grid.Column="4" Text="Creation date" VerticalOptions="Center" HorizontalOptions="Center"/>
-          <Label FontSize="15" Grid.Row="2" Text=" Price" VerticalOptions="Center" HorizontalOptions="Center"/>
-          <Label FontSize="15" Grid.Row="2" Grid.Column="2" Text="Subject" VerticalOptions="Center" HorizontalOptions="Center"/>
-          <Label FontSize="15" Grid.Row="2"  Grid.Column="4" Text="Creation date" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2" Text="{Binding Advertisement.Price}" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2" Grid.Column="2" Text="{Binding Advertisement.Subject}" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2"  Grid.Column="4" Text="{Binding Advertisement.CreationDate}" VerticalOptions="Center" HorizontalOptions="Center"/>
         </Grid>
-        <Label FontSize="15" HorizontalOptions="Center" Text="Education levels"/>
+        <Label FontSize="15" HorizontalOptions="Center" Text="{Binding Advertisement.Levels}"/>
         <Label HorizontalOptions="Center" FontSize="20" TextColor="{StaticResource Primary}"
                Text="Description:"/>
-        <Label Text="This is a very ong description" FontSize="18"/>
+        <Label Text="{Binding Advertisement.Description}" FontSize="18"/>
       </VerticalStackLayout>
     </ScrollView>
     <ActivityIndicator IsRunning="True" VerticalOptions="Center"
