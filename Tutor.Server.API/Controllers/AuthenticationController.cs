@@ -27,8 +27,8 @@ namespace Tutor.Server.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
         {
-            var token = await _service.GetTokenAsync(dto);
-            return Ok(token);
+            var loginResponse = await _service.GetLoginResponseAsync(dto);
+            return Ok(loginResponse);
         }
 
         [HttpGet("refreshToken")]

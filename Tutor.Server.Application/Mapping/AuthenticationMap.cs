@@ -15,6 +15,7 @@ public class AuthenticationMap : IMap
     {
         profile.CreateMap<RegisterUserDto, User>()
                .ForMember(u => u.Tutor, c => c.MapFrom(s => CreateTutor(s)));
+        profile.CreateMap<User, UserDetailsDto>();
     }
 
     private TutorEntity CreateTutor(RegisterUserDto dto)
