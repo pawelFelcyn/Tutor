@@ -1,10 +1,12 @@
-﻿namespace Tutor.MobileUI
+﻿using Tutor.MobileUI.Pages;
+
+namespace Tutor.MobileUI;
+
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        Routing.RegisterRoute("//MyAdvertisements/Details", typeof(AdvertisementDetailsPage));
     }
 }

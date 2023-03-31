@@ -49,7 +49,8 @@ namespace Tutor.MobileUI
                 .AddScoped<CreateAdvertisementViewModel>()
                 .AddScoped<BearerTokenFactory>(_ => () => MemoryStorage.Token)
                 .AddScoped<MyAdvertisementsPage>()
-                .AddScoped<MyAdvertisementsViewModel>();
+                .AddScoped<MyAdvertisementsViewModel>()
+                .AddScoped<AdvertisementDetailsPage>();
 
             return builder.Build();
         }
