@@ -16,4 +16,7 @@ internal class AdvertisementClient : APIClient, IAdvertisementClient
 
     public Task<APIResponse<PagedResult<AdvertisementDto>>> GetAllAsync(AdvertisementsSieveModel? sieve)
         => GetAsync<PagedResult<AdvertisementDto>>("api/advertisements", sieve);
+
+    public Task<APIResponse<AdvertisementDetailsDto>> GetByIdAsync(Guid id)
+        => GetAsync<AdvertisementDetailsDto>($"api/advertisements/{id}");
 }
