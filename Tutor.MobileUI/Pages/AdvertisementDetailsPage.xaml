@@ -3,10 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tutor.MobileUI.Pages.AdvertisementDetailsPage"
              Title="{Binding Title}">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is advertisement details page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+  <Grid>
+    <ScrollView Margin="10" VerticalOptions="FillAndExpand">
+      <VerticalStackLayout Spacing="15">
+        <Label Text="This is title" FontSize="25" HorizontalOptions="Center"/>
+        <Grid ColumnDefinitions="*,2,*,2,*" ColumnSpacing="5"
+              RowDefinitions="Auto,2,Auto">
+          <Rectangle Grid.Column="1" Grid.RowSpan="3" BackgroundColor="{StaticResource PrimaryTransparent}"/>
+          <Rectangle Grid.Column="3" Grid.RowSpan="3" BackgroundColor="{StaticResource PrimaryTransparent}"/>
+          <Rectangle Grid.Row="1" Grid.ColumnSpan="5" BackgroundColor="{StaticResource PrimaryTransparent}"/>
+          <Label FontSize="15" Text=" Price" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Column="2" Text="Subject" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Column="4" Text="Creation date" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2" Text=" Price" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2" Grid.Column="2" Text="Subject" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2"  Grid.Column="4" Text="Creation date" VerticalOptions="Center" HorizontalOptions="Center"/>
+        </Grid>
+        <Label FontSize="15" HorizontalOptions="Center" Text="Education levels"/>
+        <Label HorizontalOptions="Center" FontSize="20" TextColor="{StaticResource Primary}"
+               Text="Description:"/>
+        <Label Text="This is a very ong description" FontSize="18"/>
+      </VerticalStackLayout>
+    </ScrollView>
+    <ActivityIndicator IsRunning="True" VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding IsBusy}"/>
+  </Grid>
 </ContentPage>
