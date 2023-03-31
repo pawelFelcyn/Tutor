@@ -43,7 +43,7 @@ internal class AuthenticationService : IAuthenticationService
         await _repository.AddAsync(user);
     }
 
-    public async Task<string> GetTokenAsync(LoginDto dto)
+    public async Task<LoginResponseDto> GetLoginResponseAsync(LoginDto dto)
     {
         var user = await _repository.GetByEmailAsync(dto.Email);
         var authResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
@@ -52,7 +52,9 @@ internal class AuthenticationService : IAuthenticationService
             throw new InvalidPasswordException();
         }
 
-        return GenerateToken(user);
+        var token = GenerateToken(user);
+        var userDto = _mapper.Map<UserDetailsDto>(user);
+        return new(userDto, token);
     }
 
     private string GenerateToken(User user)
