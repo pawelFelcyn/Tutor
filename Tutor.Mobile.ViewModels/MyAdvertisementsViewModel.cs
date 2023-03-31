@@ -67,4 +67,22 @@ public partial class MyAdvertisementsViewModel : ViewModel
             Advertisements.Add(ad);
         }
     }
+
+    [RelayCommand]
+    private async Task OpenDetailsAsync(AdvertisementDto advertisement)
+    {
+        if (CheckIsBusy()) 
+        {
+            return;
+        }
+
+        try
+        {
+            await Shell.Current.GoToAsync("//MyAdvertisements/Details");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 }

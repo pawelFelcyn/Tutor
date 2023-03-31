@@ -15,7 +15,8 @@
                    VerticalOptions="Center" HorizontalOptions="Center"
                    TextColor="{StaticResource DarkRed}" Margin="10"
                    IsVisible="{Binding SuccessfulyLoadedAdvertisements,Converter={conv:NegationConverter}}"/>
-        <CollectionView ItemsSource="{Binding Advertisements}">
+        <CollectionView ItemsSource="{Binding Advertisements}"
+                        x:Name="advertisementsCollection">
           <CollectionView.ItemTemplate>
             <DataTemplate>
               <Border HeightRequest="100" Margin="10">
@@ -34,7 +35,9 @@
                   <dxc:SimpleButton Grid.Column="2" Text="Details" 
                                     BackgroundColor="{StaticResource PrimaryTransparent}"
                                     PressedBackgroundColor="{StaticResource Primary}"
-                                    CornerRadius="0"/>
+                                    CornerRadius="0"
+                                    Command="{Binding Source={x:Reference advertisementsCollection}, Path=BindingContext.OpenDetailsCommand}"
+                                    CommandParameter="{Binding .}"/>
                 </Grid>
               </Border>
             </DataTemplate>
