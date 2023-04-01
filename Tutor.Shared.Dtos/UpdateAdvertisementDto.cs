@@ -1,3 +1,9 @@
-﻿namespace Tutor.Shared.Dtos;
+﻿using System.Security.Cryptography;
 
-public record UpdateAdvertisementDto(string Title, string Description, decimal PricePerHour);
+namespace Tutor.Shared.Dtos;
+
+public record UpdateAdvertisementDto(string Title, string Description, decimal PricePerHour)
+{
+    public static UpdateAdvertisementDto FromDetails(AdvertisementDetailsDto details)
+        => new(details.Title, details.Description, details.PricePerHour);
+}
