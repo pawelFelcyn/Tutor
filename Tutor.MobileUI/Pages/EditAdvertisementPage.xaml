@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
              x:Class="Tutor.MobileUI.Pages.EditAdvertisementPage"
-             Title="EditAdvertisementPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="This is edit advertisement page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding Title}">
+  <Grid RowDefinitions="*,100" Margin="30,20,30,20">
+    <Grid.Resources>
+      <conv:IsNotNullToBooleanConverter x:Key="displayErrorConv"/>
+    </Grid.Resources>
+    <ScrollView>
+      <VerticalStackLayout>
+        <Label Text="Enter data:" TextColor="{StaticResource Primary}"
+               FontSize="20"/>
+        <dxe:TextEdit LabelText="Title" Text="{Binding UpdateDto.Title}"
+                      ErrorText="{Binding ErrorValidationErrors}"
+                      HasError="{Binding TitleValidationErrors, Converter={StaticResource displayErrorConv}}"/>
+        <dxe:MultilineEdit BoxMinHeight="200" MaxCharacterCount="1000"
+                           LabelText="Description"
+                           Text="{Binding UpdateDto.Description}"
+                           ErrorText="{Binding DescriptionValidationErrors}" 
+                           HasError="{Binding DescriptionValidationErrors, Converter={StaticResource displayErrorConv}}"/>
+        <dxe:NumericEdit LabelText="Price per hour" Value="{Binding UpdateDto.PricePerHour}"
+                         ErrorText="{Binding PricePerHourValidationErrors}" 
+                         HasError="{Binding PricePerHourValidationErrors, Converter={StaticResource displayErrorConv}}"/>
+      </VerticalStackLayout>
+    </ScrollView>
+    <dxc:SimpleButton Grid.Row="1" VerticalOptions="Center"
+                      Command="{Binding SaveCommand}" Text="Update"/>
+    <ActivityIndicator IsRunning="True" VerticalOptions="Center"
+                       HorizontalOptions="Center" Grid.RowSpan="2"
+                       IsVisible="{Binding IsBusy}"/>
+  </Grid>
 </ContentPage>
