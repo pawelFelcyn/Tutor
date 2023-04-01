@@ -52,7 +52,8 @@ namespace Tutor.MobileUI
                 .AddScoped<MyAdvertisementsViewModel>()
                 .AddScoped<AdvertisementDetailsPage>()
                 .AddScoped<AdvertisementDetailsViewModel>()
-                .AddScoped(_ => Preferences.Default);
+                .AddScoped(_ => Preferences.Default)
+                .AddScoped<ILoggedUserContextService, LoggedUserContextService>();
 
             return builder.Build();
         }
