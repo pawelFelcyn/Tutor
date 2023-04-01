@@ -9,5 +9,6 @@ internal class LoginClient : APIClient, ILoginClient
     {
     }
 
-    public Task<APIResponse> LoginAsync(LoginDto dto) => PostAsync("api/authentication/login", dto);
+    public Task<APIResponse<LoginResponseDto>> LoginAsync(LoginDto dto) 
+        => PostAsync<LoginResponseDto>("api/authentication/login", dto);
 }

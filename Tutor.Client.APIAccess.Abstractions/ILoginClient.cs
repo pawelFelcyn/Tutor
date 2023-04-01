@@ -4,5 +4,5 @@ namespace Tutor.Client.APIAccess.Abstractions;
 
 public interface ILoginClient
 {
-    Task<APIResponse> LoginAsync(LoginDto dto);
+    Task<APIResponse<LoginResponseDto>> LoginAsync(LoginDto dto);
 }

@@ -6,6 +6,7 @@ using Tutor.Client.APIAccess.Abstractions;
 using Tutor.Client.Logic.Services;
 using Tutor.Client.Logic.Static;
 using Tutor.Shared.Dtos;
+using Tutor.Client.Maui.Extensions;
 
 namespace Tutor.Mobile.ViewModels;
 
@@ -15,6 +16,7 @@ public partial class LoginViewModel : ViewModel
 	private readonly ILoginClient _loginClient;
 	private readonly ISecureStorage _secureStorage;
 	private readonly IMainViewService _mainViewService;
+	private readonly IPreferences _preferences;
 
 	[ObservableProperty]
 	private LoginDto _loginDto;
@@ -24,7 +26,8 @@ public partial class LoginViewModel : ViewModel
 	private string passwordValidationErrors;
 
 	public LoginViewModel(IValidator<LoginDto> validator, ILoginClient loginClient,
-		ISecureStorage secureStorage, IMainViewService mainViewService)
+		ISecureStorage secureStorage, IMainViewService mainViewService,
+		IPreferences preferences)
 	{
 		Title = "Login page";
 		LoginDto = new(null, null);
@@ -32,6 +35,7 @@ public partial class LoginViewModel : ViewModel
 		_loginClient = loginClient;
 		_secureStorage = secureStorage;
 		_mainViewService = mainViewService;
+		_preferences = preferences;
     }
 
     [RelayCommand]
@@ -59,7 +63,7 @@ public partial class LoginViewModel : ViewModel
 		}
 	}
 
-    private async Task HandleLoginResultAsync(APIResponse loginResult)
+    private async Task HandleLoginResultAsync(APIResponse<LoginResponseDto> loginResult)
     {
 		if (!loginResult.SuccesfullyCalledAPI)
 		{
@@ -76,8 +80,10 @@ public partial class LoginViewModel : ViewModel
 
 		if (loginResult.StatusCode == HttpStatusCode.OK)
 		{
-			await _secureStorage.SetAsync(SecureStorageNames.Token, loginResult.ContentString);
-			MemoryStorage.Token = loginResult.ContentString;
+			await _secureStorage.SetAsync(SecureStorageNames.Token, 
+				loginResult.ContentDeserialized.Token);
+			MemoryStorage.Token = loginResult.ContentDeserialized.Token;
+			_preferences.SetAsJson(PreferencesNames.LoggedUser, loginResult.ContentDeserialized.User);
 			await _mainViewService.OpenMainViewAsync();
 		}
     }
