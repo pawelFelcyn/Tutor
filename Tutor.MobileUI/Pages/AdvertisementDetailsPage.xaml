@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tutor.MobileUI.Pages.AdvertisementDetailsPage"
              Title="{Binding Title}">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="test" Command="{Binding EditCommand}"/>
+  </ContentPage.ToolbarItems>
   <Grid>
     <ScrollView Margin="10" VerticalOptions="FillAndExpand">
       <VerticalStackLayout Spacing="15">
@@ -15,7 +18,7 @@
           <Label FontSize="15" Text=" Price" VerticalOptions="Center" HorizontalOptions="Center"/>
           <Label FontSize="15" Grid.Column="2" Text="Subject" VerticalOptions="Center" HorizontalOptions="Center"/>
           <Label FontSize="15" Grid.Column="4" Text="Creation date" VerticalOptions="Center" HorizontalOptions="Center"/>
-          <Label FontSize="15" Grid.Row="2" Text="{Binding Advertisement.Price}" VerticalOptions="Center" HorizontalOptions="Center"/>
+          <Label FontSize="15" Grid.Row="2" Text="{Binding Advertisement.PricePerHour}" VerticalOptions="Center" HorizontalOptions="Center"/>
           <Label FontSize="15" Grid.Row="2" Grid.Column="2" Text="{Binding Advertisement.Subject}" VerticalOptions="Center" HorizontalOptions="Center"/>
           <Label FontSize="15" Grid.Row="2"  Grid.Column="4" Text="{Binding Advertisement.CreationDate}" VerticalOptions="Center" HorizontalOptions="Center"/>
         </Grid>
