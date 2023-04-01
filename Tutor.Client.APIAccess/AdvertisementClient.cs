@@ -19,4 +19,7 @@ internal class AdvertisementClient : APIClient, IAdvertisementClient
 
     public Task<APIResponse<AdvertisementDetailsDto>> GetByIdAsync(Guid id)
         => GetAsync<AdvertisementDetailsDto>($"api/advertisements/{id}");
+
+    public Task<APIResponse<AdvertisementDetailsDto>> UpdateAsync(Guid id, UpdateAdvertisementDto dto)
+        => PatchAsync<AdvertisementDetailsDto>($"api/advertisements/{id}", dto);
 }

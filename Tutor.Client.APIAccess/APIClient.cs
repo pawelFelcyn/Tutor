@@ -90,4 +90,19 @@ internal class APIClient
             return APIResponse.Failure(e);
         }
     }
+
+	protected async Task<APIResponse<T>> PatchAsync<T>(string url, object content)
+		where T : class
+	{
+        try
+        {
+            CreateToken();
+            var response = await _httpClient.PatchAsJsonAsync(url, content);
+            return await APIResponse<T>.FromHttpResponseMessageAsync<T>(response);
+        }
+        catch (Exception e)
+        {
+            return APIResponse<T>.Failure<T>(e);
+        }
+    }
 }

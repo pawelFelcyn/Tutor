@@ -40,7 +40,8 @@ public partial class AdvertisementDetailsViewModel : ViewModel
             var updateModel = UpdateAdvertisementDto.FromDetails(Advertisement);
             var parameters = new Dictionary<string, object>()
             {
-                { "Model", updateModel }
+                { "Model", updateModel },
+                { "Id", Advertisement.Id },
             };
             await Shell.Current.GoToAsync("//MyAdvertisements/Details/Edit", parameters);
         }
