@@ -4,7 +4,8 @@
              x:Class="Tutor.MobileUI.Pages.AdvertisementDetailsPage"
              Title="{Binding Title}">
   <ContentPage.ToolbarItems>
-    <ToolbarItem Text="test" Command="{Binding EditCommand}"/>
+    <ToolbarItem Command="{Binding EditCommand}"
+                 IconImageSource="{FontImageSource Color={StaticResource White}, FontFamily='FA-S', Glyph='&#xf040;'}"/>
   </ContentPage.ToolbarItems>
   <Grid>
     <ScrollView Margin="10" VerticalOptions="FillAndExpand">
