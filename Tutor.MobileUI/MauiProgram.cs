@@ -24,6 +24,7 @@ namespace Tutor.MobileUI
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("fas.ttf", "FA-S");
                 });
 
 #if DEBUG
