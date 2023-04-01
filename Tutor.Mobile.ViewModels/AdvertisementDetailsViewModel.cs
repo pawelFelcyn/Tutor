@@ -37,7 +37,12 @@ public partial class AdvertisementDetailsViewModel : ViewModel
                 return;
             }
 
-            await Shell.Current.GoToAsync("//MyAdvertisements/Details/Edit");
+            var updateModel = UpdateAdvertisementDto.FromDetails(Advertisement);
+            var parameters = new Dictionary<string, object>()
+            {
+                { "Model", updateModel }
+            };
+            await Shell.Current.GoToAsync("//MyAdvertisements/Details/Edit", parameters);
         }
         finally
         {
