@@ -18,6 +18,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Tutor.Client.APIAccess.Abstractions\Tutor.Client.APIAccess.Abstractions.csproj" />
 	  <ProjectReference Include="..\Tutor.Client.Logic\Tutor.Client.Logic.csproj" />
+	  <ProjectReference Include="..\Tutor.Client.Maui\Tutor.Client.Maui.csproj" />
 	  <ProjectReference Include="..\Tutor.Shared.Dtos\Tutor.Shared.Dtos.csproj" />
 	  <ProjectReference Include="..\Tutor.Shared.Validators\Tutor.Shared.Validators.csproj" />
 	</ItemGroup>

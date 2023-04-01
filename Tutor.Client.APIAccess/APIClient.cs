@@ -35,6 +35,7 @@ internal class APIClient
 	}
 
 	protected async Task<APIResponse<T>> PostAsync<T>(string url, object content)
+		where T : class
 	{
         try
         {
@@ -60,6 +61,7 @@ internal class APIClient
     }
 
     protected async Task<APIResponse<T>> GetAsync<T>(string url, TutorSieveModel? sieve = default)
+		where T : class
 	{
 		string? queryParams = sieve?.GetQueryString();
 

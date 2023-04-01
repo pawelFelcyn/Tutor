@@ -51,7 +51,8 @@ namespace Tutor.MobileUI
                 .AddScoped<MyAdvertisementsPage>()
                 .AddScoped<MyAdvertisementsViewModel>()
                 .AddScoped<AdvertisementDetailsPage>()
-                .AddScoped<AdvertisementDetailsViewModel>();
+                .AddScoped<AdvertisementDetailsViewModel>()
+                .AddScoped(_ => Preferences.Default);
 
             return builder.Build();
         }
