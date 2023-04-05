@@ -5,20 +5,19 @@ using Tutor.Shared.Dtos;
 
 namespace Tutor.Mobile.ViewModels;
 
-[QueryProperty(nameof(Advertisement), "Advertisement")]
+[QueryProperty(nameof(UpdateCallback), "Callback")]
 public partial class AdvertisementDetailsViewModel : ViewModel
 {
     private readonly ILoggedUserContextService _loggedUserContextService;
-    private readonly INavigation _navigation;
 
     [ObservableProperty]
     private AdvertisementDetailsDto _advertisement;
+    [ObservableProperty]
+    private Action<AdvertisementDetailsDto> _updateCallback;
 
-    public AdvertisementDetailsViewModel(ILoggedUserContextService loggedUserContextService,
-        INavigation navigation)
+    public AdvertisementDetailsViewModel(ILoggedUserContextService loggedUserContextService)
     {
         _loggedUserContextService = loggedUserContextService;
-        _navigation = navigation;
         Title = "Details";
     }
 
@@ -38,10 +37,16 @@ public partial class AdvertisementDetailsViewModel : ViewModel
             }
 
             var updateModel = UpdateAdvertisementDto.FromDetails(Advertisement);
+            Action<AdvertisementDetailsDto> callback = d =>
+            {
+                Advertisement = d;
+                UpdateCallback?.Invoke(d);
+            };
             var parameters = new Dictionary<string, object>()
             {
                 { "Model", updateModel },
                 { "Id", Advertisement.Id },
+                { "Callback", callback }
             };
             await Shell.Current.GoToAsync("//MyAdvertisements/Details/Edit", parameters);
         }

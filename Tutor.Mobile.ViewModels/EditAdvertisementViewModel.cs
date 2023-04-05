@@ -10,6 +10,7 @@ namespace Tutor.Mobile.ViewModels;
 
 [QueryProperty(nameof(UpdateDto), "Model")]
 [QueryProperty(nameof(AdvertisementId), "Id")]
+[QueryProperty(nameof(UpdateCallback), "Callback")]
 public partial class EditAdvertisementViewModel : ViewModel
 {
     private readonly IValidator<UpdateAdvertisementDto> _validator;
@@ -21,6 +22,8 @@ public partial class EditAdvertisementViewModel : ViewModel
     private UpdateAdvertisementDto _updateDto;
     [ObservableProperty]
     private Guid _advertisementId;
+    [ObservableProperty]
+    private Action<AdvertisementDetailsDto> _updateCallback;
     [ObservableProperty]
     private string _titleValidationErrors;
     [ObservableProperty]
@@ -71,6 +74,7 @@ public partial class EditAdvertisementViewModel : ViewModel
         }
 
         await Shell.Current.DisplayAlert("Success", "Successfuly updated advertisement", "Ok");
-        await _navigation.PopAsync();
+        UpdateCallback?.Invoke(apiResponse.ContentDeserialized);
+        await Shell.Current.GoToAsync("//MyAdvertisements/Details");
     }
 }
