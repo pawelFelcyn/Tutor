@@ -6,6 +6,7 @@ using Tutor.Client.APIAccess.Abstractions.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Net;
 using CommunityToolkit.Mvvm.Input;
+using Tutor.Client.Logic.Extensions;
 
 namespace Tutor.Mobile.ViewModels;
 
@@ -101,9 +102,25 @@ public partial class MyAdvertisementsViewModel : ViewModel
             return;
         }
 
+        Action<AdvertisementDetailsDto> updateCallback = d =>
+        {
+            var firstIndex = Advertisements.FirstIndex(a => a.Id == d.Id);
+            Advertisements.RemoveAt(firstIndex);
+            Advertisements.Insert(firstIndex, new AdvertisementDto
+            {
+                Id = d.Id,
+                Title = d.Title,
+                CreationDate = d.CreationDate,
+                LastModificationDate = d.LastModificationDate,
+                Levels = d.Levels,
+                PricePerHour = d.PricePerHour,
+            });//TO DO: Mapper for this
+        };
+
         var parameters = new Dictionary<string, object>() 
         {
-            { "Advertisement", apiResponse.ContentDeserialized }
+            { "Advertisement", apiResponse.ContentDeserialized },
+            { "Callback", updateCallback }
         };
         await Shell.Current.GoToAsync("//MyAdvertisements/Details", parameters);
     }

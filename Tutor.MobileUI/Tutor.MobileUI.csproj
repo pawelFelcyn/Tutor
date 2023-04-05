@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -83,6 +83,18 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+	  <PackageReference Include="DevExpress.Maui.CollectionView">
+	    <Version>22.2.4</Version>
+	  </PackageReference>
+	  <PackageReference Include="DevExpress.Maui.Controls">
+	    <Version>22.2.4</Version>
+	  </PackageReference>
+	  <PackageReference Include="DevExpress.Maui.Editors">
+	    <Version>22.2.4</Version>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-ios'">
 	  <PackageReference Include="DevExpress.Maui.CollectionView">
 	    <Version>22.2.4</Version>
 	  </PackageReference>
