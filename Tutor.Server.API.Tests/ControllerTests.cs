@@ -86,4 +86,18 @@ public class ControllerTests : IClassFixture<WebApplicationFactory<Program>>
         dbContext.SaveChanges();
         return subject;
     }
+
+    protected ProfileImage SeedProfileImage(Guid userId)
+    {
+        var profileImage = new ProfileImage
+        {
+            UserId = userId,
+            Bytes = new byte[0]
+        };
+        var scope = _factory.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetService<TutorDbContext>();
+        dbContext!.ProfileImages.Add(profileImage);
+        dbContext.SaveChanges();
+        return profileImage;
+    }
 }

@@ -34,6 +34,7 @@ public static class DepedencyInjection
         services.AddScoped<AuthorizationHandler<UserIdRequirement>, UserIdRequirementHandler>();
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
         services.AddScoped<ILocalizationInfoProvider, HeaderLocalizationInfoProvider>();
+        services.AddScoped<IImageService, ImageService>();
 
         return services;
     }

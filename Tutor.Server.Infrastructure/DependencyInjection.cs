@@ -20,6 +20,7 @@ namespace Tutor.Server.Infrastructure
             services.AddScoped<ISubjectValidationHelper, SubjectValidationHelper>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
 
             return services;
         }
