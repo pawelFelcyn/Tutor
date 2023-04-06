@@ -21,6 +21,7 @@ public class TutorDbContext : DbContext
     public DbSet<Advertisement> Advertisements { get; set; }
     public DbSet<SchoolSubject> SchoolSubjects { get; set; }
     public DbSet<TutorEntity> Tutors { get; set; }
+    public DbSet<ProfileImage> ProfileImages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -69,6 +70,14 @@ public class TutorDbContext : DbContext
             e.Property(t => t.Description)
              .IsRequired()
              .HasMaxLength(500);
+        });
+
+        modelBuilder.Entity<ProfileImage>(e =>
+        {
+            e.Property(p => p.Bytes)
+             .IsRequired();
+            e.HasOne(p => p.User)
+             .WithOne(u => u.PofileImage);
         });
     }
 }

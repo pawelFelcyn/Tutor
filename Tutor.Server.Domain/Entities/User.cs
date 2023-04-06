@@ -17,4 +17,5 @@ public class User
 
     public virtual List<Advertisement> Advertisements { get; set; }
     public virtual TutorEntity Tutor { get; set; }
+    public virtual ProfileImage PofileImage { get; set; }
 }
