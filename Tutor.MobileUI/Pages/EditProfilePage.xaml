@@ -2,12 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Tutor.MobileUI.Controls"
-             x:Class="Tutor.MobileUI.Pages.ProfilePage"
-             Title="{Binding Title}">
-  <ContentPage.ToolbarItems>
-    <ToolbarItem Command="{Binding EditCommand}"
-                 IconImageSource="{FontImageSource Color={StaticResource White}, FontFamily='FA-S', Glyph='&#xf040;'}"/>
-  </ContentPage.ToolbarItems>
+             x:Class="Tutor.MobileUI.Pages.EditProfilePage"
+             Title="EditProfilePage">
   <ScrollView>
     <VerticalStackLayout>
       <controls:ProfileImage SizeRequest="200"/>

@@ -59,7 +59,9 @@ namespace Tutor.MobileUI
                 .AddScoped<EditAdvertisementViewModel>()
                 .AddScoped<AppViewModel>()
                 .AddScoped<ProfilePage>()
-                .AddScoped<ProfileViewModel>();
+                .AddScoped<ProfileViewModel>()
+                .AddScoped<EditProfilePage>()
+                .AddScoped<EditProfileViewModel>();
 
             return builder.Build();
         }

@@ -28,7 +28,7 @@ public partial class AppViewModel : ViewModel
                 { "User", user }
             };
             Shell.Current.FlyoutIsPresented = false;
-            await Shell.Current.GoToAsync("//MyProfile", parameters);
+            await Shell.Current.GoToAsync("//Main/MyProfile", parameters);
         }
         finally
         {
