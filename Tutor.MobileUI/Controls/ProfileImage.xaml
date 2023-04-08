@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tutor.MobileUI.Controls.ProfileImage"
              x:Name="profileImage">
-  <Border WidthRequest="100" HeightRequest="100"
-              Margin="20" StrokeThickness="3" Padding="15">
+  <Border WidthRequest="{Binding Source={x:Reference profileImage}, Path=SizeRequest}" 
+          HeightRequest="{Binding Source={x:Reference profileImage}, Path=SizeRequest}"
+          Margin="20" StrokeThickness="3">
     <Border.GestureRecognizers>
       <TapGestureRecognizer Command="{Binding Source={x:Reference profileImage}, Path=ClickedCommand}"
                             CommandParameter="{Binding Source={x:Reference profileImage}, Path=ClickedCommandParameter}"/>

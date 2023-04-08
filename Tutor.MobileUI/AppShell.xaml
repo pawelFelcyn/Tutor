@@ -27,7 +27,7 @@
   </FlyoutItem>
   <Shell.FlyoutHeader>
     <Grid ColumnDefinitions="2*,*">
-      <controls:ProfileImage/>
+      <controls:ProfileImage ClickedCommand="{Binding GoToMyProfileCommand}"/>
     </Grid>
   </Shell.FlyoutHeader>
 </Shell>

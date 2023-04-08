@@ -8,4 +8,5 @@ public record UserDetailsDto
     public string Role { get; init; }
     public string Email { get; init; }
     public string Description { get; set; }
+    public byte[] ProfileImage { get; set; }
 }
