@@ -45,8 +45,19 @@ builder.Services
        .AddHttpContextAccessor()
        .AddScoped<DataSeeder>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("allowlocal", policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyMethod();
+        policy.AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
+app.UseCors("allowlocal");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
