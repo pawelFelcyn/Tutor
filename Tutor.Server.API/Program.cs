@@ -45,6 +45,14 @@ builder.Services
        .AddHttpContextAccessor()
        .AddScoped<DataSeeder>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("allowAll", policy =>
+    {
+        policy.AllowAnyOrigin();
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
