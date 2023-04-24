@@ -36,11 +36,20 @@ internal class AuthenticationService : IAuthenticationService
         _userContextService = userContextService;
     }
 
-    public async Task RegisterAsync(RegisterUserDto dto)
+    public async Task<LoginResponseDto> RegisterAsync(RegisterUserDto dto)
     {
         var user = _mapper.Map<User>(dto);
         user.PasswordHash = _passwordHasher.HashPassword(user, dto.Password);
         await _repository.AddAsync(user);
+
+        return CreateLoginResponse(user);
+    }
+
+    private LoginResponseDto CreateLoginResponse(User user)
+    {
+        var token = GenerateToken(user);
+        var userDto = _mapper.Map<UserDetailsDto>(user);
+        return new(userDto, token);
     }
 
     public async Task<LoginResponseDto> GetLoginResponseAsync(LoginDto dto)
@@ -52,9 +61,7 @@ internal class AuthenticationService : IAuthenticationService
             throw new InvalidPasswordException();
         }
 
-        var token = GenerateToken(user);
-        var userDto = _mapper.Map<UserDetailsDto>(user);
-        return new(userDto, token);
+        return CreateLoginResponse(user);
     }
 
     private string GenerateToken(User user)

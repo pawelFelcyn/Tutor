@@ -18,14 +18,14 @@ namespace Tutor.Server.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterUserDto dto)
+        public async Task<ActionResult<LoginResponseDto>> Register([FromBody] RegisterUserDto dto)
         {
-            await _service.RegisterAsync(dto);
-            return Ok();
+            var response = await _service.RegisterAsync(dto);
+            return Ok(response);
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto dto)
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginDto dto)
         {
             var loginResponse = await _service.GetLoginResponseAsync(dto);
             return Ok(loginResponse);
