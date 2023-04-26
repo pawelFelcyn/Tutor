@@ -6,6 +6,7 @@
 
     <Color x:Key="Primary">Orange</Color>
     <Color x:Key="PrimaryTransparent">#59FFA500</Color>
+    <Color x:Key="Gray600Transparent">#59404040</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="White">White</Color>

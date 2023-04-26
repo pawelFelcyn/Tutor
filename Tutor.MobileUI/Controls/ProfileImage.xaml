@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tutor.MobileUI.Controls.ProfileImage"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
              x:Name="profileImage">
   <Border WidthRequest="{Binding Source={x:Reference profileImage}, Path=SizeRequest}" 
           HeightRequest="{Binding Source={x:Reference profileImage}, Path=SizeRequest}"
@@ -13,6 +14,14 @@
     <Border.StrokeShape>
       <Ellipse/>
     </Border.StrokeShape>
-    <Image Aspect="AspectFit" Source="{FontImageSource Color={StaticResource Gray300}, FontFamily='FA-S', Glyph='&#xf007;'}"/>
+    <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+      <Image Aspect="AspectFit" 
+             Source="{Binding Source={x:Reference profileImage}, Path=Source, TargetNullValue={FontImageSource Color={StaticResource Gray300}, FontFamily='FA-S', Glyph='&#xf007;'}, FallbackValue={FontImageSource Color={StaticResource Gray300}, FontFamily='FA-S', Glyph='&#xf007;'}}"/>
+      <dxc:SimpleButton VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource Gray600Transparent}"
+                        Text="&#xf040;" FontFamily="FA-S" FontSize="18"
+                        Command="{Binding Source={x:Reference profileImage}, Path=EditButtonCommand}"
+                        CommandParameter="{Binding Source={x:Reference profileImage}, Path=EditButtonCommandParameter}"
+                        IsVisible="{Binding Source={x:Reference profileImage}, Path=IsEditButtonVisible}"/>
+    </Grid>
   </Border>
 </ContentView>

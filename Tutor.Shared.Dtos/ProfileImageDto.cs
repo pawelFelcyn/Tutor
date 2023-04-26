@@ -6,4 +6,17 @@ public record ProfileImageDto
     public Guid UserId { get; set; }
 }
 
-public record CreateProfileImageDto(byte[] Bytes);
+public record CreateProfileImageDto
+{
+    public CreateProfileImageDto()
+    {
+        
+    }
+
+    public CreateProfileImageDto(byte[] bytes)
+    {
+        Bytes = bytes;
+    }
+
+    public byte[] Bytes { get; set; }
+}

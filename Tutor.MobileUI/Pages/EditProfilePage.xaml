@@ -3,10 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:Tutor.MobileUI.Controls"
              x:Class="Tutor.MobileUI.Pages.EditProfilePage"
+             xmlns:conv="clr-namespace:Tutor.Client.Maui.Converters;assembly=Tutor.Client.Maui"
              Title="EditProfilePage">
   <ScrollView>
     <VerticalStackLayout>
-      <controls:ProfileImage SizeRequest="200"/>
+      <controls:ProfileImage SizeRequest="200" IsEditButtonVisible="True"
+                             EditButtonCommand="{Binding UpdatePhotoCommand}"
+                             Source="{Binding CreateProfileImageDto.Bytes, Converter={conv:BytesArrayToImageSourceConverter}}"/>
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

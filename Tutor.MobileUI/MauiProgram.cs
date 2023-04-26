@@ -61,7 +61,8 @@ namespace Tutor.MobileUI
                 .AddScoped<ProfilePage>()
                 .AddScoped<ProfileViewModel>()
                 .AddScoped<EditProfilePage>()
-                .AddScoped<EditProfileViewModel>();
+                .AddScoped<EditProfileViewModel>()
+                .AddScoped(_ => MediaPicker.Default);
 
             return builder.Build();
         }
