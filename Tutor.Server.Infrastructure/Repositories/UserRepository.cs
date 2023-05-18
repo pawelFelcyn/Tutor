@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using Tutor.Server.Domain.Abstractions;
 using Tutor.Server.Domain.Entities;
 using Tutor.Server.Infrastructure.Database;
@@ -30,9 +31,26 @@ internal class UserRepository : RepositoryBase, IUserRepository
 
     public async Task<User> GetByEmailAsync(string email)
     {
+        return await GetByPredicate(u => u.Email == email);
+    }
+
+    private async Task<User> GetByPredicate(Expression<Func<User, bool>> predicate, Func<IQueryable<User>, IQueryable<User>> queryBuilder = null)
+    {
+        if (predicate is  null)
+        {
+            throw new ArgumentNullException(nameof(predicate));
+        }
+
         try
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            IQueryable<User> query = _dbContext.Users;
+
+            if (queryBuilder is not null)
+            {
+                query = queryBuilder(query);
+            }
+
+            var user = await query.FirstOrDefaultAsync(predicate);
             if (user is null)
             {
                 throw new InvalidEmailException();
@@ -52,23 +70,11 @@ internal class UserRepository : RepositoryBase, IUserRepository
 
     public async Task<User> GetByIdAsync(Guid id)
     {
-        try
-        {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
-            if (user is null)
-            {
-                throw new UserNotFoundException(id);
-            }
-            return user;
-        }
-        catch (UserNotFoundException)
-        {
-            throw;
-        }
-        catch (Exception e)
-        {
-            LogAndThrow(e);
-            throw new UnreachableException();
-        }
+        return await GetByPredicate(u => u.Id == id);
+    }
+
+    public async Task<User> GetWithTutorAndImageAsync(Guid id)
+    {
+        return await GetByPredicate(u => u.Id == id, q => q.Include(u => u.Tutor).Include(u => u.PofileImage));
     }
 }

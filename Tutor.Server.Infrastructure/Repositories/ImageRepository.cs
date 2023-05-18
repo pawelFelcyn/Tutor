@@ -37,4 +37,9 @@ internal class ImageRepository : RepositoryBase, IImageRepository
             throw new UnreachableException();
         }
     }
+
+    public void Remove(ProfileImage img)
+    {
+        _dbContext.Remove(img);
+    }
 }

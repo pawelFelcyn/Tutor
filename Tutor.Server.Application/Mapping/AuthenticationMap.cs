@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,13 @@ public class AuthenticationMap : IMap
     {
         profile.CreateMap<RegisterUserDto, User>()
                .ForMember(u => u.Tutor, c => c.MapFrom(s => CreateTutor(s)));
-        profile.CreateMap<User, UserDetailsDto>();
+        profile.CreateMap<User, UserDetailsDto>()
+            .ForMember(d => d.Description, s => s.MapFrom(c => GetTutorDescription(c)))
+            .ForMember(d => d.ProfileImage, s => s.MapFrom(c => GetProfileImage(c)));
     }
+
+    private string GetTutorDescription(User user) => user.Tutor?.Description;
+    private byte[] GetProfileImage(User user) => user.PofileImage?.Bytes;
 
     private TutorEntity CreateTutor(RegisterUserDto dto)
     {

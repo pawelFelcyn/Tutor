@@ -35,6 +35,7 @@ public static class DepedencyInjection
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
         services.AddScoped<ILocalizationInfoProvider, HeaderLocalizationInfoProvider>();
         services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<IAccountService, AccountService>();  
 
         return services;
     }

@@ -5,4 +5,5 @@ namespace Tutor.Server.Domain.Abstractions;
 public interface IImageRepository
 {
     Task AddAsync(ProfileImage profileImage);
+    void Remove(ProfileImage img);
 }

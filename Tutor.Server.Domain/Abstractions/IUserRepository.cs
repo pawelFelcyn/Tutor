@@ -12,5 +12,6 @@ namespace Tutor.Server.Domain.Abstractions
         Task AddAsync(User user);
         Task<User> GetByEmailAsync(string email);
         Task<User> GetByIdAsync(Guid id);
+        Task<User> GetWithTutorAndImageAsync(Guid id);
     }
 }
