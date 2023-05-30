@@ -1,20 +1,16 @@
-﻿using Sieve.Models;
-using System.Drawing;
-using System.Text;
+﻿using System.Text;
 
 namespace Tutor.Shared.Dtos;
 
-public class TutorSieveModel : SieveModel
+public class TutorSieveModel
 {
+    public int PageSize { get; set; } = 15;
+    public int PageNumber { get; set; } = 1;
+
     public virtual string GetQueryString()
     {
         var sb = new StringBuilder();
-
-        if (Filters is not null)
-        {
-            sb.Append($"filters={Filters}");
-        }
-
+        sb.Append($"pageSize={PageSize}&pageNumber{PageNumber}");
         return sb.ToString();
     }
 }

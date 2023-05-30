@@ -6,32 +6,26 @@ using Tutor.Shared.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Tutor.Server.Application.Authentication;
 using Tutor.Shared.Exceptions;
-using Sieve.Models;
-using Sieve.Services;
 
 namespace Tutor.Server.Application.Services;
 
-internal class AdvertisementService : IAdvertisementService
+internal class AdvertisementService : ServiceBase, IAdvertisementService
 {
-    private const int DEFAULT_PAGE_SIZE = 15;
-
     private readonly IMapper _mapper;
     private readonly IUserContextService _userContextService;
     private readonly IAdvertisementRepository _repository;
     private readonly IAuthorizationHandler _authorizationHandler;
     private readonly IAuthorizationContextProvider _authorizationContextProvider;
-    private readonly ISieveProcessor _sieveProcessor;
 
     public AdvertisementService(IMapper mapper, IUserContextService userContextService,
         IAdvertisementRepository repository, IAuthorizationHandler authorizationHandler,
-        IAuthorizationContextProvider authorizationContextProvider, ISieveProcessor sieveProcessor)
+        IAuthorizationContextProvider authorizationContextProvider)
     {
         _mapper = mapper;
         _userContextService = userContextService;
         _repository = repository;
         _authorizationHandler = authorizationHandler;
         _authorizationContextProvider = authorizationContextProvider;
-        _sieveProcessor = sieveProcessor;
     }
 
     public async Task<AdvertisementDetailsDto> CreateAsync(CreateAdvertisementDto dto)
@@ -61,22 +55,39 @@ internal class AdvertisementService : IAdvertisementService
 
     public async Task<PagedResult<AdvertisementDto>> GetAllAsync(AdvertisementsSieveModel query)
     {
-        ApplyDefaultValues(query);
-
         var advertisements = _repository.GetAll();
-        advertisements = ApplyCustomFilters(query, ref advertisements);
-
+        advertisements = ApplyCustomFilters(query, advertisements);
+        advertisements = ApplyPages(advertisements, query);
         var totalCount = advertisements.Count();
-        advertisements = _sieveProcessor.Apply(query, advertisements);
         var mappedAdvertisements = _mapper.Map<List<AdvertisementDto>>(await _repository.MaterializeAsync(advertisements));
-        return new PagedResult<AdvertisementDto>(mappedAdvertisements, totalCount, query.PageSize.Value, query.Page.Value);
+        return new PagedResult<AdvertisementDto>(mappedAdvertisements, totalCount, query.PageSize, query.PageNumber);
     }
 
-    private IQueryable<Advertisement> ApplyCustomFilters(AdvertisementsSieveModel query, ref IQueryable<Advertisement> advertisements)
+    private IQueryable<Advertisement> ApplyCustomFilters(AdvertisementsSieveModel query, IQueryable<Advertisement> advertisements)
     {
         if (query.CreatedByClientOnly)
         {
             advertisements = ApplyAuthorFilter(ref advertisements);
+        }
+
+        if (!string.IsNullOrEmpty(query.Title))
+        {
+            advertisements = advertisements.Where(a => a.Title.Contains(query.Title));
+        }
+
+        if (query.SelectedSubject.HasValue)
+        {
+            advertisements = advertisements.Where(a => a.SubjectId ==  query.SelectedSubject.Value);
+        }
+
+        if (query.MinPrice.HasValue)
+        {
+            advertisements = advertisements.Where(a => a.PricePerHour >= query.MinPrice.Value);
+        }
+
+        if (query.MaxPrice.HasValue) 
+        {
+            advertisements = advertisements.Where(a => a.PricePerHour <= query.MaxPrice.Value);
         }
 
         return advertisements;
@@ -91,12 +102,6 @@ internal class AdvertisementService : IAdvertisementService
 
         advertisements = advertisements.Where(a => a.CreatedById == _userContextService.UserId);
         return advertisements;
-    }
-
-    private void ApplyDefaultValues(SieveModel query)
-    {
-        query.PageSize ??= DEFAULT_PAGE_SIZE;
-        query.Page ??= 1;
     }
 
     public async Task DeleteAsync(Guid id)
