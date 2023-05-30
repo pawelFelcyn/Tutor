@@ -1,5 +1,4 @@
-﻿using Sieve.Models;
-using Tutor.Shared.Dtos;
+﻿using Tutor.Shared.Dtos;
 
 namespace Tutor.Server.Application.Services.Abstractions;
 

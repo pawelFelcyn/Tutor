@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sieve.Models;
 using Tutor.Server.Application.Services.Abstractions;
 using Tutor.Shared.Dtos;
 
